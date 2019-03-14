@@ -1,17 +1,17 @@
-const speak = words => {
+export const speak = words => {
   // event.target.setAttribute('isTrusted', true)
   speechSynthesis.speak(new SpeechSynthesisUtterance(words))
 }
 
-const repeatStep = () => {
+export const repeatStep = () => {
   speak(document.getElementById('step-instructions').innerText)
 }
 
-const listIngredients = () => {
+export const listIngredients = () => {
   speak(document.getElementById('ingredients').innerText)
 }
 
-listenForCommand = event => {
+export const listenForCommand = event => {
   const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
   const recognition = new SpeechRecognition()
   // if (event.target.value === 'Click to Pause') {
@@ -47,12 +47,12 @@ listenForCommand = event => {
           break
         }
         default: {
-          // event.target.setAttribute('isTrusted', true)
-          const repeatRequest =
-            "Sorry, I didn't get that. Can you please repeat?"
+          const repeatRequest = "Sorry, I didn't get that. Please try again."
           speak(repeatRequest)
-          // speechSynthesis.speak(new SpeechSynthesisUtterance(repeatRequest))
-          document.getElementById('command').click()
+          window.setTimeout(
+            () => document.getElementById('command').click,
+            4000
+          )
           break
         }
       }
