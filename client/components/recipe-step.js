@@ -32,8 +32,11 @@ export default class RecipeStep extends Component {
     recognition.start()
     recognition.onresult = function(event) {
       if (event.results.length > 0) {
-        const result = event.results[0][0].transcript
-        console.log(result)
+        const latest = Object.keys(event.results).length - 1
+        let result = event.results[latest][0].transcript.split(' ')
+        result = result[result.length - 1]
+        console.log('event.results', event.results)
+        console.log('result', result)
         switch (result) {
           case 'next': {
             console.log('Next command')
@@ -56,11 +59,13 @@ export default class RecipeStep extends Component {
           }
           default: {
             const repeatRequest = "Sorry, I didn't get that. Please try again."
+            recognition.stop()
             speak(repeatRequest)
-            window.setTimeout(
-              () => document.getElementById('command').click,
-              4000
-            )
+            window.setTimeout(() => {
+              console.log('inside setTimeout')
+              recognition.start()
+              // document.getElementById('command').click
+            }, 4000)
             break
           }
         }
