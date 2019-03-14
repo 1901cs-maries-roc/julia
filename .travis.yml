@@ -22,7 +22,7 @@ script:
 before_deploy:
   - rm -rf node_modules # omit from the tarball, since we skip cleanup
 deploy:
-  skip_cleanup: true # prevents travis from deleting the build
+  skip_cleanup: true # prevents travis from deleting the build     
   provider: heroku
   app: maries-roc # see README
   api_key:
