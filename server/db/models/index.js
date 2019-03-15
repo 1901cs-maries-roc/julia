@@ -5,7 +5,7 @@ const Ingredient = require('./ingredient')
 const db = require('../db')
 const Sequelize = require('sequelize')
 
-const RecipeIngredient = db.define('recipeIngredient', {
+const recipeIngredient = db.define('recipeIngredient', {
   quantity: {
     type: Sequelize.FLOAT,
     allowNull: false
@@ -17,27 +17,15 @@ const RecipeIngredient = db.define('recipeIngredient', {
   }
 })
 
-const RecipeTag = db.define('recipeTag', {
-  tag: {
-    type: Sequelize.STRING
-  }
-})
-
 Recipe.belongsTo(User)
 User.hasMany(Recipe)
-Ingredient.belongsToMany(Recipe, {through: RecipeIngredient})
-Tag.belongsToMany(Recipe, {through: RecipeTag})
-
-// Recipe.belongsTo(User);
-// User.hasMany(Recipe);
-// Tag.belongsToMany(Recipe, {through: category});
-// Ingredient.belongsToMany(Recipe, {through: recipeIngredient})
+Ingredient.belongsToMany(Recipe, {through: recipeIngredient})
+Tag.hasMany(Recipe)
 
 module.exports = {
   User,
   Tag,
   Recipe,
-  RecipeIngredient,
-  Ingredient,
-  RecipeTag
+  recipeIngredient,
+  Ingredient
 }
