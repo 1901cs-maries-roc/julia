@@ -1,6 +1,7 @@
 const User = require('./user')
 const Recipe = require('./recipe')
 const Tag = require('./tag')
+const Ingredient = require('./ingredient')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -12,8 +13,9 @@ const Tag = require('./tag')
 Recipe.belongsTo(User);
 User.hasMany(Recipe);
 
-Tag.belongsTo(Recipe);
-Recipe.hasMany(Tag);
+Tag.belongsToMany(Recipe, {through: category});
+
+Ingredient.belongsToMany(Recipe, {through: recipeIngredient})
 
 
 
@@ -28,5 +30,8 @@ Recipe.hasMany(Tag);
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User
+  User,
+  Tag,
+  Recipe,
+  Ingredient
 }
