@@ -55,13 +55,13 @@ export default class RecipeStep extends Component {
   //           break
   //         }
   //         default: {
-  //           const repeatRequest = "Sorry, I didn't get that. Please try again."
-  //           recognition.stop()
-  //           speak(repeatRequest)
-  //           window.setTimeout(() => {
-  //             recognition.start()
-  //           }, 4000)
-  //           break
+  // const repeatRequest = "Sorry, I didn't get that. Please try again."
+  // recognition.stop()
+  // speak(repeatRequest)
+  // window.setTimeout(() => {
+  //   recognition.start()
+  // }, 4000)
+  // break
   //         }
   //       }
   //     }
@@ -75,6 +75,8 @@ export default class RecipeStep extends Component {
         // 'repeats': repeatStep,
         // 'ingredient': listIngredients,
         // 'ingredients': listIngredients
+        'hey julia': this.nullCommand,
+        'hey julia help': this.help,
         'hey julia *command': this.command
       }
       annyang.addCommands(commands)
@@ -82,10 +84,51 @@ export default class RecipeStep extends Component {
     }
   }
 
-  // command = command => {
-  //   switch (command) {
-  //   }
-  // }
+  help = () => {
+    const repeatRequest =
+      'You can ask me any of the following: Repeat, Ingredients, Back, Next, or Pause.'
+    speak(repeatRequest)
+  }
+
+  nullCommand = () => {
+    const repeatRequest = 'How can I help you?'
+    speak(repeatRequest)
+  }
+
+  command = command => {
+    console.log('in command', `_${command}_`)
+    switch (command) {
+      case null: {
+        console.log('in null command')
+      }
+      case 'repeat': {
+        console.log('in repeat')
+        repeatStep()
+        break
+      }
+      case 'repeats': {
+        repeatStep()
+        break
+      }
+      case 'ingredient': {
+        listIngredients()
+        break
+      }
+      case 'ingredients': {
+        listIngredients()
+        break
+      }
+      default: {
+        const repeatRequest = "Sorry, I didn't get that. Please try again."
+        annyang.pause()
+        speak(repeatRequest)
+        window.setTimeout(() => {
+          annyang.resume()
+        }, 4000)
+        break
+      }
+    }
+  }
 
   render() {
     return (
@@ -113,9 +156,10 @@ export default class RecipeStep extends Component {
         <div>
           <button type="button">Back</button>
           <button id="command" type="button" onClick={this.annyang}>
-            Speak!
+            Start
           </button>
-          <button type="button">Start/Pause</button>
+          {/* change to resume once annyang is in componentDidMount */}
+          <button type="button">Pause</button>
           <button type="button">Next</button>
         </div>
       </div>
