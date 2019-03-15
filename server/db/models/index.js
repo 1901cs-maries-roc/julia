@@ -17,10 +17,16 @@ const RecipeIngredient = db.define('recipeIngredient', {
   }
 })
 
+const RecipeTag = db.define('recipeTag', {
+  tag: {
+    type: Sequelize.STRING
+  }
+})
+
 Recipe.belongsTo(User)
 User.hasMany(Recipe)
-
 Ingredient.belongsToMany(Recipe, {through: RecipeIngredient})
+Tag.belongsToMany(Recipe, {through: RecipeTag})
 
 // Recipe.belongsTo(User);
 // User.hasMany(Recipe);
@@ -32,5 +38,6 @@ module.exports = {
   Tag,
   Recipe,
   RecipeIngredient,
-  Ingredient
+  Ingredient,
+  RecipeTag
 }
