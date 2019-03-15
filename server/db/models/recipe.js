@@ -33,7 +33,8 @@ const Recipe = db.define('recipe', {
     type: Sequelize.INTEGER,
     validate: {
       min: 0,
-    }
+    },
+    defaultValue: 0
   },
   directions: {
     type: Sequelize.ARRAY
