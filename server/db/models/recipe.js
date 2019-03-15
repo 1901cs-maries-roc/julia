@@ -10,10 +10,6 @@ const Recipe = db.define('recipe', {
     type: sequelize.STRING,
     allowNull: false
   },
-  ingredients: {
-    type: Sequelize.ARRAY,
-    allowNull: false
-  },
   serving: {
     type: Sequelize.INTEGER  //.RANGE?
   },
