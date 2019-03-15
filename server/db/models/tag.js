@@ -3,11 +3,21 @@ const db = require('../db')
 
 const Tag = db.define('tag', {
   title: {
-    type: sequelize.STRING,
+    type: Sequelize.STRING,
     validate: {
-      isIn: [['breakfast', 'brunch', 'lunch', 'dinner', 'easy', 'intermediate', 'difficult']]
+      isIn: [
+        [
+          'breakfast',
+          'brunch',
+          'lunch',
+          'dinner',
+          'easy',
+          'intermediate',
+          'difficult'
+        ]
+      ]
     }
-  },
+  }
 })
 
-module.exports = Tags;
+module.exports = Tag

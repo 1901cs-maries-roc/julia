@@ -3,9 +3,9 @@ const db = require('../db')
 
 const Ingredient = db.define('ingredient', {
   name: {
-    type: sequelize.STRING,
+    type: Sequelize.STRING,
     allowNull: false
   }
 })
 
-module.exports = Ingredient;
+module.exports = Ingredient
