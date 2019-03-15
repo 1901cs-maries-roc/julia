@@ -3,12 +3,14 @@
 const db = require('../server/db')
 const {User, Recipe, Tag, Ingredient} = require('../server/db/models')
 
-// const ingredients = [ingredient1, ingredient2 ] = await Promise.all([
-//   ingredients.create(
-//   'Semisweet chocolate, chopped',
-//   'butter'
-//   )
-// ])
+const [semisweetChocolateChopped, butter] = [
+  Ingredient.create({
+    name: 'Semisweet chocolate, chopped'
+  }),
+  Ingredient.create({
+    name: 'Butter'
+  })
+]
 
 // const recipeIngredient = [{
 //   quantity: '4 squares',
