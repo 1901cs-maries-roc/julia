@@ -22,21 +22,21 @@ export default class RecipeStep extends Component {
   listenForCommand = event => {
     const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
     const recognition = new SpeechRecognition()
-    // if (event.target.value === 'Click to Pause') {
-    //   console.log('inside listen pause')
-    //   // recognitionadd.abort()
-    // }
+
     recognition.continuous = true
     recognition.interimResults = false
-    console.log('inside ListenForCommand')
     recognition.start()
+    // eslint-disable-next-line complexity
     recognition.onresult = function(event) {
       if (event.results.length > 0) {
         const latest = Object.keys(event.results).length - 1
         let result = event.results[latest][0].transcript.split(' ')
         result = result[result.length - 1]
+
         console.log('event.results', event.results)
         console.log('result', result)
+        console.log('Speaking? ', speechSynthesis.speaking)
+
         switch (result) {
           case 'next': {
             console.log('Next command')
@@ -48,7 +48,6 @@ export default class RecipeStep extends Component {
           }
           case 'repeat' || 'repeats': {
             console.log('Repeat command: ', result)
-            // this.repeatStep()
             repeatStep()
             break
           }
@@ -62,9 +61,7 @@ export default class RecipeStep extends Component {
             recognition.stop()
             speak(repeatRequest)
             window.setTimeout(() => {
-              console.log('inside setTimeout')
               recognition.start()
-              // document.getElementById('command').click
             }, 4000)
             break
           }
@@ -72,6 +69,8 @@ export default class RecipeStep extends Component {
       }
     }
   }
+
+  annyang
 
   render() {
     return (
