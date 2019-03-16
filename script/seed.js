@@ -30,12 +30,21 @@ async function seed() {
     })
   ])
 
-  const [flour, butter] = await Promise.all([
+  const [flour, butter, egg, milk, snowEgg] = await Promise.all([
     Ingredient.create({
       name: 'Flour'
     }),
     Ingredient.create({
       name: 'Butter'
+    }),
+    Ingredient.create({
+      name: 'Egg'
+    }),
+    Ingredient.create({
+      name: 'Milk'
+    }),
+    Ingredient.create({
+      name: 'Snow Egg'
     })
   ])
 
@@ -44,6 +53,30 @@ async function seed() {
       quantity: '500 g',
       sectionName: '',
       ingredientId: flour.id,
+      recipeId: superWaffle.id
+    }),
+    recipeIngredient.create({
+      quantity: '2 tbs',
+      sectionName: '',
+      ingredientId: butter.id,
+      recipeId: superWaffle.id
+    }),
+    recipeIngredient.create({
+      quantity: '2',
+      sectionName: '',
+      ingredientId: egg.id,
+      recipeId: superWaffle.id
+    }),
+    recipeIngredient.create({
+      quantity: '1.5 cups',
+      sectionName: '',
+      ingredientId: milk.id,
+      recipeId: superWaffle.id
+    }),
+    recipeIngredient.create({
+      quantity: '1',
+      sectionName: '',
+      ingredientId: snowEgg.id,
       recipeId: superWaffle.id
     })
   ])

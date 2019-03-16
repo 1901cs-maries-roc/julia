@@ -1,10 +1,7 @@
 import React, {Component} from 'react'
 import annyang from 'annyang'
 
-// import { speak, repeatStep, listIngredients, listenForCommand } from '../helper-funcs'
-
 const speak = words => {
-  // event.target.setAttribute('isTrusted', true)
   speechSynthesis.speak(new SpeechSynthesisUtterance(words))
 }
 
@@ -17,64 +14,9 @@ const listIngredients = () => {
 }
 
 export default class RecipeStep extends Component {
-  // listenForCommand = event => {
-  //   const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
-  //   const recognition = new SpeechRecognition()
-
-  //   recognition.continuous = true
-  //   recognition.interimResults = false
-  //   recognition.start()
-  //   // eslint-disable-next-line complexity
-  //   recognition.onresult = function(event) {
-  //     if (event.results.length > 0) {
-  //       const latest = Object.keys(event.results).length - 1
-  //       let result = event.results[latest][0].transcript.split(' ')
-  //       result = result[result.length - 1]
-
-  //       console.log('event.results', event.results)
-  //       console.log('result', result)
-  //       console.log('Speaking? ', speechSynthesis.speaking)
-
-  //       switch (result) {
-  //         case 'next': {
-  //           console.log('Next command')
-  //           break
-  //         }
-  //         case 'back' || 'backed' || 'backs' || 'go back': {
-  //           console.log('Back command')
-  //           break
-  //         }
-  //         case 'repeat' || 'repeats': {
-  //           console.log('Repeat command: ', result)
-  //           repeatStep()
-  //           break
-  //         }
-  //         case 'ingredients': {
-  //           console.log('Ingredients command', result)
-  //           listIngredients()
-  //           break
-  //         }
-  //         default: {
-  // const repeatRequest = "Sorry, I didn't get that. Please try again."
-  // recognition.stop()
-  // speak(repeatRequest)
-  // window.setTimeout(() => {
-  //   recognition.start()
-  // }, 4000)
-  // break
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
   annyang = () => {
     if (annyang) {
       var commands = {
-        // 'repeat': repeatStep,
-        // 'repeats': repeatStep,
-        // 'ingredient': listIngredients,
-        // 'ingredients': listIngredients
         'hey julia': this.nullCommand,
         'hey julia help': this.help,
         'hey julia *command': this.command
@@ -96,13 +38,8 @@ export default class RecipeStep extends Component {
   }
 
   command = command => {
-    console.log('in command', `_${command}_`)
     switch (command) {
-      case null: {
-        console.log('in null command')
-      }
       case 'repeat': {
-        console.log('in repeat')
         repeatStep()
         break
       }

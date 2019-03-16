@@ -3,7 +3,6 @@ import React from 'react'
 //temporary component, just for code review 1
 
 const AllRecipesCard = props => {
-  console.log('Props:', props)
   return (
     <div>
       <h4>Title: Recipe Name Here</h4>
