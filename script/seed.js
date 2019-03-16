@@ -39,7 +39,7 @@ async function seed() {
     })
   ])
 
-  const recipeIngredient = await Promise.all([
+  await Promise.all([
     recipeIngredient.create({
       quantity: '500 g',
       sectionName: '',
