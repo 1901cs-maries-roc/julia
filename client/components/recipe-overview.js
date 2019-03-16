@@ -33,7 +33,7 @@ class RecipeOverview extends Component {
       tags,
       ingredients
     } = this.props.currentRecipe
-    console.log(this.props.currentRecipe)
+    console.log('currentRecipe', this.props.currentRecipe)
     return (
       <div>
         <img src={imgUrl} />
@@ -96,7 +96,7 @@ class RecipeOverview extends Component {
 
 const mapState = state => {
   return {
-    currentRecipe: state.recipe
+    currentRecipe: state.recipe.recipe
   }
 }
 
