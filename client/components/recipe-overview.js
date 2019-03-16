@@ -1,18 +1,26 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {getRecipeThunk} from '../store'
 
-export default class RecipeOverview extends Component {
+class RecipeOverview extends Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
   }
 
+  componentDidMount() {
+    const recipeId = this.props.match.params.recipeId
+
+    this.props.getRecipeThunkDispatch(recipeId)
+  }
+
   handleClick(event) {
     event.preventDefault()
-    console.log(this.props)
     this.props.history.push('/recipe-step')
   }
 
   render() {
+    console.log(this.props)
     return (
       <div>
         <h1>Recipe Title</h1>
@@ -41,3 +49,17 @@ export default class RecipeOverview extends Component {
     )
   }
 }
+
+const mapState = state => {
+  return {
+    currentRecipe: state.recipe
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    getRecipeThunkDispatch: recipeId => dispatch(getRecipeThunk(recipeId))
+  }
+}
+
+export default connect(mapState, mapDispatch)(RecipeOverview)
