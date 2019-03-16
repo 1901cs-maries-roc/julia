@@ -29,9 +29,10 @@ class RecipeOverview extends Component {
       waitTime,
       serving,
       steps,
-      tagId
+      tags,
+      ingredients
     } = this.props.currentRecipe
-    console.log(steps)
+    console.log(this.props.currentRecipe)
     return (
       <div>
         <img src={imgUrl} />
@@ -43,23 +44,48 @@ class RecipeOverview extends Component {
         {/* add average time per user */}
         <p>Average Time for Users: No user data at this time</p>
         <div id="ingredient-list">
+          <p>Ingredients:</p>
           <ul>
-            <li>Ingredient 1</li>
-            <li>Ingredient 2</li>
-            <li>Ingredient 3</li>
+            {ingredients ? (
+              ingredients.map(ingredient => {
+                const quantity = ingredient.recipeIngredient.quantity
+                return (
+                  <li key={ingredient.id}>
+                    {quantity} {ingredient.name}
+                  </li>
+                )
+              })
+            ) : (
+              <li>No Ingredients</li>
+            )}
+            {/* <p>{steps}</p> */}
           </ul>
         </div>
         <div id="recipe-steps">
+          <p>Instructions:</p>
           <ul>
-            {/* {steps.map((step, index) => {
-              return (<li key={id + index}>{step}</li>)
-            })} */}
-            <p>{steps}</p>
+            {steps ? (
+              steps.map((step, index) => {
+                return <li key={id + index}>{step}</li>
+              })
+            ) : (
+              <li>No Steps</li>
+            )}
+            {/* <p>{steps}</p> */}
           </ul>
         </div>
         <div id="tags">
           {/* add reference to tags */}
-          <p>Tags: No tags</p>
+          <p>Tags:</p>
+          <ul>
+            {tags === [] ? (
+              tags.map((tag, index) => {
+                return <li key={tag.id + index}>{tag}</li>
+              })
+            ) : (
+              <li>No tags are available</li>
+            )}
+          </ul>
         </div>
         <button type="button" onClick={this.handleClick}>
           Start Cooking
