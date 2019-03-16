@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import annyang from 'annyang'
+import {getRecipeThunk, getStepThunk} from '../store'
 
 const speak = words => {
   speechSynthesis.speak(new SpeechSynthesisUtterance(words))
@@ -13,7 +15,39 @@ const listIngredients = () => {
   speak(document.getElementById('ingredients').innerText)
 }
 
-export default class RecipeStep extends Component {
+const goBack = () => {
+  speak(document.getElementById('back').innerText)
+}
+
+const goToNext = () => {
+  speak(document.getElementById('next').innerText)
+}
+
+const pause = () => {
+  //speechSynthesisInstance.pause();
+  annyang.pause()
+  speak(document.getElementById('pause').innerText)
+}
+
+const start = () => {
+  //speechSynthesisInstance.resume();
+  annyang.resume()
+  speak(document.getElementById('start').innerText)
+}
+
+class RecipeStep extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+    const recipeId = this.props.match.params.recipeId
+    const stepNum = this.props.match.params.stepNum
+
+    this.props.getRecipeThunkDispatch(recipeId)
+    this.props.getStepThunkDispatch(recipeId, stepNum)
+  }
+
   annyang = () => {
     if (annyang) {
       var commands = {
@@ -26,20 +60,24 @@ export default class RecipeStep extends Component {
     }
   }
 
+  nullCommand = () => {
+    const repeatRequest = 'How can I help you?'
+    speak(repeatRequest)
+  }
+
   help = () => {
     const repeatRequest =
       'You can ask me any of the following: Repeat, Ingredients, Back, Next, or Pause.'
     speak(repeatRequest)
   }
 
-  nullCommand = () => {
-    const repeatRequest = 'How can I help you?'
-    speak(repeatRequest)
-  }
-
   command = command => {
     switch (command) {
       case 'repeat': {
+        repeatStep()
+        break
+      }
+      case 'can you repeat': {
         repeatStep()
         break
       }
@@ -55,6 +93,58 @@ export default class RecipeStep extends Component {
         listIngredients()
         break
       }
+      case 'what are the ingredients': {
+        listIngredients()
+        break
+      }
+      case 'go back': {
+        goBack()
+        break
+      }
+      case 'go back a step': {
+        goBack()
+        break
+      }
+      case 'back': {
+        goBack()
+        break
+      }
+      case 'back a step': {
+        goBack()
+        break
+      }
+      case 'previous': {
+        goBack()
+        break
+      }
+      case 'previous step': {
+        goBack()
+        break
+      }
+      case 'next': {
+        goToNext()
+        break
+      }
+      case 'next step': {
+        goToNext()
+        break
+      }
+      case 'pause': {
+        pause()
+        break
+      }
+      case 'stop': {
+        pause()
+        break
+      }
+      case 'start': {
+        start()
+        break
+      }
+      case 'resume': {
+        start()
+        break
+      }
       default: {
         const repeatRequest = "Sorry, I didn't get that. Please try again."
         annyang.pause()
@@ -68,13 +158,20 @@ export default class RecipeStep extends Component {
   }
 
   render() {
+    const recipeId = this.props.match.params.recipeId
+    const stepNum = this.props.match.params.stepNum
+    const step = this.props.currentStep
+    const steps = this.props.currentRecipe.steps
     return (
       <div>
-        <h1>Step 1/3</h1>
+        <h1 id="title">
+          Step {stepNum}/{steps ? steps.length : 0}
+        </h1>
         <div>
           <button type="submit">Help</button>
         </div>
         <div id="ingredients">
+          <p>Ingredients:</p>
           <ol>
             <li>ingredient 1</li>
             <li>ingredient 2</li>
@@ -82,24 +179,64 @@ export default class RecipeStep extends Component {
           </ol>
         </div>
         <div id="step-instructions">
-          <p>
-            Combine flour, white sugar, baking powder and salt. In a separate
-            bowl, mix together egg, milk, vegetable oil and bananas.
-          </p>
+          <p>Instructions: </p>
+          <p>{step}</p>
         </div>
         <div id="timer">
-          <p>timer</p>
+          <p>Timer</p>
         </div>
         <div>
-          <button type="button">Back</button>
-          <button id="command" type="button" onClick={this.annyang}>
+          <button
+            id="back"
+            type="button"
+            onClick={() => {
+              this.props.history.push(
+                `/recipes/${recipeId}/${
+                  stepNum === '1' ? '' : Number(stepNum) - 1
+                }`
+              )
+            }}
+          >
+            Back
+          </button>
+          <button id="start" type="button" onClick={this.annyang}>
             Start
           </button>
           {/* change to resume once annyang is in componentDidMount */}
-          <button type="button">Pause</button>
-          <button type="button">Next</button>
+          <button id="pause" type="button">
+            Pause
+          </button>
+          <button
+            id="next"
+            type="button"
+            onClick={() => {
+              this.props.history.push(
+                `/recipes/${recipeId}/${Number(stepNum) + 1}`
+              )
+            }}
+          >
+            Next
+          </button>
         </div>
       </div>
     )
   }
 }
+
+const mapState = state => {
+  console.log('state', state)
+  return {
+    currentStep: state.recipe.step,
+    currentRecipe: state.recipe.recipe
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    getRecipeThunkDispatch: recipeId => dispatch(getRecipeThunk(recipeId)),
+    getStepThunkDispatch: (recipeId, stepNum) =>
+      dispatch(getStepThunk(recipeId, stepNum))
+  }
+}
+
+export default connect(mapState, mapDispatch)(RecipeStep)

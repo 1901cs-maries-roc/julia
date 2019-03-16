@@ -4,16 +4,21 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_RECIPE = 'GET_RECIPE'
+const GET_STEP = 'GET STEP'
 
 /**
  * INITIAL STATE
  */
-const defaultRecipe = {}
+const initialState = {
+  recipe: {},
+  step: []
+}
 
 /**
  * ACTION CREATORS
  */
 const getRecipe = recipe => ({type: GET_RECIPE, recipe})
+const getStep = step => ({type: GET_STEP, step})
 
 /**
  * THUNK CREATORS
@@ -27,13 +32,24 @@ export const getRecipeThunk = recipeId => async dispatch => {
   }
 }
 
+export const getStepThunk = (recipeId, stepNum) => async dispatch => {
+  try {
+    const step = await axios.get(`/api/recipes/${recipeId}/${stepNum}`)
+    dispatch(getStep(step.data || defaultRecipe))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 /**
  * REDUCER
  */
-export default function(state = defaultRecipe, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_RECIPE:
-      return action.recipe
+      return {...state, recipe: action.recipe}
+    case GET_STEP:
+      return {...state, step: action.step}
     default:
       return state
   }
