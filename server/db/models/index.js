@@ -17,15 +17,20 @@ const recipeIngredient = db.define('recipeIngredient', {
   }
 })
 
+const tagRecipe = db.define('tagRecipe')
+
 Recipe.belongsTo(User)
 User.hasMany(Recipe)
 Ingredient.belongsToMany(Recipe, {through: recipeIngredient})
-Tag.hasMany(Recipe)
+Recipe.belongsToMany(Ingredient, {through: recipeIngredient})
+Tag.belongsToMany(Recipe, {through: tagRecipe})
+Recipe.belongsToMany(Tag, {through: tagRecipe})
 
 module.exports = {
   User,
   Tag,
   Recipe,
   recipeIngredient,
-  Ingredient
+  Ingredient,
+  tagRecipe
 }

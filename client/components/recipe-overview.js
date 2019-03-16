@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {getRecipeThunk} from '../store'
 
 class RecipeOverview extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.handleClick = this.handleClick.bind(this)
   }
 
@@ -20,14 +20,28 @@ class RecipeOverview extends Component {
   }
 
   render() {
-    console.log(this.props)
+    const {
+      id,
+      name,
+      imgUrl,
+      cookTime,
+      prepTime,
+      waitTime,
+      serving,
+      steps,
+      tagId
+    } = this.props.currentRecipe
+    console.log(steps)
     return (
       <div>
-        <h1>Recipe Title</h1>
-        <p>Prep Time</p>
-        <p>Cooking Time</p>
-        <p>Serving Size</p>
-        <p>Average Time for Users</p>
+        <img src={imgUrl} />
+        <h1>Recipe Title: {name}}</h1>
+        <p>Prep Time: {prepTime}</p>
+        <p>Cooking Time: {cookTime}</p>
+        <p>Wait Time: {waitTime}</p>
+        <p>Serving Size: {serving}</p>
+        {/* add average time per user */}
+        <p>Average Time for Users: No user data at this time</p>
         <div id="ingredient-list">
           <ul>
             <li>Ingredient 1</li>
@@ -36,11 +50,16 @@ class RecipeOverview extends Component {
           </ul>
         </div>
         <div id="recipe-steps">
-          <ol>
-            <li>Bake in preheated oven for 30 minutes. </li>
-            <li>Step 2</li>
-            <li>Step 3</li>
-          </ol>
+          <ul>
+            {/* {steps.map((step, index) => {
+              return (<li key={id + index}>{step}</li>)
+            })} */}
+            <p>{steps}</p>
+          </ul>
+        </div>
+        <div id="tags">
+          {/* add reference to tags */}
+          <p>Tags: No tags</p>
         </div>
         <button type="button" onClick={this.handleClick}>
           Start Cooking

@@ -29,8 +29,8 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/recipe-step" component={RecipeStep} />
-        <Route exact path="/recipe" component={RecipeOverview} />
         <Route exact path="/recipes" component={AllRecipes} />
+        <Route exact path="/recipes/:recipeId" component={RecipeOverview} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

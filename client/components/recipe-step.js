@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import annyang from 'annyang'
 
-// import { speak, repeatStep, listIngredients, listenForCommand } from '../helper-funcs'
-
 const speak = words => {
   speechSynthesis.speak(new SpeechSynthesisUtterance(words))
 }
