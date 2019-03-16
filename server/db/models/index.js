@@ -7,7 +7,7 @@ const Sequelize = require('sequelize')
 
 const recipeIngredient = db.define('recipeIngredient', {
   quantity: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.STRING,
     allowNull: false
   },
   sectionName: {
