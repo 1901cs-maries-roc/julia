@@ -13,7 +13,7 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
-  const [superWaffle] = await Promise.all([
+  const [superWaffle, microwaveChocolateMugCake] = await Promise.all([
     Recipe.create({
       imgUrl:
         'https://www.kitchentreaty.com/wp-content/uploads/2017/05/vegan-vanilla-bean-waffles-image-660x430.jpg',
@@ -27,10 +27,36 @@ async function seed() {
         '2. add milk',
         '3. incorporate snow egg'
       ]
+    }),
+    Recipe.create({
+      imgUrl:
+        'https://www.landolakes.com/RecipeManagementSystem/media/Recipe-Media-Files/Recipes/Retail/x17/16018_Birthday-Party-Mug-Cake_600x600.jpg?ext=.jpg',
+      name: 'Microwave Chocolate Mug Cake',
+      serving: 1,
+      prepTime: 5,
+      cookTime: 2,
+      waitTime: 0,
+      steps: [
+        '1. Mix flour, sugar, cocoa powder, baking soda, and salt in a large microwave-safe mug; stir in milk, canola oil, water, and vanilla extract.',
+        '2. Cook in microwave until cake is done in the middle, about 1 minute 45 seconds.'
+      ]
     })
   ])
 
-  const [flour, butter, egg, milk, snowEgg] = await Promise.all([
+  const [
+    flour,
+    butter,
+    egg,
+    milk,
+    snowEgg,
+    sugar,
+    cocoaPowder,
+    bakingSoda,
+    salt,
+    canolaOil,
+    vanillaExtract,
+    water
+  ] = await Promise.all([
     Ingredient.create({
       name: 'Flour'
     }),
@@ -45,6 +71,27 @@ async function seed() {
     }),
     Ingredient.create({
       name: 'Snow Egg'
+    }),
+    Ingredient.create({
+      name: 'Sugar'
+    }),
+    Ingredient.create({
+      name: 'Unsweetened Cocoa Powder'
+    }),
+    Ingredient.create({
+      name: 'Baking Soda'
+    }),
+    Ingredient.create({
+      name: 'Salt'
+    }),
+    Ingredient.create({
+      name: 'Canola Oil'
+    }),
+    Ingredient.create({
+      name: 'Vanilla Extract'
+    }),
+    Ingredient.create({
+      name: 'Water'
     })
   ])
 
@@ -78,6 +125,60 @@ async function seed() {
       sectionName: '',
       ingredientId: snowEgg.id,
       recipeId: superWaffle.id
+    }),
+    recipeIngredient.create({
+      quantity: '1/4 cup',
+      sectionName: '',
+      ingredientId: flour.id,
+      recipeId: microwaveChocolateMugCake.id
+    }),
+    recipeIngredient.create({
+      quantity: '1/4 cup',
+      sectionName: '',
+      ingredientId: sugar.id,
+      recipeId: microwaveChocolateMugCake.id
+    }),
+    recipeIngredient.create({
+      quantity: '2 tbs',
+      sectionName: '',
+      ingredientId: cocoaPowder.id,
+      recipeId: microwaveChocolateMugCake.id
+    }),
+    recipeIngredient.create({
+      quantity: '1/8 ts',
+      sectionName: '',
+      ingredientId: bakingSoda.id,
+      recipeId: microwaveChocolateMugCake.id
+    }),
+    recipeIngredient.create({
+      quantity: '1/8 ts',
+      sectionName: '',
+      ingredientId: salt.id,
+      recipeId: microwaveChocolateMugCake.id
+    }),
+    recipeIngredient.create({
+      quantity: '3 tbs',
+      sectionName: '',
+      ingredientId: milk.id,
+      recipeId: microwaveChocolateMugCake.id
+    }),
+    recipeIngredient.create({
+      quantity: '2 tbs',
+      sectionName: '',
+      ingredientId: canolaOil.id,
+      recipeId: microwaveChocolateMugCake.id
+    }),
+    recipeIngredient.create({
+      quantity: '1 tbs',
+      sectionName: '',
+      ingredientId: water.id,
+      recipeId: microwaveChocolateMugCake.id
+    }),
+    recipeIngredient.create({
+      quantity: '1/4 ts',
+      sectionName: '',
+      ingredientId: vanillaExtract.id,
+      recipeId: microwaveChocolateMugCake.id
     })
   ])
 
