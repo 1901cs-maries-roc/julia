@@ -16,7 +16,8 @@ class RecipeOverview extends Component {
 
   handleClick(event) {
     event.preventDefault()
-    this.props.history.push(`/recipes/recipe-step/1`)
+    const recipeId = this.props.match.params.recipeId
+    this.props.history.push(`/recipes/${recipeId}/1`)
   }
 
   render() {
@@ -32,14 +33,13 @@ class RecipeOverview extends Component {
       tags,
       ingredients
     } = this.props.currentRecipe
-    console.log(this.props.currentRecipe)
     return (
       <div>
         <img src={imgUrl} />
-        <h1>Recipe Title: {name}}</h1>
-        <p>Prep Time: {prepTime}</p>
-        <p>Cooking Time: {cookTime}</p>
-        <p>Wait Time: {waitTime}</p>
+        <h1>Recipe Title: {name}</h1>
+        <p>Prep Time: {prepTime} minutes</p>
+        <p>Cooking Time: {cookTime} minutes</p>
+        <p>Wait Time: {waitTime} minutes</p>
         <p>Serving Size: {serving}</p>
         {/* add average time per user */}
         <p>Average Time for Users: No user data at this time</p>
@@ -95,7 +95,7 @@ class RecipeOverview extends Component {
 
 const mapState = state => {
   return {
-    currentRecipe: state.recipe
+    currentRecipe: state.recipe.recipe
   }
 }
 

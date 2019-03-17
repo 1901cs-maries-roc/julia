@@ -23,3 +23,24 @@ router.get('/:recipeId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:recipeId/:stepNum', async (req, res, next) => {
+  try {
+    const recipeId = req.params.recipeId
+    const stepNum = req.params.stepNum
+    const recipe = await Recipe.findOne({
+      where: {
+        id: recipeId
+      },
+      include: [
+        {
+          model: Ingredient
+        }
+      ]
+    })
+
+    res.json(recipe.steps[stepNum - 1])
+  } catch (err) {
+    next(err)
+  }
+})
