@@ -33,7 +33,6 @@ class RecipeOverview extends Component {
       tags,
       ingredients
     } = this.props.currentRecipe
-    console.log('currentRecipe', this.props.currentRecipe)
     return (
       <div>
         <img src={imgUrl} />
