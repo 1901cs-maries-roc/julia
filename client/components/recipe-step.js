@@ -160,8 +160,8 @@ class RecipeStep extends Component {
   render() {
     const recipeId = this.props.match.params.recipeId
     const stepNum = this.props.match.params.stepNum
-    const step = this.props.currentStep
-    const steps = this.props.currentRecipe.steps
+    let step = this.props.currentStep
+    let steps = this.props.currentRecipe.steps
     return (
       <div>
         <h1 id="title">
