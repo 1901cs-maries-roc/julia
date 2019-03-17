@@ -190,11 +190,8 @@ class RecipeStep extends Component {
             id="back"
             type="button"
             onClick={() => {
-              this.props.history.push(
-                `/recipes/${recipeId}/${
-                  stepNum === '1' ? '' : Number(stepNum) - 1
-                }`
-              )
+              const stepDirBack = stepNum === '1' ? '' : Number(stepNum) - 1
+              this.props.history.push(`/recipes/${recipeId}/${stepDirBack}`)
             }}
           >
             Back
@@ -210,9 +207,9 @@ class RecipeStep extends Component {
             id="next"
             type="button"
             onClick={() => {
-              this.props.history.push(
-                `/recipes/${recipeId}/${Number(stepNum) + 1}`
-              )
+              const stepDirFwd =
+                Number(stepNum) + 1 > steps.length ? '' : Number(stepNum) + 1
+              this.props.history.push(`/recipes/${recipeId}/${stepDirFwd}`)
             }}
           >
             Next
