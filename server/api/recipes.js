@@ -2,6 +2,15 @@ const router = require('express').Router()
 const {Recipe, Ingredient, Tag} = require('../db/models')
 module.exports = router
 
+router.get('/', async (req, res, next) => {
+  try {
+    const recipes = await Recipe.findAll()
+    res.json(recipes)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/:recipeId', async (req, res, next) => {
   try {
     const recipeId = req.params.recipeId

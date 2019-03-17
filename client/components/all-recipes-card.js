@@ -3,10 +3,12 @@ import React from 'react'
 //temporary component, just for code review 1
 
 const AllRecipesCard = props => {
+  const {recipe} = props
+  console.log('RECIPE CARD', recipe)
   return (
     <div>
-      <h4>Title: Recipe Name Here</h4>
-      <img src="https://www.seriouseats.com/recipes/images/2017/06/20170526-no-bake-cheesecake-vicky-wasik-18-625x469.jpg" />
+      <h2> {recipe.name} </h2>
+      <img src={`${recipe.imgUrl}`} />
     </div>
   )
 }
