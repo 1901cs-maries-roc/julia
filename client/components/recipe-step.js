@@ -128,6 +128,16 @@ class RecipeStep extends Component {
     const stepNum = this.props.match.params.stepNum
     let step = this.props.currentStep
     let steps = this.props.currentRecipe.steps
+    const ingredients = this.props.currentRecipe.ingredients || []
+
+    const ingredientList = ingredients.map(i => {
+      return (
+        <li key={i.id}>
+          {i.recipeIngredient.quantity} {i.name}
+        </li>
+      )
+    })
+
     return (
       <div>
         <h1 id="title">
@@ -138,11 +148,7 @@ class RecipeStep extends Component {
         </div>
         <div id="ingredients">
           <p>Ingredients:</p>
-          <ol>
-            <li>ingredient 1</li>
-            <li>ingredient 2</li>
-            <li>ingredient 3</li>
-          </ol>
+          <ol>{ingredientList}</ol>
         </div>
         <div id="step-instructions">
           <p>Instructions: </p>
