@@ -36,10 +36,6 @@ const start = () => {
 }
 
 class RecipeStep extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     const stepNum = this.props.match.params.stepNum
@@ -71,81 +67,52 @@ class RecipeStep extends Component {
     speak(repeatRequest)
   }
 
+  // eslint-disable-next-line complexity
   command = command => {
     switch (command) {
-      case 'repeat': {
+      case 'repeat':
+      case 'can you repeat':
+      case 'repeats':
         repeatStep()
         break
-      }
-      case 'can you repeat': {
-        repeatStep()
-        break
-      }
-      case 'repeats': {
-        repeatStep()
-        break
-      }
-      case 'ingredient': {
+
+      case 'ingredients':
+      case 'ingredient':
+      case 'what are the ingredients':
         listIngredients()
         break
-      }
-      case 'ingredients': {
-        listIngredients()
-        break
-      }
-      case 'what are the ingredients': {
-        listIngredients()
-        break
-      }
-      case 'go back': {
+
+      case 'back':
+      case 'go back':
+      case 'go back a step':
+      case 'back a step':
+      case 'previous':
+      case 'previous step':
         goBack()
         break
-      }
-      case 'go back a step': {
-        goBack()
-        break
-      }
-      case 'back': {
-        goBack()
-        break
-      }
-      case 'back a step': {
-        goBack()
-        break
-      }
-      case 'previous': {
-        goBack()
-        break
-      }
-      case 'previous step': {
-        goBack()
-        break
-      }
-      case 'next': {
+
+      case 'next':
+      case 'next step':
         goToNext()
         break
-      }
-      case 'next step': {
-        goToNext()
-        break
-      }
-      case 'pause': {
+
+      case 'pause':
         pause()
         break
-      }
-      case 'stop': {
+
+      case 'stop':
         pause()
         break
-      }
-      case 'start': {
+
+      case 'start':
         start()
         break
-      }
-      case 'resume': {
+
+      case 'resume':
         start()
         break
-      }
-      default: {
+
+      default:
         const repeatRequest = "Sorry, I didn't get that. Please try again."
         annyang.pause()
         speak(repeatRequest)
@@ -153,7 +120,6 @@ class RecipeStep extends Component {
           annyang.resume()
         }, 4000)
         break
-      }
     }
   }
 
