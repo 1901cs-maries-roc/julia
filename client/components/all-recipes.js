@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import AllRecipesCard from './all-recipes-card'
 import {Link} from 'react-router-dom'
-import {RecipeStep} from '.'
+import {connect} from 'react-redux'
+import {getAllRecipesThunk} from '../store'
 
-export default class AllRecipes extends Component {
-  constructor() {
-    super()
+export class AllRecipes extends Component {
+  componentDidMount() {
+    this.props.getAllRecipesThunkDispatch()
   }
 
   render() {
@@ -13,23 +14,30 @@ export default class AllRecipes extends Component {
       <div>
         <h1>ALL MY RECIPES!</h1>
         <br />
-        <Link to="/recipe">
-          {' '}
-          <AllRecipesCard />
-        </Link>
-        <br />
-
-        <Link to="/recipe">
-          {' '}
-          <AllRecipesCard />
-        </Link>
-        <br />
-
-        <Link to="/recipe">
-          {' '}
-          <AllRecipesCard />
-        </Link>
+        {this.props.allRecipes.map((recipe, id) => (
+          <div key={id}>
+            <Link to={`/recipes/${recipe.id}`}>
+              {' '}
+              <AllRecipesCard recipe={recipe} />
+            </Link>
+          </div>
+        ))}
       </div>
     )
   }
 }
+
+const mapState = state => {
+  console.log('state.recipes', state.recipe.recipes)
+  return {
+    allRecipes: state.recipe.recipes
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    getAllRecipesThunkDispatch: () => dispatch(getAllRecipesThunk())
+  }
+}
+
+export default connect(mapState, mapDispatch)(AllRecipes)
