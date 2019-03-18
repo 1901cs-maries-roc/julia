@@ -64,7 +64,7 @@ class RecipeOverview extends Component {
         </div>
         <div id="recipe-steps">
           <p>Instructions:</p>
-          <ul>
+          <ol>
             {steps ? (
               steps.map(step => {
                 return <li key={step}>{step}</li>
@@ -72,7 +72,7 @@ class RecipeOverview extends Component {
             ) : (
               <li>No Steps</li>
             )}
-          </ul>
+          </ol>
         </div>
         <div id="tags">
           {/* add reference to tags */}
