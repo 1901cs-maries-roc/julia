@@ -38,10 +38,10 @@ const start = () => {
 class RecipeStep extends Component {
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
-    const stepNum = this.props.match.params.stepNum
+    // const stepNum = this.props.match.params.stepNum
 
     this.props.getRecipeThunkDispatch(recipeId)
-    this.props.getStepThunkDispatch(recipeId, stepNum)
+    // this.props.getStepThunkDispatch(recipeId, stepNum)
   }
 
   annyang = () => {
@@ -112,21 +112,21 @@ class RecipeStep extends Component {
         start()
         break
 
-      default:
+      default: {
         const repeatRequest = "Sorry, I didn't get that. Please try again."
         annyang.pause()
         speak(repeatRequest)
         window.setTimeout(() => {
           annyang.resume()
         }, 4000)
-        break
+      }
     }
   }
 
   render() {
-    const recipeId = this.props.match.params.recipeId
-    const stepNum = this.props.match.params.stepNum
-    let step = this.props.currentStep
+    // const recipeId = this.props.match.params.recipeId
+    // const stepNum = this.props.match.params.stepNum
+    let stepIndex = this.props.currentStepIndex
     let steps = this.props.currentRecipe.steps
     const ingredients = this.props.currentRecipe.ingredients || []
 
@@ -141,7 +141,7 @@ class RecipeStep extends Component {
     return (
       <div>
         <h1 id="title">
-          Step {stepNum}/{steps ? steps.length : 0}
+          Step {stepIndex + 1}/{steps ? steps.length : 0}
         </h1>
         <div>
           <button type="submit">Help</button>
@@ -152,7 +152,7 @@ class RecipeStep extends Component {
         </div>
         <div id="step-instructions">
           <p>Instructions: </p>
-          <p>{step}</p>
+          <p>{steps[stepIndex]}</p>
         </div>
         <div id="timer">
           <p>Timer</p>
@@ -162,8 +162,8 @@ class RecipeStep extends Component {
             id="back"
             type="button"
             onClick={() => {
-              const stepDirBack = stepNum === '1' ? '' : Number(stepNum) - 1
-              this.props.history.push(`/recipes/${recipeId}/${stepDirBack}`)
+              // const stepDirBack = stepNum === '1' ? '' : Number(stepNum) - 1
+              // this.props.history.push(`/recipes/${recipeId}/${stepDirBack}`)
             }}
           >
             Back
@@ -182,6 +182,7 @@ class RecipeStep extends Component {
               const stepDirFwd =
                 Number(stepNum) + 1 > steps.length ? '' : Number(stepNum) + 1
               this.props.history.push(`/recipes/${recipeId}/${stepDirFwd}`)
+              // stepIndex
             }}
           >
             Next
@@ -193,18 +194,18 @@ class RecipeStep extends Component {
 }
 
 const mapState = state => {
-  console.log('state', state)
   return {
-    currentStep: state.recipe.step,
+    currentStepIndex: state.recipe.currentStepIndex,
     currentRecipe: state.recipe.recipe
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getRecipeThunkDispatch: recipeId => dispatch(getRecipeThunk(recipeId)),
-    getStepThunkDispatch: (recipeId, stepNum) =>
-      dispatch(getStepThunk(recipeId, stepNum))
+    getRecipeThunkDispatch: recipeId => dispatch(getRecipeThunk(recipeId))
+    // getStepThunkDispatch: (recipeId, stepNum) =>
+    //   dispatch(getStepThunk(recipeId, stepNum)),
+    // getNextStep:
   }
 }
 

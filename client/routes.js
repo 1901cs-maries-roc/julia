@@ -32,11 +32,12 @@ class Routes extends Component {
         <Route exact path="/recipes" component={AllRecipes} />
         <Route exact path="/recipes/card" component={AllRecipesCard} />
         <Route exact path="/recipes/:recipeId" component={RecipeOverview} />
-        <Route
+        <Route exact path="/recipes/:recipeId/cooking" component={RecipeStep} />
+        {/* <Route
           exact
           path="/recipes/:recipeId/:stepNum"
           component={RecipeStep}
-        />
+        /> */}
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

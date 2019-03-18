@@ -13,7 +13,7 @@ const GET_STEP = 'GET STEP'
 const initialState = {
   recipes: [],
   recipe: {},
-  step: []
+  currentStepIndex: 0
 }
 
 /**
@@ -38,7 +38,7 @@ export const getAllRecipesThunk = () => async dispatch => {
 export const getRecipeThunk = recipeId => async dispatch => {
   try {
     const recipe = await axios.get(`/api/recipes/${recipeId}`)
-    dispatch(getRecipe(recipe.data || defaultRecipe))
+    dispatch(getRecipe(recipe.data))
   } catch (err) {
     console.error(err)
   }
@@ -63,7 +63,7 @@ export default function(state = initialState, action) {
     case GET_RECIPE:
       return {...state, recipe: action.recipe}
     case GET_STEP:
-      return {...state, step: action.step}
+      return {...state, currentStepIndex: action.step}
     default:
       return state
   }

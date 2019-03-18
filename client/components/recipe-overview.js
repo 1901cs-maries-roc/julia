@@ -17,7 +17,7 @@ class RecipeOverview extends Component {
   handleClick(event) {
     event.preventDefault()
     const recipeId = this.props.match.params.recipeId
-    this.props.history.push(`/recipes/${recipeId}/1`)
+    this.props.history.push(`/recipes/${recipeId}/cooking`)
   }
 
   render() {
@@ -64,8 +64,8 @@ class RecipeOverview extends Component {
           <p>Instructions:</p>
           <ul>
             {steps ? (
-              steps.map((step, index) => {
-                return <li key={id + index}>{step}</li>
+              steps.map(step => {
+                return <li key={step}>{step}</li>
               })
             ) : (
               <li>No Steps</li>
@@ -77,8 +77,8 @@ class RecipeOverview extends Component {
           <p>Tags:</p>
           <ul>
             {tags === [] ? (
-              tags.map((tag, index) => {
-                return <li key={tag.id + index}>{tag}</li>
+              tags.map(tag => {
+                return <li key={tag}>{tag}</li>
               })
             ) : (
               <li>No tags are available</li>
