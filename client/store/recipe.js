@@ -5,16 +5,16 @@ import axios from 'axios'
  */
 const GET_ALL_RECIPES = 'GET_ALL_RECIPES'
 const GET_RECIPE = 'GET_RECIPE'
-const GET_STEP = 'GET STEP'
 const NEXT_STEP = 'NEXT_STEP'
 const PREV_STEP = 'PREV_STEP'
+const RESTART_STEPS = 'RESTART_STEPS'
 
 /**
  * INITIAL STATE
  */
 const initialState = {
   recipes: [],
-  recipe: {},
+  recipe: {steps: []},
   currentStepIndex: 0
 }
 
@@ -23,7 +23,6 @@ const initialState = {
  */
 const getAllRecipes = recipes => ({type: GET_ALL_RECIPES, recipes})
 const getRecipe = recipe => ({type: GET_RECIPE, recipe})
-const getStep = step => ({type: GET_STEP, step})
 export const nextStep = currentStep => ({
   type: NEXT_STEP,
   nextStep: currentStep + 1
@@ -32,7 +31,7 @@ export const prevStep = currentStep => ({
   type: PREV_STEP,
   prevStep: currentStep - 1
 })
-
+export const restartSteps = () => ({type: RESTART_STEPS})
 /**
  * THUNK CREATORS
  */
@@ -63,8 +62,6 @@ export default function(state = initialState, action) {
       return {...state, recipes: action.recipes}
     case GET_RECIPE:
       return {...state, recipe: action.recipe}
-    case GET_STEP:
-      return {...state, currentStepIndex: action.step}
     case NEXT_STEP: {
       const nextIndex =
         action.nextStep < state.recipe.steps.length ? action.nextStep : null
@@ -74,6 +71,8 @@ export default function(state = initialState, action) {
       const nextIndex = action.prevStep >= 0 ? action.prevStep : null
       return {...state, currentStepIndex: nextIndex}
     }
+    case RESTART_STEPS:
+      return {...state, currentStepIndex: 0}
     default:
       return state
   }
