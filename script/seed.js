@@ -48,7 +48,6 @@ async function seed() {
     butter,
     egg,
     milk,
-    snowEgg,
     sugar,
     cocoaPowder,
     bakingSoda,
@@ -108,7 +107,7 @@ async function seed() {
       recipeId: superWaffle.id
     }),
     recipeIngredient.create({
-      quantity: '2',
+      quantity: '3',
       measure: null,
       sectionName: '',
       ingredientId: egg.id,
@@ -119,13 +118,6 @@ async function seed() {
       measure: 'cups',
       sectionName: '',
       ingredientId: milk.id,
-      recipeId: superWaffle.id
-    }),
-    recipeIngredient.create({
-      quantity: '1',
-      measure: null,
-      sectionName: '',
-      ingredientId: egg.id,
       recipeId: superWaffle.id
     }),
     recipeIngredient.create({
