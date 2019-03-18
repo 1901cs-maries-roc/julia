@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import annyang from 'annyang'
-import {getRecipeThunk, getStepThunk} from '../store'
+import {getRecipeThunk, nextStep, prevStep} from '../store'
 
 const speak = words => {
   speechSynthesis.speak(new SpeechSynthesisUtterance(words))
@@ -38,10 +38,7 @@ const start = () => {
 class RecipeStep extends Component {
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
-    const stepNum = this.props.match.params.stepNum
-
-    this.props.getRecipeThunkDispatch(recipeId)
-    this.props.getStepThunkDispatch(recipeId, stepNum)
+    this.props.getRecipe(recipeId)
   }
 
   annyang = () => {
@@ -112,24 +109,21 @@ class RecipeStep extends Component {
         start()
         break
 
-      default:
+      default: {
         const repeatRequest = "Sorry, I didn't get that. Please try again."
         annyang.pause()
         speak(repeatRequest)
         window.setTimeout(() => {
           annyang.resume()
         }, 4000)
-        break
+      }
     }
   }
 
   render() {
-    const recipeId = this.props.match.params.recipeId
-    const stepNum = this.props.match.params.stepNum
-    let step = this.props.currentStep
-    let steps = this.props.currentRecipe.steps
+    const stepIndex = this.props.currentStepIndex
+    const steps = this.props.currentRecipe.steps || []
     const ingredients = this.props.currentRecipe.ingredients || []
-
     const ingredientList = ingredients.map(i => {
       return (
         <li key={i.id}>
@@ -141,7 +135,7 @@ class RecipeStep extends Component {
     return (
       <div>
         <h1 id="title">
-          Step {stepNum}/{steps ? steps.length : 0}
+          Step {stepIndex + 1}/{steps ? steps.length : 0}
         </h1>
         <div>
           <button type="submit">Help</button>
@@ -152,22 +146,23 @@ class RecipeStep extends Component {
         </div>
         <div id="step-instructions">
           <p>Instructions: </p>
-          <p>{step}</p>
+          <p>{steps[stepIndex]}</p>
         </div>
         <div id="timer">
           <p>Timer</p>
         </div>
         <div>
-          <button
-            id="back"
-            type="button"
-            onClick={() => {
-              const stepDirBack = stepNum === '1' ? '' : Number(stepNum) - 1
-              this.props.history.push(`/recipes/${recipeId}/${stepDirBack}`)
-            }}
-          >
-            Back
-          </button>
+          {stepIndex !== 0 ? (
+            <button
+              id="back"
+              type="button"
+              onClick={() => {
+                this.props.goToPrevStep(stepIndex)
+              }}
+            >
+              Back
+            </button>
+          ) : null}
           <button id="start" type="button" onClick={this.annyang}>
             Start
           </button>
@@ -175,16 +170,25 @@ class RecipeStep extends Component {
           <button id="pause" type="button">
             Pause
           </button>
+          {stepIndex < steps.length - 1 ? (
+            <button
+              id="next"
+              type="button"
+              onClick={() => {
+                this.props.goToNextStep(stepIndex)
+              }}
+            >
+              Next
+            </button>
+          ) : null}
           <button
-            id="next"
+            id="recipeOverview"
             type="button"
             onClick={() => {
-              const stepDirFwd =
-                Number(stepNum) + 1 > steps.length ? '' : Number(stepNum) + 1
-              this.props.history.push(`/recipes/${recipeId}/${stepDirFwd}`)
+              this.props.history.push(`/recipes/${this.props.currentRecipe.id}`)
             }}
           >
-            Next
+            Back to Recipe Overview
           </button>
         </div>
       </div>
@@ -193,18 +197,17 @@ class RecipeStep extends Component {
 }
 
 const mapState = state => {
-  console.log('state', state)
   return {
-    currentStep: state.recipe.step,
+    currentStepIndex: state.recipe.currentStepIndex,
     currentRecipe: state.recipe.recipe
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getRecipeThunkDispatch: recipeId => dispatch(getRecipeThunk(recipeId)),
-    getStepThunkDispatch: (recipeId, stepNum) =>
-      dispatch(getStepThunk(recipeId, stepNum))
+    getRecipe: recipeId => dispatch(getRecipeThunk(recipeId)),
+    goToNextStep: currentStep => dispatch(nextStep(currentStep)),
+    goToPrevStep: currentStep => dispatch(prevStep(currentStep))
   }
 }
 

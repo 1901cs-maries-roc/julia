@@ -6,6 +6,8 @@ import axios from 'axios'
 const GET_ALL_RECIPES = 'GET_ALL_RECIPES'
 const GET_RECIPE = 'GET_RECIPE'
 const GET_STEP = 'GET STEP'
+const NEXT_STEP = 'NEXT_STEP'
+const PREV_STEP = 'PREV_STEP'
 
 /**
  * INITIAL STATE
@@ -13,7 +15,7 @@ const GET_STEP = 'GET STEP'
 const initialState = {
   recipes: [],
   recipe: {},
-  step: []
+  currentStepIndex: 0
 }
 
 /**
@@ -22,6 +24,14 @@ const initialState = {
 const getAllRecipes = recipes => ({type: GET_ALL_RECIPES, recipes})
 const getRecipe = recipe => ({type: GET_RECIPE, recipe})
 const getStep = step => ({type: GET_STEP, step})
+export const nextStep = currentStep => ({
+  type: NEXT_STEP,
+  nextStep: currentStep + 1
+})
+export const prevStep = currentStep => ({
+  type: PREV_STEP,
+  prevStep: currentStep - 1
+})
 
 /**
  * THUNK CREATORS
@@ -38,16 +48,7 @@ export const getAllRecipesThunk = () => async dispatch => {
 export const getRecipeThunk = recipeId => async dispatch => {
   try {
     const recipe = await axios.get(`/api/recipes/${recipeId}`)
-    dispatch(getRecipe(recipe.data || defaultRecipe))
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-export const getStepThunk = (recipeId, stepNum) => async dispatch => {
-  try {
-    const step = await axios.get(`/api/recipes/${recipeId}/${stepNum}`)
-    dispatch(getStep(step.data || defaultRecipe))
+    dispatch(getRecipe(recipe.data))
   } catch (err) {
     console.error(err)
   }
@@ -63,7 +64,16 @@ export default function(state = initialState, action) {
     case GET_RECIPE:
       return {...state, recipe: action.recipe}
     case GET_STEP:
-      return {...state, step: action.step}
+      return {...state, currentStepIndex: action.step}
+    case NEXT_STEP: {
+      const nextIndex =
+        action.nextStep < state.recipe.steps.length ? action.nextStep : null
+      return {...state, currentStepIndex: nextIndex}
+    }
+    case PREV_STEP: {
+      const nextIndex = action.prevStep >= 0 ? action.prevStep : null
+      return {...state, currentStepIndex: nextIndex}
+    }
     default:
       return state
   }
