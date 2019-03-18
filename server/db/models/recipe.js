@@ -37,6 +37,19 @@ const Recipe = db.define('recipe', {
   },
   steps: {
     type: Sequelize.ARRAY(Sequelize.STRING)
+  },
+  categories: {
+    type: Sequelize.STRING,
+    validate: {
+      isIn: [
+        [
+          'Appetizers & Snacks',
+          'Breakfast & Brunch',
+          'Lunch & Diner',
+          'Desserts'
+        ]
+      ]
+    }
   }
 })
 

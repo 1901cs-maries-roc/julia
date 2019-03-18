@@ -5,17 +5,7 @@ const Tag = db.define('tag', {
   title: {
     type: Sequelize.STRING,
     validate: {
-      isIn: [
-        [
-          'breakfast',
-          'brunch',
-          'lunch',
-          'dinner',
-          'easy',
-          'intermediate',
-          'difficult'
-        ]
-      ]
+      isIn: [['easy', 'intermediate', 'difficult']]
     }
   }
 })
