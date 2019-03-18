@@ -10,8 +10,6 @@ Recipe.belongsTo(User)
 User.hasMany(Recipe)
 Ingredient.belongsTo(Recipe)
 Recipe.hasMany(Ingredient)
-// Ingredient.belongsToMany(Recipe, {through: recipeIngredient})
-// Recipe.belongsToMany(Ingredient, {through: recipeIngredient})
 Tag.belongsToMany(Recipe, {through: tagRecipe})
 Recipe.belongsToMany(Tag, {through: tagRecipe})
 
