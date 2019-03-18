@@ -23,9 +23,9 @@ async function seed() {
       cookTime: 30,
       waitTime: 0,
       steps: [
-        '1. Mix flour, melted butter and egg yolk',
-        '2. add milk',
-        '3. incorporate snow egg'
+        'Mix flour, melted butter and egg yolk',
+        'Add milk',
+        'Incorporate snow egg'
       ]
     }),
     Recipe.create({
@@ -37,8 +37,8 @@ async function seed() {
       cookTime: 2,
       waitTime: 0,
       steps: [
-        '1. Mix flour, sugar, cocoa powder, baking soda, and salt in a large microwave-safe mug; stir in milk, canola oil, water, and vanilla extract.',
-        '2. Cook in microwave until cake is done in the middle, about 1 minute 45 seconds.'
+        'Mix flour, sugar, cocoa powder, baking soda, and salt in a large microwave-safe mug; stir in milk, canola oil, water, and vanilla extract.',
+        'Cook in microwave until cake is done in the middle, about 1 minute 45 seconds.'
       ]
     })
   ])
@@ -48,7 +48,6 @@ async function seed() {
     butter,
     egg,
     milk,
-    snowEgg,
     sugar,
     cocoaPowder,
     bakingSoda,
@@ -68,9 +67,6 @@ async function seed() {
     }),
     Ingredient.create({
       name: 'Milk'
-    }),
-    Ingredient.create({
-      name: 'Snow Egg'
     }),
     Ingredient.create({
       name: 'Sugar'
@@ -97,85 +93,92 @@ async function seed() {
 
   await Promise.all([
     recipeIngredient.create({
-      quantity: '500 g',
+      quantity: 500,
+      measure: 'grams',
       sectionName: '',
       ingredientId: flour.id,
       recipeId: superWaffle.id
     }),
     recipeIngredient.create({
-      quantity: '2 tbs',
+      quantity: 2,
+      measure: 'tbs',
       sectionName: '',
       ingredientId: butter.id,
       recipeId: superWaffle.id
     }),
     recipeIngredient.create({
-      quantity: '2',
+      quantity: '3',
+      measure: null,
       sectionName: '',
       ingredientId: egg.id,
       recipeId: superWaffle.id
     }),
     recipeIngredient.create({
-      quantity: '1.5 cups',
+      quantity: 1.5,
+      measure: 'cups',
       sectionName: '',
       ingredientId: milk.id,
       recipeId: superWaffle.id
     }),
     recipeIngredient.create({
-      quantity: '1',
-      sectionName: '',
-      ingredientId: snowEgg.id,
-      recipeId: superWaffle.id
-    }),
-    recipeIngredient.create({
-      quantity: '1/4 cup',
+      quantity: 0.25,
+      measure: 'cup',
       sectionName: '',
       ingredientId: flour.id,
       recipeId: microwaveChocolateMugCake.id
     }),
     recipeIngredient.create({
-      quantity: '1/4 cup',
+      quantity: 0.25,
+      measure: 'cup',
       sectionName: '',
       ingredientId: sugar.id,
       recipeId: microwaveChocolateMugCake.id
     }),
     recipeIngredient.create({
-      quantity: '2 tbs',
+      quantity: 2,
+      measure: 'tbs',
       sectionName: '',
       ingredientId: cocoaPowder.id,
       recipeId: microwaveChocolateMugCake.id
     }),
     recipeIngredient.create({
-      quantity: '1/8 ts',
+      quantity: 0.25,
+      measure: 'ts',
       sectionName: '',
       ingredientId: bakingSoda.id,
       recipeId: microwaveChocolateMugCake.id
     }),
     recipeIngredient.create({
-      quantity: '1/8 ts',
+      quantity: 0.25,
+      measure: 'ts',
       sectionName: '',
       ingredientId: salt.id,
       recipeId: microwaveChocolateMugCake.id
     }),
     recipeIngredient.create({
-      quantity: '3 tbs',
+      quantity: 3,
+      measure: 'tbs',
       sectionName: '',
       ingredientId: milk.id,
       recipeId: microwaveChocolateMugCake.id
     }),
     recipeIngredient.create({
-      quantity: '2 tbs',
+      quantity: 2,
+      measure: 'tbs',
       sectionName: '',
       ingredientId: canolaOil.id,
       recipeId: microwaveChocolateMugCake.id
     }),
     recipeIngredient.create({
-      quantity: '1 tbs',
+      quantity: 1,
+      measure: 'tbs',
       sectionName: '',
       ingredientId: water.id,
       recipeId: microwaveChocolateMugCake.id
     }),
     recipeIngredient.create({
-      quantity: '1/4 ts',
+      quantity: 0.25,
+      measure: 'ts',
       sectionName: '',
       ingredientId: vanillaExtract.id,
       recipeId: microwaveChocolateMugCake.id

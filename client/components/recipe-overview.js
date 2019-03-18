@@ -22,7 +22,6 @@ class RecipeOverview extends Component {
 
   render() {
     const {
-      id,
       name,
       imgUrl,
       cookTime,
@@ -33,6 +32,8 @@ class RecipeOverview extends Component {
       tags,
       ingredients
     } = this.props.currentRecipe
+
+    console.log(this.props)
     return (
       <div>
         <img src={imgUrl} />
@@ -49,9 +50,10 @@ class RecipeOverview extends Component {
             {ingredients ? (
               ingredients.map(ingredient => {
                 const quantity = ingredient.recipeIngredient.quantity
+                const measure = ingredient.recipeIngredient.measure
                 return (
                   <li key={ingredient.id}>
-                    {quantity} {ingredient.name}
+                    {quantity} {measure} {ingredient.name}
                   </li>
                 )
               })
@@ -106,24 +108,3 @@ const mapDispatch = dispatch => {
 }
 
 export default connect(mapState, mapDispatch)(RecipeOverview)
-
-// this.props.currentRecipe.ingredients[0].recipeIngredient.sectionName
-
-// {ingredients ? (
-//   ingredients.map(ingredient => {
-//     const sectionName = ingredient.recipeIngredient.sectionName
-//     const quantity = ingredient.recipeIngredient.quantity
-//     {sectionName ? (
-//       <div key={ingredient.id}>
-//         <p>{sectionName}</p>
-//         <ul>
-//           <li>{quantity} {ingredient.name}</li>
-//         </ul>
-//       </div>) : (<li key={ingredient.id}>
-//         {quantity} {ingredient.name}
-//       </li>
-//     )}
-//   })
-// ) : (
-//   <li>No Ingredients</li>
-// )}
