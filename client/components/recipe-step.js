@@ -127,7 +127,7 @@ class RecipeStep extends Component {
     const ingredientList = ingredients.map(i => {
       return (
         <li key={i.id}>
-          {i.recipeIngredient.quantity} {i.name}
+          {i.recipeIngredient.quantity} {i.recipeIngredient.measure} {i.name}
         </li>
       )
     })
