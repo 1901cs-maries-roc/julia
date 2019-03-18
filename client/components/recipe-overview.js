@@ -33,6 +33,8 @@ class RecipeOverview extends Component {
       tags,
       ingredients
     } = this.props.currentRecipe
+
+    console.log(this.props)
     return (
       <div>
         <img src={imgUrl} />
@@ -49,9 +51,10 @@ class RecipeOverview extends Component {
             {ingredients ? (
               ingredients.map(ingredient => {
                 const quantity = ingredient.recipeIngredient.quantity
+                const measure = ingredient.recipeIngredient.measure
                 return (
                   <li key={ingredient.id}>
-                    {quantity} {ingredient.name}
+                    {quantity} {measure} {ingredient.name}
                   </li>
                 )
               })
