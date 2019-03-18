@@ -14,8 +14,8 @@ export class AllRecipes extends Component {
       <div>
         <h1>ALL MY RECIPES!</h1>
         <br />
-        {this.props.allRecipes.map((recipe, id) => (
-          <div key={id}>
+        {this.props.allRecipes.map(recipe => (
+          <div key={recipe.id}>
             <Link to={`/recipes/${recipe.id}`}>
               {' '}
               <AllRecipesCard recipe={recipe} />
