@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import annyang from 'annyang'
-import {getRecipeThunk, nextStep, prevStep} from '../store'
+import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
 
 const speak = words => {
   speechSynthesis.speak(new SpeechSynthesisUtterance(words))
@@ -39,6 +39,13 @@ class RecipeStep extends Component {
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
+  }
+
+  componentDidUpdate() {
+    const stepIndex = this.props.currentStepIndex
+    const steps = this.props.currentRecipe.steps
+    document.getElementById('next').disabled = stepIndex === steps.length - 1
+    document.getElementById('back').disabled = stepIndex === 0
   }
 
   annyang = () => {
@@ -152,17 +159,15 @@ class RecipeStep extends Component {
           <p>Timer</p>
         </div>
         <div>
-          {stepIndex !== 0 ? (
-            <button
-              id="back"
-              type="button"
-              onClick={() => {
-                this.props.goToPrevStep(stepIndex)
-              }}
-            >
-              Back
-            </button>
-          ) : null}
+          <button
+            id="back"
+            type="button"
+            onClick={() => {
+              this.props.goToPrevStep(stepIndex)
+            }}
+          >
+            Back
+          </button>
           <button id="start" type="button" onClick={this.annyang}>
             Start
           </button>
@@ -170,22 +175,21 @@ class RecipeStep extends Component {
           <button id="pause" type="button">
             Pause
           </button>
-          {stepIndex < steps.length - 1 ? (
-            <button
-              id="next"
-              type="button"
-              onClick={() => {
-                this.props.goToNextStep(stepIndex)
-              }}
-            >
-              Next
-            </button>
-          ) : null}
+          <button
+            id="next"
+            type="button"
+            onClick={() => {
+              this.props.goToNextStep(stepIndex)
+            }}
+          >
+            Next
+          </button>
           <button
             id="recipeOverview"
             type="button"
             onClick={() => {
               this.props.history.push(`/recipes/${this.props.currentRecipe.id}`)
+              this.props.restartRecipe()
             }}
           >
             Back to Recipe Overview
@@ -207,7 +211,8 @@ const mapDispatch = dispatch => {
   return {
     getRecipe: recipeId => dispatch(getRecipeThunk(recipeId)),
     goToNextStep: currentStep => dispatch(nextStep(currentStep)),
-    goToPrevStep: currentStep => dispatch(prevStep(currentStep))
+    goToPrevStep: currentStep => dispatch(prevStep(currentStep)),
+    restartRecipe: () => dispatch(restartSteps())
   }
 }
 
