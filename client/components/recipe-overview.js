@@ -34,7 +34,7 @@ class RecipeOverview extends Component {
       tags
     } = this.props.currentRecipe
 
-    let ingredients = this.props.currentRecipe.ingredients || []
+    const ingredients = this.props.currentRecipe.ingredients || []
 
     return (
       <div>

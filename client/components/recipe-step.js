@@ -121,16 +121,17 @@ class RecipeStep extends Component {
   }
 
   render() {
+    console.log('hey', this.props)
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
-    const ingredients = this.props.currentRecipe.ingredients || []
-    const ingredientList = ingredients.map(i => {
-      return (
-        <li key={i.id}>
-          {i.recipeIngredient.quantity} {i.name}
-        </li>
-      )
-    })
+    // const ingredients = this.props.currentRecipe.ingredients || []
+    // const ingredientList = ingredients.map(i => {
+    //   return (
+    //     <li key={i.id}>
+    //       {i.recipeIngredient.quantity} {i.name}
+    //     </li>
+    //   )
+    // })
 
     return (
       <div>
