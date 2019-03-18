@@ -20,6 +20,7 @@ class RecipeOverview extends Component {
     this.props.history.push(`/recipes/${recipeId}/1`)
   }
 
+  // eslint-disable-next-line complexity
   render() {
     const {
       id,
@@ -30,9 +31,11 @@ class RecipeOverview extends Component {
       waitTime,
       serving,
       steps,
-      tags,
-      ingredients
+      tags
     } = this.props.currentRecipe
+
+    let ingredients = this.props.currentRecipe.ingredients || []
+
     return (
       <div>
         <img src={imgUrl} />
@@ -48,10 +51,11 @@ class RecipeOverview extends Component {
           <ul>
             {ingredients ? (
               ingredients.map(ingredient => {
-                const quantity = ingredient.recipeIngredient.quantity
+                const quantity = ingredient.quantity
+                const measure = ingredient.measure
                 return (
                   <li key={ingredient.id}>
-                    {quantity} {ingredient.name}
+                    {quantity} {measure} {ingredient.name}
                   </li>
                 )
               })
