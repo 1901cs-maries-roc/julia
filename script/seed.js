@@ -23,9 +23,9 @@ async function seed() {
       cookTime: 30,
       waitTime: 0,
       steps: [
-        '1. Mix flour, melted butter and egg yolk',
-        '2. add milk',
-        '3. incorporate snow egg'
+        'Mix flour, melted butter and egg yolk',
+        'Add milk',
+        'Incorporate snow egg'
       ]
     }),
     Recipe.create({
@@ -37,8 +37,8 @@ async function seed() {
       cookTime: 2,
       waitTime: 0,
       steps: [
-        '1. Mix flour, sugar, cocoa powder, baking soda, and salt in a large microwave-safe mug; stir in milk, canola oil, water, and vanilla extract.',
-        '2. Cook in microwave until cake is done in the middle, about 1 minute 45 seconds.'
+        'Mix flour, sugar, cocoa powder, baking soda, and salt in a large microwave-safe mug; stir in milk, canola oil, water, and vanilla extract.',
+        'Cook in microwave until cake is done in the middle, about 1 minute 45 seconds.'
       ]
     })
   ])
