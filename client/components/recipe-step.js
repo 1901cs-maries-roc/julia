@@ -168,7 +168,14 @@ class RecipeStep extends Component {
           >
             Back
           </button>
-          <button id="start" type="button" onClick={this.annyang}>
+          <button
+            id="start"
+            type="button"
+            onClick={() => {
+              this.annyang()
+              this.listening()
+            }}
+          >
             Start
           </button>
           {/* change to resume once annyang is in componentDidMount */}
