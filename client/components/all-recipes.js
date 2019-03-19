@@ -8,10 +8,10 @@ import axios from 'axios'
 export class AllRecipes extends Component {
   async componentDidMount() {
     this.props.getAllRecipesThunkDispatch()
-    const {data: res} = await axios.get(
-      'https://sallysbakingaddiction.com/best-banana-cake/'
-    )
-    console.log(res)
+    await axios.post('/api/scrape', {
+      url:
+        'https://www.skinnytaste.com/chunky-beef-cabbage-and-tomato-soup-instant-pot/'
+    })
   }
 
   render() {

@@ -7,10 +7,32 @@ module.exports = router
 router.use('/users', require('./users'))
 router.use('/recipes', require('./recipes'))
 
+router.post('/scrape', (req, res, next) => {
+  const url = req.body.url
+
+  request(url, (error, response, html) => {
+    if (!error) {
+      const $ = cheerio.load(html)
+      const instructions = []
+      const instructionLists = $('ol').filter((i, elem) => {
+        return $(elem).attr('class') !== 'comment-list'
+      })
+
+      instructionLists.find('li').each((i, elem) => {
+        instructions[i] = $(elem).text()
+      })
+
+      console.log('Instructions: ', instructions)
+
+      res.sendStatus(200)
+    } else {
+      console.log(error)
+    }
+  })
+})
+
 router.use((req, res, next) => {
   const error = new Error('Not Found')
   error.status = 404
   next(error)
 })
-
-router.get('/scrape', (req, res, next) => {})
