@@ -8,8 +8,7 @@ import {
   UserHome,
   RecipeStep,
   RecipeOverview,
-  AllRecipes,
-  AllRecipesCard
+  AllRecipes
 } from './components'
 import {me} from './store'
 
@@ -26,25 +25,16 @@ class Routes extends Component {
 
     return (
       <Switch>
-        {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/recipes" component={AllRecipes} />
-        <Route exact path="/recipes/card" component={AllRecipesCard} />
         <Route exact path="/recipes/:recipeId" component={RecipeOverview} />
         <Route exact path="/recipes/:recipeId/cooking" component={RecipeStep} />
-        {/* <Route
-          exact
-          path="/recipes/:recipeId/:stepNum"
-          component={RecipeStep}
-        /> */}
         {isLoggedIn && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
           </Switch>
         )}
-        {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
     )
