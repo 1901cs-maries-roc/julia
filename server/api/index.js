@@ -8,9 +8,7 @@ router.use('/users', require('./users'))
 router.use('/recipes', require('./recipes'))
 
 router.post('/scrape', (req, res, next) => {
-  const url = req.body.url
-
-  request(url, (error, response, html) => {
+  request(req.body.url, (error, response, html) => {
     if (!error) {
       const $ = cheerio.load(html)
       const instructions = []
@@ -21,7 +19,7 @@ router.post('/scrape', (req, res, next) => {
       instructionLists.find('li').each((i, elem) => {
         instructions[i] = $(elem).text()
       })
-
+      // $('img').
       console.log('Instructions: ', instructions)
 
       res.sendStatus(200)
