@@ -43,8 +43,11 @@ class RecipeStep extends Component {
           <button type="submit">Help</button>
         </div>
         <div>
-          <p>Ingredients:</p>
-          <IngredientsList ingredients={this.props.currentRecipe.ingredients} />
+          <p>Ingredients for this step:</p>
+          <IngredientsList
+            ingredients={this.props.currentRecipe.ingredients}
+            instructions={steps[stepIndex]}
+          />
         </div>
         <div>
           <p>Instructions: </p>

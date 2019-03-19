@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getRecipeThunk} from '../store'
+import IngredientsList from './ingredientsList'
 
 class RecipeOverview extends Component {
   constructor(props) {
@@ -33,7 +34,6 @@ class RecipeOverview extends Component {
       ingredients
     } = this.props.currentRecipe
 
-    console.log(this.props)
     return (
       <div>
         <img src={imgUrl} />
@@ -46,7 +46,13 @@ class RecipeOverview extends Component {
         <p>Average Time for Users: No user data at this time</p>
         <div id="ingredient-list">
           <p>Ingredients:</p>
-          <ul>
+          {ingredients ? (
+            <IngredientsList ingredients={ingredients} isOverview={true} />
+          ) : (
+            <p>No Ingredients</p>
+          )}
+
+          {/* <ul>
             {ingredients ? (
               ingredients.map(ingredient => {
                 const quantity = ingredient.recipeIngredient.quantity
@@ -60,7 +66,7 @@ class RecipeOverview extends Component {
             ) : (
               <li>No Ingredients</li>
             )}
-          </ul>
+          </ul> */}
         </div>
         <div id="recipe-steps">
           <p>Instructions:</p>
