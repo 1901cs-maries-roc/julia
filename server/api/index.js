@@ -1,4 +1,7 @@
 const router = require('express').Router()
+const request = require('request')
+const cheerio = require('cheerio')
+
 module.exports = router
 
 router.use('/users', require('./users'))
@@ -9,3 +12,5 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
+
+router.get('/scrape', (req, res, next) => {})

@@ -3,10 +3,15 @@ import AllRecipesCard from './all-recipes-card'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getAllRecipesThunk} from '../store'
+import axios from 'axios'
 
 export class AllRecipes extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     this.props.getAllRecipesThunkDispatch()
+    const {data: res} = await axios.get(
+      'https://sallysbakingaddiction.com/best-banana-cake/'
+    )
+    console.log(res)
   }
 
   render() {
