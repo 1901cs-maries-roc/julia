@@ -51,22 +51,6 @@ class RecipeOverview extends Component {
           ) : (
             <p>No Ingredients</p>
           )}
-
-          {/* <ul>
-            {ingredients ? (
-              ingredients.map(ingredient => {
-                const quantity = ingredient.recipeIngredient.quantity
-                const measure = ingredient.recipeIngredient.measure
-                return (
-                  <li key={ingredient.id}>
-                    {quantity} {measure} {ingredient.name}
-                  </li>
-                )
-              })
-            ) : (
-              <li>No Ingredients</li>
-            )}
-          </ul> */}
         </div>
         <div id="recipe-steps">
           <p>Instructions:</p>
