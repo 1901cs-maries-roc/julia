@@ -33,7 +33,6 @@ export class AllRecipes extends Component {
 }
 
 const mapState = state => {
-  console.log('state.recipes', state.recipe.recipes)
   return {
     allRecipes: state.recipe.recipes
   }
