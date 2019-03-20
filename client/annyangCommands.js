@@ -6,7 +6,13 @@ import annyang from 'annyang'
 //   CommandMap[name] = func
 // }
 
+export const pause = () => {
+  speak(document.getElementById('pause').innerText)
+  document.getElementById('pause').click()
+}
+
 export const speak = words => {
+  console.log('in speak')
   speechSynthesis.speak(new SpeechSynthesisUtterance(words))
 }
 
@@ -43,6 +49,7 @@ export const backToRecipeOverview = () => {
 }
 
 export const start = () => {
+  console.log('in start')
   annyang.resume()
   speak(document.getElementById('step-instructions').innerText)
   document.getElementById('start').click()
