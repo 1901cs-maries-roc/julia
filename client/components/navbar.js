@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import annyang from 'annyang'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
@@ -21,7 +22,14 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
-          <Link to="/recipes">All Recipes</Link>
+          <Link
+            to="/recipes"
+            onClick={() => {
+              annyang.abort()
+            }}
+          >
+            All Recipes
+          </Link>
         </div>
       )}
     </nav>
