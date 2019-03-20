@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getRecipeThunk} from '../store'
 import IngredientsList from './ingredientsList'
-import {speak} from '../annyangCommands'
+import {speak, nullCommand, help, command} from '../annyangCommands'
 
 class RecipeOverview extends Component {
   constructor(props) {
@@ -30,12 +30,6 @@ class RecipeOverview extends Component {
           'hey julia *command': command
         }
         annyang.addCommands(commands)
-        annyang.addCallback('start', () => {
-          this.setState({isListening: true})
-        })
-        annyang.addCallback('end', () => {
-          this.setState({isListening: false})
-        })
         annyang.start()
       }
     }
