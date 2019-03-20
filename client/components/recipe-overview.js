@@ -14,6 +14,16 @@ class RecipeOverview extends Component {
     const recipeId = this.props.match.params.recipeId
 
     this.props.getRecipeThunkDispatch(recipeId)
+
+    if (annyang) {
+      let commands = {
+        'hey julia': nullCommand,
+        'hey julia help': help,
+        'hey julia *command': commandCheck
+      }
+      annyang.addCommands(commands)
+      annyang.start()
+    }
   }
 
   handleClick(event) {
@@ -39,6 +49,9 @@ class RecipeOverview extends Component {
 
     return (
       <div>
+        <button type="button" id="refresh" onClick={() => {}}>
+          Refresh
+        </button>
         <img src={imgUrl} />
         <h1>Recipe Title: {name}</h1>
         <p>Prep Time: {prepTime} minutes</p>
