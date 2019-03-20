@@ -32,9 +32,9 @@ class RecipeStep extends Component {
         'hey julia help': help,
         'hey julia *command': command
       }
-      addCommand('NEXT_STEP', () => {
-        this.nextStep()
-      })
+      // addCommand('NEXT_STEP', () => {
+      //   this.nextStep()
+      // })
       annyang.addCommands(commands)
       annyang.addCallback('start', () => {
         this.setState({isListening: true})
@@ -44,17 +44,17 @@ class RecipeStep extends Component {
       })
       annyang.start()
     }
-    speechSynthesis.cancel()
-    speechSynthesis.resume()
+    // speechSynthesis.cancel()
+    // speechSynthesis.resume()
   }
 
   handlePause = () => {
     speechSynthesis.pause()
   }
 
-  nextStep = () => {
-    this.props.goToNextStep(this.props.currentStepIndex)
-  }
+  // nextStep = () => {
+  //   this.props.goToNextStep(this.props.currentStepIndex)
+  // }
 
   render() {
     const stepIndex = this.props.currentStepIndex
@@ -78,7 +78,7 @@ class RecipeStep extends Component {
         <div>
           <button type="submit">Help</button>
         </div>
-        <div>
+        <div id="ingredients">
           <p>Ingredients for this step:</p>
           <IngredientsList
             ingredients={this.props.currentRecipe.ingredients}
@@ -109,7 +109,11 @@ class RecipeStep extends Component {
           <button id="pause" type="button" onClick={() => this.handlePause()}>
             Pause
           </button>
-          <button id="next" type="button" onClick={() => this.nextStep()}>
+          <button
+            id="next"
+            type="button"
+            onClick={() => this.props.goToNextStep(stepIndex)}
+          >
             Next
           </button>
           <button
@@ -118,6 +122,7 @@ class RecipeStep extends Component {
             onClick={() => {
               this.props.history.push(`/recipes/${this.props.currentRecipe.id}`)
               this.props.restartRecipe()
+              annyang.abort()
             }}
           >
             Back to Recipe Overview
