@@ -49,8 +49,10 @@ class RecipeStep extends Component {
     // speechSynthesis.resume()
   }
 
-  handlePause = () => {
-    speechSynthesis.pause()
+  handleStop = () => {
+    console.log('in stop/cancel')
+    speechSynthesis.cancel()
+    // annyang.abort()
   }
 
   render() {
@@ -103,8 +105,8 @@ class RecipeStep extends Component {
             Start
           </button>
           {/* change to resume once annyang is in componentDidMount */}
-          <button id="pause" type="button" onClick={() => this.handlePause()}>
-            Pause
+          <button id="pause" type="button" onClick={() => this.handleStop()}>
+            Stop
           </button>
           <button
             id="next"

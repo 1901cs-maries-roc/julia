@@ -1,8 +1,8 @@
 import annyang from 'annyang'
 
-export const pause = () => {
-  speak(document.getElementById('pause').innerText)
-  document.getElementById('pause').click()
+export const stop = () => {
+  speechSynthesis.cancel()
+  // document.getElementById('pause').click()
 }
 
 export const speak = words => {
@@ -28,7 +28,6 @@ export const goBack = () => {
 }
 
 export const goToNext = () => {
-  // CommandMap.NEXT_STEP()
   if (document.getElementById('next').disabled) {
     return speak("You've reached the end of the recipe")
   }
@@ -51,8 +50,7 @@ export const start = () => {
 
 export const startCooking = () => {
   console.log('in start cooking')
-  speak('To begin cooking, say Hey Julia, start')
-  annyang.start()
+  speak('To begin cooking, press start, then say Hey Julia, instructions')
 }
 
 export const nullCommand = () => {
@@ -74,6 +72,8 @@ export const command = {
   ingredients: listIngredients,
   ingredient: listIngredients,
   'what are the ingredients': listIngredients,
+  'read ingredients': listIngredients,
+  'read the ingredients': listIngredients,
   //back
   back: goBack,
   'go back': goBack,
@@ -81,16 +81,22 @@ export const command = {
   'back a step': goBack,
   previous: goBack,
   'previous step': goBack,
+  //back to recipe overview
+  'back to recipe': backToRecipeOverview,
+  'back to recipe overview': backToRecipeOverview,
+  'back to overview': backToRecipeOverview,
   //next
   next: goToNext,
   'next step': goToNext,
-  //pause
-  pause: pause,
   //off
-  stop: pause,
+  stop: stop,
+  off: stop,
   //start
   start: start,
   instructions: start,
+  'read steps': start,
+  'read the steps': start,
+  steps: start,
   'read instructions': start,
   'what are the instructions': start,
   'please start': start,

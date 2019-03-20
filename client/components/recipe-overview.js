@@ -85,9 +85,6 @@ class RecipeOverview extends Component {
         <button type="button" onClick={this.handleClick}>
           Start Cooking
         </button>
-        <button type="button" value="julia" onClick={this.handleClick}>
-          Start Cooking with Julia
-        </button>
       </div>
     )
   }
