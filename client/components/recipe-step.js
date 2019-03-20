@@ -4,8 +4,15 @@ import annyang from 'annyang'
 import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
 import {nullCommand, help, command, addCommand} from '../annyangCommands'
 import IngredientsList from './ingredientsList'
+import Portal from './portal'
 
 class RecipeStep extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isListening: false
+    }
+  }
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
@@ -25,17 +32,29 @@ class RecipeStep extends Component {
         'hey julia help': help,
         'hey julia *command': command
       }
-      addCommand('NEXT_STEP', () => {
-        this.nextStep()
-      })
+      // addCommand('NEXT_STEP', () => {
+      //   this.nextStep()
+      // })
       annyang.addCommands(commands)
+      annyang.addCallback('start', () => {
+        this.setState({isListening: true})
+      })
+      annyang.addCallback('end', () => {
+        this.setState({isListening: false})
+      })
       annyang.start()
     }
+    // speechSynthesis.cancel()
+    // speechSynthesis.resume()
   }
 
-  nextStep = () => {
-    this.props.goToNextStep(this.props.currentStepIndex)
+  handlePause = () => {
+    speechSynthesis.pause()
   }
+
+  // nextStep = () => {
+  //   this.props.goToNextStep(this.props.currentStepIndex)
+  // }
 
   render() {
     const stepIndex = this.props.currentStepIndex
@@ -46,6 +65,16 @@ class RecipeStep extends Component {
         <h1 id="title">
           Step {stepIndex + 1}/{steps ? steps.length : 0}
         </h1>
+        {this.state.isListening && (
+          <Portal>
+            <div>
+              <i className="fas fa-microphone">
+                {' '}
+                I am listening to you my friend :)
+              </i>
+            </div>
+          </Portal>
+        )}
         <div>
           <button type="submit">Help</button>
         </div>
@@ -77,10 +106,14 @@ class RecipeStep extends Component {
             Start
           </button>
           {/* change to resume once annyang is in componentDidMount */}
-          <button id="pause" type="button">
+          <button id="pause" type="button" onClick={() => this.handlePause()}>
             Pause
           </button>
-          <button id="next" type="button" onClick={() => this.nextStep()}>
+          <button
+            id="next"
+            type="button"
+            onClick={() => this.props.goToNextStep(stepIndex)}
+          >
             Next
           </button>
           <button
@@ -89,6 +122,7 @@ class RecipeStep extends Component {
             onClick={() => {
               this.props.history.push(`/recipes/${this.props.currentRecipe.id}`)
               this.props.restartRecipe()
+              annyang.abort()
             }}
           >
             Back to Recipe Overview
