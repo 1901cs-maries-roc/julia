@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getRecipeThunk} from '../store'
 import IngredientsList from './ingredientsList'
+import {speak} from '../annyangCommands'
 
 class RecipeOverview extends Component {
   constructor(props) {
@@ -17,8 +18,27 @@ class RecipeOverview extends Component {
 
   handleClick(event) {
     event.preventDefault()
+    speak('Start Cooking')
     const recipeId = this.props.match.params.recipeId
     this.props.history.push(`/recipes/${recipeId}/cooking`)
+
+    if (event.target.value === 'julia') {
+      if (annyang) {
+        var commands = {
+          'hey julia': nullCommand,
+          'hey julia help': help,
+          'hey julia *command': command
+        }
+        annyang.addCommands(commands)
+        annyang.addCallback('start', () => {
+          this.setState({isListening: true})
+        })
+        annyang.addCallback('end', () => {
+          this.setState({isListening: false})
+        })
+        annyang.start()
+      }
+    }
   }
 
   render() {
@@ -79,6 +99,9 @@ class RecipeOverview extends Component {
         </div>
         <button type="button" onClick={this.handleClick}>
           Start Cooking
+        </button>
+        <button type="button" value="julia" onClick={this.handleClick}>
+          Start Cooking with Julia
         </button>
       </div>
     )
