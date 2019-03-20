@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import annyang from 'annyang'
 import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
-import {nullCommand, help, commandCheck, addCommand} from '../annyangCommands'
+import {nullCommand, help, commandCheck} from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import Portal from './portal'
 
@@ -32,10 +32,11 @@ class RecipeStep extends Component {
         'hey julia help': help,
         'hey julia *command': commandCheck
       }
-      // addCommand('NEXT_STEP', () => {
-      //   this.nextStep()
-      // })
       annyang.addCommands(commands)
+      annyang.addCallback('resultMatch', function(userSaid, commandText) {
+        console.log(userSaid) // sample output: 'hello'
+        console.log(commandText) // sample output: 'hello (there)'
+      })
       annyang.addCallback('start', () => {
         this.setState({isListening: true})
       })
@@ -51,10 +52,6 @@ class RecipeStep extends Component {
   handlePause = () => {
     speechSynthesis.pause()
   }
-
-  // nextStep = () => {
-  //   this.props.goToNextStep(this.props.currentStepIndex)
-  // }
 
   render() {
     const stepIndex = this.props.currentStepIndex
