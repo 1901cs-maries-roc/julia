@@ -29,6 +29,8 @@ export const speak = async text => {
   console.log('in speak', text)
 
   const message = new SpeechSynthesisUtterance(text)
+  // message.rate = 2; //not sure if this works for speed of voice
+  // message.pitch = 1.5; // not sure if this works for pitch of voice
   message.voice = await chooseVoice()
   speechSynthesis.speak(message)
 }
