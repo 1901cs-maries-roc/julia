@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import annyang from 'annyang'
 import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
-import {nullCommand, help, command, addCommand} from '../annyangCommands'
+import {nullCommand, help, commandCheck, addCommand} from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import Portal from './portal'
 
@@ -30,7 +30,7 @@ class RecipeStep extends Component {
       var commands = {
         'hey julia': nullCommand,
         'hey julia help': help,
-        'hey julia *command': command
+        'hey julia *command': commandCheck
       }
       // addCommand('NEXT_STEP', () => {
       //   this.nextStep()

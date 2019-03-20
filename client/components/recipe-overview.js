@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {getRecipeThunk} from '../store'
 import IngredientsList from './ingredientsList'
 import annyang from 'annyang'
-import {speak, nullCommand, help, command} from '../annyangCommands'
+import {speak, nullCommand, help, commandCheck} from '../annyangCommands'
 
 class RecipeOverview extends Component {
   constructor(props) {
@@ -17,10 +17,10 @@ class RecipeOverview extends Component {
     this.props.getRecipeThunkDispatch(recipeId)
 
     if (annyang) {
-      var commands = {
+      let commands = {
         'hey julia': nullCommand,
         'hey julia help': help,
-        'hey julia *command': command
+        'hey julia *command': commandCheck
       }
       annyang.addCommands(commands)
       annyang.start()
