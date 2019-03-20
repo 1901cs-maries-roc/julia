@@ -7,61 +7,71 @@ module.exports = router
 router.use('/users', require('./users'))
 router.use('/recipes', require('./recipes'))
 
+const findIngredients = $ => {
+  const ingredients = []
+  const ingredientsLabel = $(':contains("Ingredients")').filter((i, elem) => {
+    return $(elem).text() === 'Ingredients' || $(elem).text() === 'Ingredients:'
+  })
+  ingredientsLabel
+    .parent()
+    .find('ul')
+    .children('li')
+    .each((i, elem) => {
+      const ingredient = $(elem).text()
+      if (!isNaN(ingredient[0])) ingredients[i] = ingredient.trim()
+    })
+  return ingredients
+}
+
+const findInstructions = $ => {
+  const instructions = []
+  const instructionLists = $('ol').filter((i, elem) => {
+    return $(elem).attr('class') !== 'comment-list'
+  })
+  instructionLists.find('li').each((i, elem) => {
+    instructions[i] = $(elem).text()
+  })
+  return instructions
+}
+
+const findImg = $ => {
+  let imgUrl
+  $('img').each((i, elem) => {
+    const imgHeight = Number($(elem).attr('height'))
+    const imgWidth = Number($(elem).attr('width'))
+    if (imgHeight < imgWidth * 2 && imgHeight > 300) {
+      imgUrl = $(elem).attr('data-src') || $(elem).attr('src')
+      return false
+    }
+  })
+  return imgUrl
+}
+
+const findPrepTimes = $ => {
+  return $('.wprm-recipe-times-container').text()
+}
+
 router.post('/scrape', (req, res, next) => {
   request(req.body.url, (error, response, html) => {
     if (!error) {
       const $ = cheerio.load(html)
       const name = $('title')
-        .eq(0)
+        .first()
         .text()
-      const ingredients = []
-      const instructions = []
-      const ingredientsLabel = $(':contains("Ingredients")').filter(
-        (i, elem) => {
-          return (
-            $(elem).text() === 'Ingredients' ||
-            $(elem).text() === 'Ingredients:'
-          )
-        }
-      )
-      const instructionLists = $('ol').filter((i, elem) => {
-        return $(elem).attr('class') !== 'comment-list'
-      })
-
-      instructionLists.find('li').each((i, elem) => {
-        instructions[i] = $(elem).text()
-      })
-
-      ingredientsLabel
-        .parent()
-        .find('li')
-        .each((i, elem) => {
-          ingredients[i] = $(elem).text()
-        })
-
-      let imgUrl
-      let maxDimensions = 0
-      $('img').each((i, elem) => {
-        const imgDimensions =
-          Number($(elem).attr('height')) * Number($(elem).attr('width'))
-        // console.log("maxD: ", maxDimensions)
-        // console.log("currentD: ", imgDimensions)
-        if (imgDimensions > maxDimensions) {
-          imgUrl = $(elem).attr('data-src') || $(elem).attr('src')
-          // console.log('img taller than last: ', $(elem).attr('data-src'))
-          maxDimensions =
-            Number($(elem).attr('height')) * Number($(elem).attr('width'))
-        }
-      })
+      const instructions = findInstructions($)
+      const ingredients = findIngredients($)
+      const imgUrl = findImg($)
+      const prepTimes = findPrepTimes($)
 
       console.log('Title: ', name)
       console.log('imgUrl: ', imgUrl)
+      console.log('prep times: ', prepTimes)
       console.log('Ingredients: ', ingredients)
       console.log('Instructions: ', instructions)
 
       res.sendStatus(200)
     } else {
-      console.log(error)
+      next(error)
     }
   })
 })
