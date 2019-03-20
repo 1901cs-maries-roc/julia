@@ -58,56 +58,43 @@ export const help = () => {
   )
 }
 
-// eslint-disable-next-line complexity
-export const command = request => {
-  switch (request) {
-    case 'repeat':
-    case 'can you repeat':
-    case 'repeats':
-      repeatStep()
-      break
+export const command = {
+  //repeat
+  repeat: repeatStep,
+  'can you repeat': repeatStep,
+  repeats: repeatStep,
+  // ingredients
+  ingredients: listIngredients,
+  ingredient: listIngredients,
+  'what are the ingredients': listIngredients,
+  //back
+  back: goBack,
+  'go back': goBack,
+  'go back a step': goBack,
+  'back a step': goBack,
+  previous: goBack,
+  'previous step': goBack,
+  //next
+  next: goToNext,
+  'next step': goToNext,
+  //pause
+  pause: pause,
+  //off
+  stop: pause,
+  //start
+  start: start,
+  instructions: start,
+  'read instructions': start,
+  'what are the instructions': start,
+  'please start': start,
+  resume: start
+}
 
-    case 'ingredients':
-    case 'ingredient':
-    case 'what are the ingredients':
-      listIngredients()
-      break
-
-    case 'back':
-    case 'go back':
-    case 'go back a step':
-    case 'back a step':
-    case 'previous':
-    case 'previous step':
-      goBack()
-      break
-
-    case 'next':
-    case 'next step':
-      goToNext()
-      break
-
-    case 'pause':
-      pause()
-      break
-
-    case 'stop':
-      pause()
-      break
-
-    case 'start':
-    case 'instructions':
-    case 'read instructions':
-    case 'what are the instructions':
-    case 'please start':
-      start()
-      break
-
-    case 'resume':
-      start()
-      break
-
-    default: {
+export const commandCheck = action => {
+  for (let key in command) {
+    if (key === action) {
+      return command[action]()
+    } else {
       const repeatRequest = "Sorry, I didn't get that. Please try again."
       annyang.pause()
       speak(repeatRequest)
