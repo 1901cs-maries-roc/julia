@@ -10,7 +10,7 @@ export class AllRecipes extends Component {
     this.props.getAllRecipesThunkDispatch()
     await axios.post('/api/scrape', {
       url:
-        'https://www.skinnytaste.com/chunky-beef-cabbage-and-tomato-soup-instant-pot/'
+        'https://www.yourhomebasedmom.com/cranberry-orange-cookies/#_a5y_p=2756021'
     })
   }
 

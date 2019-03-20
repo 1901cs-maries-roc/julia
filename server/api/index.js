@@ -12,14 +12,34 @@ router.post('/scrape', (req, res, next) => {
     if (!error) {
       const $ = cheerio.load(html)
       const instructions = []
+      const ingredients = []
+      const name = $('title')
+        .eq(0)
+        .text()
       const instructionLists = $('ol').filter((i, elem) => {
         return $(elem).attr('class') !== 'comment-list'
       })
+      const ingredientsLabel = $(':contains("Ingredients")').filter(
+        (i, elem) => {
+          return (
+            $(elem).text() === 'Ingredients' ||
+            $(elem).text() === 'Ingredients:'
+          )
+        }
+      )
 
       instructionLists.find('li').each((i, elem) => {
         instructions[i] = $(elem).text()
       })
-      // $('img').
+
+      ingredientsLabel
+        .parent()
+        .find('li')
+        .each((i, elem) => {
+          ingredients[i] = $(elem).text()
+        })
+      console.log('Title: ', name)
+      console.log('Ingredients: ', ingredients)
       console.log('Instructions: ', instructions)
 
       res.sendStatus(200)
