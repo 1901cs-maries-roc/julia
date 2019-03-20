@@ -4,8 +4,15 @@ import annyang from 'annyang'
 import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
 import {nullCommand, help, command, addCommand} from '../annyangCommands'
 import IngredientsList from './ingredientsList'
+import Portal from './portal'
 
 class RecipeStep extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isListening: false
+    }
+  }
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
@@ -29,6 +36,12 @@ class RecipeStep extends Component {
         this.nextStep()
       })
       annyang.addCommands(commands)
+      annyang.addCallback('start', () => {
+        this.setState({isListening: true})
+      })
+      annyang.addCallback('end', () => {
+        this.setState({isListening: false})
+      })
       annyang.start()
     }
     speechSynthesis.cancel()
@@ -52,6 +65,16 @@ class RecipeStep extends Component {
         <h1 id="title">
           Step {stepIndex + 1}/{steps ? steps.length : 0}
         </h1>
+        {this.state.isListening && (
+          <Portal>
+            <div>
+              <i className="fas fa-microphone">
+                {' '}
+                I am listening to you my friend :)
+              </i>
+            </div>
+          </Portal>
+        )}
         <div>
           <button type="submit">Help</button>
         </div>
