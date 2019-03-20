@@ -13,7 +13,8 @@ export const pause = () => {
 
 export const speak = words => {
   console.log('in speak')
-  speechSynthesis.speak(new SpeechSynthesisUtterance(words))
+  const speech = speechSynthesis.speak(new SpeechSynthesisUtterance(words))
+  speech.pitch = 1.5
 }
 
 export const repeatStep = () => {
