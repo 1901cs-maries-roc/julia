@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getRecipeThunk} from '../store'
 import IngredientsList from './ingredientsList'
-import {speak} from '../annyangCommands'
+import {speak, start} from '../annyangCommands'
 
 class RecipeOverview extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class RecipeOverview extends Component {
     speak('Start Cooking')
     const recipeId = this.props.match.params.recipeId
     this.props.history.push(`/recipes/${recipeId}/cooking`)
-    annyang.start()
+    start()
   }
 
   render() {
