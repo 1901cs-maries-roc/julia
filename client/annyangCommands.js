@@ -6,7 +6,13 @@ import annyang from 'annyang'
 //   CommandMap[name] = func
 // }
 
+export const pause = () => {
+  speak(document.getElementById('pause').innerText)
+  document.getElementById('pause').click()
+}
+
 export const speak = words => {
+  console.log('in speak')
   speechSynthesis.speak(new SpeechSynthesisUtterance(words))
 }
 
