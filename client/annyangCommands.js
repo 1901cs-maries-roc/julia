@@ -1,6 +1,18 @@
 import annyang from 'annyang'
 
+// const CommandMap = {}
+
+// export const addCommand = (name, func) => {
+//   CommandMap[name] = func
+// }
+
+export const pause = () => {
+  speak(document.getElementById('pause').innerText)
+  document.getElementById('pause').click()
+}
+
 export const speak = words => {
+  console.log('in speak')
   speechSynthesis.speak(new SpeechSynthesisUtterance(words))
 }
 
@@ -13,21 +25,33 @@ export const listIngredients = () => {
 }
 
 export const goBack = () => {
-  speak('Previous step')
+  if (document.getElementById('back').disabled) {
+    speak('You are on the first step of the recipe')
+  } else {
+    speak('Previous step')
+    document.getElementById('back').click()
+  }
 }
 
 export const goToNext = () => {
-  speak('Next step')
+  // CommandMap.NEXT_STEP()
+  if (document.getElementById('next').disabled) {
+    return speak("You've reached the end of the recipe")
+  }
+  speak('Next Step')
+  document.getElementById('next').click()
 }
 
-export const pause = () => {
-  annyang.pause()
-  speak('How can I help you?')
+export const backToRecipeOverview = () => {
+  speak('Julia is now off')
+  annyang.abort()
+  document.getElementById('recipeOverview').click()
 }
 
 export const start = () => {
   annyang.resume()
-  speak(document.getElementById('start').innerText)
+  speak(document.getElementById('step-instructions').innerText)
+  document.getElementById('start').click()
 }
 
 export const nullCommand = () => {
@@ -78,6 +102,10 @@ export const command = request => {
       break
 
     case 'start':
+    case 'instructions':
+    case 'read instructions':
+    case 'what are the instructions':
+    case 'please start':
       start()
       break
 
