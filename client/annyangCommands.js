@@ -19,12 +19,6 @@ export const goBack = () => {
 export const goToNext = () => {
   speak('Next step')
 }
-
-export const pause = () => {
-  annyang.pause()
-  speak('How can I help you?')
-}
-
 export const start = () => {
   annyang.resume()
   speak(document.getElementById('start').innerText)
