@@ -49,6 +49,7 @@ export const backToRecipeOverview = () => {
 }
 
 export const start = () => {
+  console.log('in start')
   annyang.resume()
   speak(document.getElementById('step-instructions').innerText)
   document.getElementById('start').click()
