@@ -44,6 +44,12 @@ class RecipeStep extends Component {
       })
       annyang.start()
     }
+    speechSynthesis.cancel()
+    speechSynthesis.resume()
+  }
+
+  handlePause = () => {
+    speechSynthesis.pause()
   }
 
   nextStep = () => {
@@ -100,7 +106,7 @@ class RecipeStep extends Component {
             Start
           </button>
           {/* change to resume once annyang is in componentDidMount */}
-          <button id="pause" type="button">
+          <button id="pause" type="button" onClick={() => this.handlePause()}>
             Pause
           </button>
           <button id="next" type="button" onClick={() => this.nextStep()}>
