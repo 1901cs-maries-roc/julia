@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import annyang from 'annyang'
 import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
-import {nullCommand, help, command} from '../annyangCommands'
+import {nullCommand, help, command, addCommand} from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 
 class RecipeStep extends Component {
@@ -25,6 +25,9 @@ class RecipeStep extends Component {
         'hey julia help': help,
         'hey julia *command': command
       }
+      addCommand('NEXT_STEP', () => {
+        this.nextStep()
+      })
       annyang.addCommands(commands)
       annyang.start()
     }
@@ -34,6 +37,10 @@ class RecipeStep extends Component {
 
   handlePause = () => {
     speechSynthesis.pause()
+  }
+
+  nextStep = () => {
+    this.props.goToNextStep(this.props.currentStepIndex)
   }
 
   render() {
@@ -79,13 +86,7 @@ class RecipeStep extends Component {
           <button id="pause" type="button" onClick={() => this.handlePause()}>
             Pause
           </button>
-          <button
-            id="next"
-            type="button"
-            onClick={() => {
-              this.props.goToNextStep(stepIndex)
-            }}
-          >
+          <button id="next" type="button" onClick={() => this.nextStep()}>
             Next
           </button>
           <button

@@ -1,5 +1,11 @@
 import annyang from 'annyang'
 
+const CommandMap = {}
+
+export const addCommand = (name, func) => {
+  CommandMap[name] = func
+}
+
 export const speak = words => {
   speechSynthesis.speak(new SpeechSynthesisUtterance(words))
 }
@@ -18,6 +24,7 @@ export const goBack = () => {
 
 export const goToNext = () => {
   speak('Next step')
+  CommandMap.NEXT_STEP()
 }
 export const start = () => {
   annyang.resume()
