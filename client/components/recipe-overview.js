@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getRecipeThunk} from '../store'
 import IngredientsList from './ingredientsList'
-import {speak, start} from '../annyangCommands'
+import {startCooking} from '../annyangCommands'
 
 class RecipeOverview extends Component {
   constructor(props) {
@@ -14,24 +14,13 @@ class RecipeOverview extends Component {
     const recipeId = this.props.match.params.recipeId
 
     this.props.getRecipeThunkDispatch(recipeId)
-
-    if (annyang) {
-      let commands = {
-        'hey julia': nullCommand,
-        'hey julia help': help,
-        'hey julia *command': commandCheck
-      }
-      annyang.addCommands(commands)
-      annyang.start()
-    }
   }
 
   handleClick(event) {
     event.preventDefault()
-    speak('Start Cooking')
     const recipeId = this.props.match.params.recipeId
     this.props.history.push(`/recipes/${recipeId}/cooking`)
-    start()
+    startCooking()
   }
 
   render() {

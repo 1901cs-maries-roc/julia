@@ -1,18 +1,12 @@
 import annyang from 'annyang'
 
-// const CommandMap = {}
-
-// export const addCommand = (name, func) => {
-//   CommandMap[name] = func
-// }
-
 export const pause = () => {
   speak(document.getElementById('pause').innerText)
   document.getElementById('pause').click()
 }
 
 export const speak = words => {
-  console.log('in speak')
+  console.log('in speak', words)
   speechSynthesis.speak(new SpeechSynthesisUtterance(words))
 }
 
@@ -53,6 +47,12 @@ export const start = () => {
   annyang.resume()
   speak(document.getElementById('step-instructions').innerText)
   document.getElementById('start').click()
+}
+
+export const startCooking = () => {
+  console.log('in start cooking')
+  speak('To begin cooking, say Hey Julia, start')
+  annyang.start()
 }
 
 export const nullCommand = () => {
@@ -98,16 +98,14 @@ export const command = {
 }
 
 export const commandCheck = action => {
-  for (let key in command) {
-    if (key === action) {
-      return command[action]()
-    } else {
-      const repeatRequest = "Sorry, I didn't get that. Please try again."
-      annyang.pause()
-      speak(repeatRequest)
-      window.setTimeout(() => {
-        annyang.resume()
-      }, 4000)
-    }
+  if (command[action]) {
+    return command[action]()
+  } else {
+    const repeatRequest = "Sorry, I didn't get that. Please try again."
+    annyang.pause()
+    speak(repeatRequest)
+    window.setTimeout(() => {
+      annyang.resume()
+    }, 4000)
   }
 }
