@@ -38,6 +38,10 @@ class RecipeStep extends Component {
         console.log('There was an error!')
       })
 
+      annyang.addCallback('resultNoMatch', function() {
+        console.log('Error from result no match')
+      })
+
       annyang.addCallback('start', () => {
         this.setState({isListening: true})
       })
