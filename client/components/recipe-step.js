@@ -18,13 +18,6 @@ class RecipeStep extends Component {
     this.props.getRecipe(recipeId)
   }
 
-  componentDidUpdate() {
-    const stepIndex = this.props.currentStepIndex
-    const steps = this.props.currentRecipe.steps
-    document.getElementById('next').disabled = stepIndex === steps.length - 1
-    document.getElementById('back').disabled = stepIndex === 0
-  }
-
   annyang = () => {
     if (annyang) {
       var commands = {
@@ -95,6 +88,7 @@ class RecipeStep extends Component {
           <button
             id="back"
             type="button"
+            disabled={this.props.currentStepIndex === 0}
             onClick={() => {
               this.props.goToPrevStep(stepIndex)
             }}
@@ -110,6 +104,10 @@ class RecipeStep extends Component {
           </button>
           <button
             id="next"
+            disabled={
+              this.props.currentStepIndex >=
+              this.props.currentRecipe.steps.length - 1
+            }
             type="button"
             onClick={() => this.props.goToNextStep(stepIndex)}
           >
