@@ -1,13 +1,38 @@
 import annyang from 'annyang'
 
-export const stop = () => {
-  speechSynthesis.cancel()
-  // document.getElementById('pause').click()
+const lang = 'en-US'
+const voiceIndex = 4
+
+const getVoices = () => {
+  return new Promise(resolve => {
+    let voices = speechSynthesis.getVoices()
+    if (voices.length) {
+      resolve(voices)
+      return
+    }
+    speechSynthesis.onvoiceschanged = () => {
+      voices = speechSynthesis.getVoices()
+      resolve(voices)
+    }
+  })
 }
 
-export const speak = words => {
-  console.log('in speak', words)
-  speechSynthesis.speak(new SpeechSynthesisUtterance(words))
+const chooseVoice = async () => {
+  const voices = (await getVoices()).filter(voice => voice.lang == lang)
+
+  return new Promise(resolve => {
+    resolve(voices[voiceIndex])
+  })
+}
+
+export const speak = async text => {
+  console.log('in speak', text)
+
+  const message = new SpeechSynthesisUtterance(text)
+  // message.rate = 2; //not sure if this works for speed of voice
+  // message.pitch = 1.5; // not sure if this works for pitch of voice
+  message.voice = await chooseVoice()
+  speechSynthesis.speak(message)
 }
 
 export const repeatStep = () => {
@@ -46,6 +71,11 @@ export const start = () => {
   annyang.resume()
   speak(document.getElementById('step-instructions').innerText)
   document.getElementById('start').click()
+}
+
+export const stop = () => {
+  speechSynthesis.cancel()
+  // document.getElementById('pause').click()
 }
 
 export const startCooking = () => {
