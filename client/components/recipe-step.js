@@ -17,6 +17,9 @@ class RecipeStep extends Component {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
   }
+  componentWillUnmount() {
+    this.props.restartRecipe()
+  }
 
   annyang = () => {
     if (annyang) {
@@ -118,7 +121,6 @@ class RecipeStep extends Component {
             type="button"
             onClick={() => {
               this.props.history.push(`/recipes/${this.props.currentRecipe.id}`)
-              this.props.restartRecipe()
               annyang.abort()
             }}
           >
