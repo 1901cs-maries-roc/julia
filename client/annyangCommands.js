@@ -1,13 +1,13 @@
 import annyang from 'annyang'
 
 export const stop = () => {
-  speechSynthesis.cancel()
+  responsiveVoice.cancel()
   // document.getElementById('pause').click()
 }
 
 export const speak = words => {
   console.log('in speak', words)
-  speechSynthesis.speak(new SpeechSynthesisUtterance(words))
+  responsiveVoice.speak(words)
 }
 
 export const repeatStep = () => {
