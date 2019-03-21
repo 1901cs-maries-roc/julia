@@ -47,27 +47,42 @@ const findImg = $ => {
   return imgUrl
 }
 
-const findPrepTimes = $ => {
-  return $('.wprm-recipe-times-container').text()
+const findPrepTime = ($, prepTimeRoot) => {
+  return prepTimeRoot.text().trim()
+}
+
+const findCookTime = ($, prepTimeRoot) => {
+  return prepTimeRoot.nextAll().text()
 }
 
 router.post('/scrape', (req, res, next) => {
   request(req.body.url, (error, response, html) => {
     if (!error) {
       const $ = cheerio.load(html)
+      const prepTimeRoot = $(':contains("Prep")').filter((i, elem) => {
+        const r = /^Prep/
+        return r.test(
+          $(elem)
+            .text()
+            .trim()
+        )
+      })
+
       const name = $('title')
         .first()
         .text()
       const instructions = findInstructions($)
       const ingredients = findIngredients($)
       const imgUrl = findImg($)
-      const prepTimes = findPrepTimes($)
+      const prepTime = findPrepTime($, prepTimeRoot)
+      const cookTime = findCookTime($, prepTimeRoot)
 
       console.log('Title: ', name)
       console.log('imgUrl: ', imgUrl)
-      console.log('prep times: ', prepTimes)
-      console.log('Ingredients: ', ingredients)
-      console.log('Instructions: ', instructions)
+      console.log('prep time: ', prepTime)
+      // console.log('findCookTime: ', cookTime)
+      // console.log('Ingredients: ', ingredients)
+      // console.log('Instructions: ', instructions)
 
       res.sendStatus(200)
     } else {

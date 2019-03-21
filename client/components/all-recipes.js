@@ -9,8 +9,7 @@ export class AllRecipes extends Component {
   async componentDidMount() {
     this.props.getAllRecipesThunkDispatch()
     await axios.post('/api/scrape', {
-      url:
-        'https://www.skinnytaste.com/chunky-beef-cabbage-and-tomato-soup-instant-pot/'
+      url: 'https://sallysbakingaddiction.com/best-banana-cake/'
     })
   }
 
