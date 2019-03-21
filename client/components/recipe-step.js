@@ -1,8 +1,23 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import annyang from 'annyang'
-import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
-import {nullCommand, help, commandCheck} from '../annyangCommands'
+import {
+  getRecipeThunk,
+  nextStep,
+  prevStep,
+  restartSteps,
+  backToRecipeOverview
+} from '../store'
+import {
+  nullCommand,
+  help,
+  repeatStep,
+  goBack,
+  goToNext,
+  speak,
+  listIngredients,
+  start
+} from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import Portal from './portal'
 
@@ -16,6 +31,21 @@ class RecipeStep extends Component {
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
+    speechSynthesis.cancel()
+  }
+
+  unrecognisedWord = () => {
+    annyang.pause()
+
+    speak("Sorry, I didn't get that. Please try again.")
+    window.setTimeout(() => {
+      annyang.resume()
+    }, 4000)
+    speechSynthesis.cancel()
+  }
+
+  componentWillUnmount = () => {
+    annyang.abort()
   }
   componentWillUnmount() {
     this.props.restartRecipe()
@@ -24,15 +54,54 @@ class RecipeStep extends Component {
   annyang = () => {
     if (annyang) {
       var commands = {
-        'hey julia': nullCommand,
-        'hey julia help': help,
-        'hey julia *command': commandCheck
+        '(*word) hey julia': nullCommand,
+        '(*word) hey julia help': help,
+        '(*word) hey julia repeat': repeatStep,
+        '(*word) hey julia repeats': repeatStep,
+        '(*word) hey julia can you repeat': repeatStep,
+        '(*word) hey julia back': goBack,
+        '(*word) hey julia go back': goBack,
+        '(*word) hey julia go back a step': goBack,
+        '(*word) hey julia previous': goBack,
+        '(*word) hey julia previous step': goBack,
+        '(*word) Hey julia next': goToNext,
+        '(*word) Hey julia next step': goToNext,
+        '(*word) Hey julia ingredients': listIngredients,
+        '(*word) Hey julia ingredient': listIngredients,
+        '(*word) Hey julia what are the ingredients': listIngredients,
+        '(*word) Hey julia read ingredients': listIngredients,
+        '(*word) Hey julia read the ingredients': listIngredients,
+        '(*word) Hey julia instructions': start,
+        '(*word) Hey julia start': start,
+        '(*word) Hey julia read instructions': start,
+        '(*word) Hey julia what are the instructions': start,
+        '(*word) Hey julia please start': start,
+        '(*word) Hey julia resume': start,
+        '(*word) Hey julia read steps': start,
+        '(*word) Hey julia read the steps': start,
+        '(*word) Hey julia steps': start,
+        '(*word) Hey julia stop': stop,
+        '(*word) Hey julia off': stop,
+        '(*word) Hey julia back to recipe': backToRecipeOverview,
+        '(*word) Hey julia back to recipe overview': backToRecipeOverview,
+        '(*word) Hey julia back to overview': backToRecipeOverview,
+        '(*word) Hey julia *word': this.unrecognisedWord
       }
       annyang.addCommands(commands)
       annyang.addCallback('resultMatch', function(userSaid, commandText) {
-        console.log(userSaid) // sample output: 'hello'
-        console.log(commandText) // sample output: 'hello (there)'
+        console.log('user said: ', userSaid)
+        console.log('command: ', commandText)
       })
+
+      annyang.addCallback('error', function() {
+        console.log('There was an error!')
+      })
+
+      annyang.addCallback('resultNoMatch', function() {
+        console.log('Error from result no match')
+        speechSynthesis.cancel()
+      })
+
       annyang.addCallback('start', () => {
         this.setState({isListening: true})
       })
@@ -41,14 +110,10 @@ class RecipeStep extends Component {
       })
       annyang.start()
     }
-    // speechSynthesis.cancel()
-    // speechSynthesis.resume()
   }
 
   handleStop = () => {
-    console.log('in stop/cancel')
     speechSynthesis.cancel()
-    // annyang.abort()
   }
 
   render() {

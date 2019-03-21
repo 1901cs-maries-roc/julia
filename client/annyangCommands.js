@@ -26,16 +26,16 @@ const chooseVoice = async () => {
 }
 
 export const speak = async text => {
-  console.log('in speak', text)
-
   const message = new SpeechSynthesisUtterance(text)
   // message.rate = 2; //not sure if this works for speed of voice
   // message.pitch = 1.5; // not sure if this works for pitch of voice
   message.voice = await chooseVoice()
   speechSynthesis.speak(message)
+  console.log('in speak', message)
 }
 
 export const repeatStep = () => {
+  console.log('inside repeatStep')
   speak(document.getElementById('step-instructions').innerText)
 }
 
@@ -95,46 +95,47 @@ export const help = () => {
 
 export const command = {
   //repeat
-  repeat: repeatStep,
-  'can you repeat': repeatStep,
-  repeats: repeatStep,
-  // ingredients
-  ingredients: listIngredients,
-  ingredient: listIngredients,
-  'what are the ingredients': listIngredients,
-  'read ingredients': listIngredients,
-  'read the ingredients': listIngredients,
+  // repeat: repeatStep,
+  // 'can you repeat': repeatStep,
+  // repeats: repeatStep,
+  // // ingredients
+  // ingredients: listIngredients,
+  // ingredient: listIngredients,
+  // 'what are the ingredients': listIngredients,
+  // 'read ingredients': listIngredients,
+  // 'read the ingredients': listIngredients,
   //back
-  back: goBack,
-  'go back': goBack,
-  'go back a step': goBack,
-  'back a step': goBack,
-  previous: goBack,
-  'previous step': goBack,
+  // back: goBack,
+  // 'go back': goBack,
+  // 'go back a step': goBack,
+  // 'back a step': goBack,
+  // previous: goBack,
+  // 'previous step': goBack,
   //back to recipe overview
-  'back to recipe': backToRecipeOverview,
-  'back to recipe overview': backToRecipeOverview,
-  'back to overview': backToRecipeOverview,
+  // 'back to recipe': backToRecipeOverview,
+  // 'back to recipe overview': backToRecipeOverview,
+  // 'back to overview': backToRecipeOverview,
   //next
-  next: goToNext,
-  'next step': goToNext,
+  // next: goToNext,
+  // 'next step': goToNext,
   //off
-  stop: stop,
-  off: stop,
+  // stop: stop,
+  // off: stop,
   //start
-  start: start,
-  instructions: start,
-  'read steps': start,
-  'read the steps': start,
-  steps: start,
-  'read instructions': start,
-  'what are the instructions': start,
-  'please start': start,
-  resume: start
+  // start: start,
+  // instructions: start,
+  // 'read steps': start,
+  // 'read the steps': start,
+  // steps: start,
+  // 'read instructions': start,
+  // 'what are the instructions': start,
+  // 'please start': start,
+  // resume: start
 }
 
 export const commandCheck = action => {
   if (command[action]) {
+    console.log('inside CommandCheck')
     return command[action]()
   } else {
     const repeatRequest = "Sorry, I didn't get that. Please try again."
