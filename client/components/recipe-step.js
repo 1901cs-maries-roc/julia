@@ -48,7 +48,6 @@ class RecipeStep extends Component {
         '(*word) hey julia': nullCommand,
         '(*word) hey julia help': help,
         '(*word) hey julia repeat': repeatStep,
-        // 'hey julia *command': commandCheck,
         '(*word) hey julia back': goBack,
         '(*word) Hey julia next': goToNext,
         '(*word) Hey julia ingredients': listIngredients,
