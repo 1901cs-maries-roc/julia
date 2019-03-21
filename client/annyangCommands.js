@@ -15,7 +15,12 @@ export const repeatStep = () => {
 }
 
 export const listIngredients = () => {
-  speak(document.getElementById('ingredients').innerText)
+  const ingredientText = document.getElementById('ingredients').innerText
+  speechIngredients += ingredientText.replace('tbs', 'tablespoons')
+
+  speechIngredients = speechIngredients.replace('\n', '<break time="200ms"/>')
+  speechIngredients += '</speak>'
+  speak(speechIngredients)
 }
 
 export const goBack = () => {
