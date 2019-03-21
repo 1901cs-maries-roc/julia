@@ -1,7 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import annyang from 'annyang'
-import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
+import {
+  getRecipeThunk,
+  nextStep,
+  prevStep,
+  restartSteps,
+  backToRecipeOverview
+} from '../store'
 import {
   nullCommand,
   help,
@@ -48,11 +54,34 @@ class RecipeStep extends Component {
         '(*word) hey julia': nullCommand,
         '(*word) hey julia help': help,
         '(*word) hey julia repeat': repeatStep,
+        '(*word) hey julia repeats': repeatStep,
+        '(*word) hey julia can you repeat': repeatStep,
         '(*word) hey julia back': goBack,
+        '(*word) hey julia go back': goBack,
+        '(*word) hey julia go back a step': goBack,
+        '(*word) hey julia previous': goBack,
+        '(*word) hey julia previous step': goBack,
         '(*word) Hey julia next': goToNext,
+        '(*word) Hey julia next step': goToNext,
         '(*word) Hey julia ingredients': listIngredients,
         '(*word) Hey julia ingredient': listIngredients,
+        '(*word) Hey julia what are the ingredients': listIngredients,
+        '(*word) Hey julia read ingredients': listIngredients,
+        '(*word) Hey julia read the ingredients': listIngredients,
         '(*word) Hey julia instructions': start,
+        '(*word) Hey julia start': start,
+        '(*word) Hey julia read instructions': start,
+        '(*word) Hey julia what are the instructions': start,
+        '(*word) Hey julia please start': start,
+        '(*word) Hey julia resume': start,
+        '(*word) Hey julia read steps': start,
+        '(*word) Hey julia read the steps': start,
+        '(*word) Hey julia steps': start,
+        '(*word) Hey julia stop': stop,
+        '(*word) Hey julia off': stop,
+        '(*word) Hey julia back to recipe': backToRecipeOverview,
+        '(*word) Hey julia back to recipe overview': backToRecipeOverview,
+        '(*word) Hey julia back to overview': backToRecipeOverview,
         '(*word) Hey julia *word': this.unrecognisedWord
       }
       annyang.addCommands(commands)

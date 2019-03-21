@@ -95,42 +95,42 @@ export const help = () => {
 
 export const command = {
   //repeat
-  repeat: repeatStep,
-  'can you repeat': repeatStep,
-  repeats: repeatStep,
-  // ingredients
-  ingredients: listIngredients,
-  ingredient: listIngredients,
-  'what are the ingredients': listIngredients,
-  'read ingredients': listIngredients,
-  'read the ingredients': listIngredients,
+  // repeat: repeatStep,
+  // 'can you repeat': repeatStep,
+  // repeats: repeatStep,
+  // // ingredients
+  // ingredients: listIngredients,
+  // ingredient: listIngredients,
+  // 'what are the ingredients': listIngredients,
+  // 'read ingredients': listIngredients,
+  // 'read the ingredients': listIngredients,
   //back
-  back: goBack,
-  'go back': goBack,
-  'go back a step': goBack,
-  'back a step': goBack,
-  previous: goBack,
-  'previous step': goBack,
+  // back: goBack,
+  // 'go back': goBack,
+  // 'go back a step': goBack,
+  // 'back a step': goBack,
+  // previous: goBack,
+  // 'previous step': goBack,
   //back to recipe overview
-  'back to recipe': backToRecipeOverview,
-  'back to recipe overview': backToRecipeOverview,
-  'back to overview': backToRecipeOverview,
+  // 'back to recipe': backToRecipeOverview,
+  // 'back to recipe overview': backToRecipeOverview,
+  // 'back to overview': backToRecipeOverview,
   //next
-  next: goToNext,
-  'next step': goToNext,
+  // next: goToNext,
+  // 'next step': goToNext,
   //off
-  stop: stop,
-  off: stop,
+  // stop: stop,
+  // off: stop,
   //start
-  start: start,
-  instructions: start,
-  'read steps': start,
-  'read the steps': start,
-  steps: start,
-  'read instructions': start,
-  'what are the instructions': start,
-  'please start': start,
-  resume: start
+  // start: start,
+  // instructions: start,
+  // 'read steps': start,
+  // 'read the steps': start,
+  // steps: start,
+  // 'read instructions': start,
+  // 'what are the instructions': start,
+  // 'please start': start,
+  // resume: start
 }
 
 export const commandCheck = action => {
