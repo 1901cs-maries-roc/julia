@@ -9,7 +9,8 @@ export class AllRecipes extends Component {
   async componentDidMount() {
     this.props.getAllRecipesThunkDispatch()
     await axios.post('/api/scrape', {
-      url: 'https://sallysbakingaddiction.com/best-banana-cake/'
+      url:
+        'https://www.southernliving.com/recipes/classic-baked-macaroni-and-cheese-recipe'
     })
   }
 
