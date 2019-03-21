@@ -2,7 +2,16 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import annyang from 'annyang'
 import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
-import {nullCommand, help, commandCheck, repeatStep} from '../annyangCommands'
+import {
+  nullCommand,
+  help,
+  repeatStep,
+  goBack,
+  goToNext,
+  speak,
+  listIngredients,
+  start
+} from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import Portal from './portal'
 
@@ -14,19 +23,38 @@ class RecipeStep extends Component {
     }
   }
   componentDidMount() {
-    console.log('componennt did mount')
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
     speechSynthesis.cancel()
   }
 
+  unrecognisedWord = () => {
+    annyang.pause()
+
+    speak("Sorry, I didn't get that. Please try again.")
+    window.setTimeout(() => {
+      annyang.resume()
+    }, 4000)
+    speechSynthesis.cancel()
+  }
+
+  componentWillUnmount = () => {
+    annyang.abort()
+  }
+
   annyang = () => {
     if (annyang) {
       var commands = {
-        'hey julia': nullCommand,
-        'hey julia help': help,
-        'hey julia repeat': repeatStep,
-        'hey julia *command': commandCheck
+        '(*word) hey julia': nullCommand,
+        '(*word) hey julia help': help,
+        '(*word) hey julia repeat': repeatStep,
+        // 'hey julia *command': commandCheck,
+        '(*word) hey julia back': goBack,
+        '(*word) Hey julia next': goToNext,
+        '(*word) Hey julia ingredients': listIngredients,
+        '(*word) Hey julia ingredient': listIngredients,
+        '(*word) Hey julia instructions': start,
+        '(*word) Hey julia *word': this.unrecognisedWord
       }
       annyang.addCommands(commands)
       annyang.addCallback('resultMatch', function(userSaid, commandText) {
@@ -40,6 +68,7 @@ class RecipeStep extends Component {
 
       annyang.addCallback('resultNoMatch', function() {
         console.log('Error from result no match')
+        speechSynthesis.cancel()
       })
 
       annyang.addCallback('start', () => {
@@ -50,14 +79,10 @@ class RecipeStep extends Component {
       })
       annyang.start()
     }
-
-    // speechSynthesis.resume()
   }
 
   handleStop = () => {
-    console.log('in stop/cancel')
     speechSynthesis.cancel()
-    // annyang.abort()
   }
 
   render() {
