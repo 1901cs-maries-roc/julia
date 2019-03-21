@@ -2,7 +2,6 @@ import annyang from 'annyang'
 
 export const stop = () => {
   responsiveVoice.cancel()
-  // document.getElementById('pause').click()
 }
 
 export const speak = words => {

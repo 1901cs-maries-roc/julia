@@ -34,8 +34,8 @@ class RecipeStep extends Component {
       }
       annyang.addCommands(commands)
       annyang.addCallback('resultMatch', function(userSaid, commandText) {
-        console.log(userSaid) // sample output: 'hello'
-        console.log(commandText) // sample output: 'hello (there)'
+        console.log(userSaid)
+        console.log(commandText)
       })
       annyang.addCallback('start', () => {
         this.setState({isListening: true})
@@ -45,14 +45,11 @@ class RecipeStep extends Component {
       })
       annyang.start()
     }
-    // speechSynthesis.cancel()
-    // speechSynthesis.resume()
   }
 
   handleStop = () => {
     console.log('in stop/cancel')
-    speechSynthesis.cancel()
-    // annyang.abort()
+    responsiveVoice.cancel()
   }
 
   render() {
