@@ -1,33 +1,30 @@
 import React, {Component} from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Col from 'react-bootstrap/Col'
 
 class RecipeForm extends Component {
   render() {
     return (
       <Form>
         <Form.Row>
-          <Form.Group controlId="formPrepTime">
+          <Form.Group as={Col} md="2" controlId="formPrepTime">
             <Form.Label>Prep Time</Form.Label>
             <Form.Control type="prepTime" />
           </Form.Group>
-          {/* </Form.Row>
 
-        <Form.Row> */}
-          <Form.Group controlId="formCookTime">
+          <Form.Group as={Col} md="2" controlId="formCookTime">
             <Form.Label>Cook Time</Form.Label>
             <Form.Control type="cookTime" />
           </Form.Group>
-          {/* </Form.Row>
+        </Form.Row>
 
-        <Form.Row> */}
+        <Form.Row>
           <Form.Group controlId="formWaitTime">
             <Form.Label>Wait Time</Form.Label>
             <Form.Control type="waitTime" />
           </Form.Group>
-          {/* </Form.Row>
 
-        <Form.Row> */}
           <Form.Group controlId="servings">
             <Form.Label>Number of servings</Form.Label>
             <Form.Control type="servings" />
@@ -35,12 +32,9 @@ class RecipeForm extends Component {
         </Form.Row>
 
         <Form.Row>
-          <Form.Group controlId="formTitle">
+          <Form.Group md="6" controlId="formTitle">
             <Form.Label>Recipe Title</Form.Label>
             <Form.Control type="title" placeholder="Enter title" />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
           </Form.Group>
         </Form.Row>
 
