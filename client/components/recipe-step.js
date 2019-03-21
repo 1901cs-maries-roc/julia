@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import annyang from 'annyang'
 import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
-import {nullCommand, help, commandCheck} from '../annyangCommands'
+import {nullCommand, help, commandCheck, repeatStep} from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import Portal from './portal'
 
@@ -14,8 +14,10 @@ class RecipeStep extends Component {
     }
   }
   componentDidMount() {
+    console.log('componennt did mount')
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
+    speechSynthesis.cancel()
   }
 
   annyang = () => {
@@ -23,13 +25,19 @@ class RecipeStep extends Component {
       var commands = {
         'hey julia': nullCommand,
         'hey julia help': help,
+        'hey julia repeat': repeatStep,
         'hey julia *command': commandCheck
       }
       annyang.addCommands(commands)
       annyang.addCallback('resultMatch', function(userSaid, commandText) {
-        console.log(userSaid) // sample output: 'hello'
-        console.log(commandText) // sample output: 'hello (there)'
+        console.log('user said: ', userSaid)
+        console.log('command: ', commandText)
       })
+
+      annyang.addCallback('error', function() {
+        console.log('There was an error!')
+      })
+
       annyang.addCallback('start', () => {
         this.setState({isListening: true})
       })
@@ -38,7 +46,7 @@ class RecipeStep extends Component {
       })
       annyang.start()
     }
-    // speechSynthesis.cancel()
+
     // speechSynthesis.resume()
   }
 

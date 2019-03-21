@@ -26,16 +26,16 @@ const chooseVoice = async () => {
 }
 
 export const speak = async text => {
-  console.log('in speak', text)
-
   const message = new SpeechSynthesisUtterance(text)
   // message.rate = 2; //not sure if this works for speed of voice
   // message.pitch = 1.5; // not sure if this works for pitch of voice
   message.voice = await chooseVoice()
   speechSynthesis.speak(message)
+  console.log('in speak', message)
 }
 
 export const repeatStep = () => {
+  console.log('inside repeatStep')
   speak(document.getElementById('step-instructions').innerText)
 }
 
@@ -135,6 +135,7 @@ export const command = {
 
 export const commandCheck = action => {
   if (command[action]) {
+    console.log('inside CommandCheck')
     return command[action]()
   } else {
     const repeatRequest = "Sorry, I didn't get that. Please try again."
