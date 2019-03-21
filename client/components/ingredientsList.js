@@ -10,7 +10,8 @@ export default function IngredientsList(props) {
     ? ingredients
     : ingredients.filter(i => instructionWords.includes(i.name.toLowerCase()))
 
-  return (
+  console.log('is ingredientsList? ', ingredientsList.length)
+  return ingredientsList.length ? (
     <ul id="ingredients">
       {ingredientsList.map(i => (
         <li key={i.id}>
@@ -18,5 +19,7 @@ export default function IngredientsList(props) {
         </li>
       ))}
     </ul>
+  ) : (
+    <p>There are no ingredients in this step</p>
   )
 }
