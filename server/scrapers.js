@@ -3,7 +3,8 @@ const findTitle = $ => {
   const el = $('title')
     .first()
     .text()
-  title = el.includes('-') ? el.split(' - ')[0] : el
+  const r = /(\w+\s?)+/
+  title = el.match(r)[0]
   return title
 }
 
