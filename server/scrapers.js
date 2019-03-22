@@ -1,16 +1,24 @@
 const findIngredients = $ => {
   const ingredients = []
-  const ingredientsLabel = $(':contains("Ingredients")').filter((i, elem) => {
-    return $(elem).text() === 'Ingredients' || $(elem).text() === 'Ingredients:'
-  })
+  const ingredientsLabel = $('*')
+    .filter((i, elem) => {
+      const r = /^ingredients/i
+      return r.test(
+        $(elem)
+          .text()
+          .trim()
+      )
+    })
+    .first()
+
   ingredientsLabel
-    .parent()
     .find('ul')
     .children('li')
     .each((i, elem) => {
       const ingredient = $(elem).text()
       if (!isNaN(ingredient[0])) ingredients[i] = ingredient.trim()
     })
+
   return ingredients
 }
 
@@ -108,9 +116,9 @@ const findTotalTime = $ => {
 }
 
 const findServings = $ => {
-  const rootEl = $('div')
+  const rootEl = $('*')
     .filter((i, elem) => {
-      const r = /^Yield|^Makes|^Servings|\d servings$/
+      const r = /^Yield|^Makes|^Servings/
       return r.test(
         $(elem)
           .text()
@@ -120,9 +128,10 @@ const findServings = $ => {
     .first()
     .text()
     .trim()
-  console.log('>>rootEl: ', rootEl)
-
-  const servings = rootEl.match(/\d/g).join('')
+  const num = /\d\d*/g
+  console.log('rootEl: ', rootEl)
+  console.log('TEST: ', rootEl.match(num))
+  const servings = rootEl.match(num) ? rootEl.match(num)[0] : null
   return servings
 }
 

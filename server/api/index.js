@@ -21,15 +21,6 @@ router.post('/scrape', (req, res, next) => {
     if (!error) {
       const $ = cheerio.load(html)
 
-      // console.log('Title: ', name)
-      // console.log('imgUrl: ', imgUrl)
-      // console.log('prep time: ', prepTime)
-      // console.log('cookTime: ', cookTime)
-      // console.log('totalTime: ', totalTime)
-      // console.log('Ingredients: ', ingredients)
-      // console.log('Instructions: ', instructions)
-      console.log('Servings: ', findServings($))
-
       const recipe = {
         name: $('title')
           .first()
@@ -38,9 +29,20 @@ router.post('/scrape', (req, res, next) => {
         prepTime: findPrepTime($),
         cookTime: findCookTime($),
         totalTime: findTotalTime($),
+        servings: findServings($),
         ingredients: findIngredients($),
         instructions: findInstructions($)
       }
+
+      console.log('Title: ', recipe.name)
+      // console.log('imgUrl: ', recipe.imgUrl)
+      // console.log('prep time: ', recipe.prepTime)
+      // console.log('cookTime: ', recipe.cookTime)
+      // console.log('totalTime: ', recipe.totalTime)
+      console.log('Ingredients: ', recipe.ingredients)
+      // console.log('Instructions: ', recipe.instructions)
+      // console.log('Servings: ', recipe.servings)
+
       res.send(recipe).status(200)
     } else {
       next(error)
