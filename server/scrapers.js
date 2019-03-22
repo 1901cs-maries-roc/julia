@@ -1,35 +1,42 @@
 const findIngredients = $ => {
   const ingredients = []
-  const ingredientsLabel = $('*')
-    .filter((i, elem) => {
-      const r = /^ingredients/i
-      return r.test(
+  $('li').each((i, elem) => {
+    const r = /ingredients/i
+    const s = /^\d.+[a-z]$/
+    const parentsDiv = $(elem)
+      .parents('div')
+      .attr('class')
+    const parentsSec = $(elem)
+      .parents('section')
+      .attr('class')
+    const el = $(elem)
+      .text()
+      .trim()
+    if ((r.test(parentsDiv) || r.test(parentsSec)) && s.test(el)) {
+      ingredients.push(
         $(elem)
           .text()
           .trim()
       )
-    })
-    .first()
-
-  ingredientsLabel
-    .find('ul')
-    .children('li')
-    .each((i, elem) => {
-      const ingredient = $(elem).text()
-      if (!isNaN(ingredient[0])) ingredients[i] = ingredient.trim()
-    })
-
+    }
+  })
   return ingredients
 }
 
 const findInstructions = $ => {
   const instructions = []
-  const instructionLists = $('ol').filter((i, elem) => {
-    return $(elem).attr('class') !== 'comment-list'
+  $('li').each((i, elem) => {
+    const r = /instructions|directions/i
+    const parents = $(elem)
+      .parents('div')
+      .attr('class')
+    const el = $(elem)
+      .text()
+      .trim()
+    if (r.test(parents) && el.length) instructions.push(el)
   })
-  instructionLists.find('li').each((i, elem) => {
-    instructions[i] = $(elem).text()
-  })
+  // currently pulling in prep/cook times
+  // need to check for OL parent
   return instructions
 }
 
@@ -51,25 +58,28 @@ const extractTime = rootEl => {
   const unit = /\sm|\sh/
   const timeIndex = rootEl.search(num)
   const unitIndex = rootEl.search(unit) + 1
-  // console.log(">>rootEL: ", rootEl)
-  // console.log(">>time/unit: ", rootEl[timeIndex], "/", rootEl[unitIndex])
   const time = rootEl.slice(timeIndex, unitIndex)
   return rootEl[unitIndex] === 'h' ? time * 60 : time
 }
 
 const findPrepTime = $ => {
-  const rootEl = $(':contains("Prep")')
-    .filter((i, elem) => {
-      const r = /^Prep/
-      return r.test(
+  let rootEl
+  $(':contains("Prep")').each((i, elem) => {
+    const r = /^(<[^>]*>)?Prep/
+    if (
+      r.test(
         $(elem)
           .text()
           .trim()
       )
-    })
-    .text()
-    .trim()
-  return extractTime(rootEl)
+    ) {
+      rootEl = $(elem)
+        .text()
+        .trim()
+      return false
+    }
+  })
+  return extractTime(rootEl.slice(rootEl.search(/Prep/)))
 }
 
 const findCookTime = $ => {
@@ -118,7 +128,7 @@ const findTotalTime = $ => {
 const findServings = $ => {
   const rootEl = $('*')
     .filter((i, elem) => {
-      const r = /^Yield|^Makes|^Servings/
+      const r = /^Yield|^Makes|^Servings|servings$/
       return r.test(
         $(elem)
           .text()
@@ -128,9 +138,7 @@ const findServings = $ => {
     .first()
     .text()
     .trim()
-  const num = /\d\d*/g
-  console.log('rootEl: ', rootEl)
-  console.log('TEST: ', rootEl.match(num))
+  const num = /\d+/g
   const servings = rootEl.match(num) ? rootEl.match(num)[0] : null
   return servings
 }

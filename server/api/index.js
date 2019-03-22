@@ -35,13 +35,13 @@ router.post('/scrape', (req, res, next) => {
       }
 
       console.log('Title: ', recipe.name)
-      // console.log('imgUrl: ', recipe.imgUrl)
-      // console.log('prep time: ', recipe.prepTime)
-      // console.log('cookTime: ', recipe.cookTime)
-      // console.log('totalTime: ', recipe.totalTime)
+      console.log('imgUrl: ', recipe.imgUrl)
+      console.log('prep time: ', recipe.prepTime)
+      console.log('cookTime: ', recipe.cookTime)
+      console.log('totalTime: ', recipe.totalTime)
+      console.log('Servings: ', recipe.servings)
       console.log('Ingredients: ', recipe.ingredients)
-      // console.log('Instructions: ', recipe.instructions)
-      // console.log('Servings: ', recipe.servings)
+      console.log('Instructions: ', recipe.instructions)
 
       res.send(recipe).status(200)
     } else {

@@ -9,7 +9,8 @@ export class AllRecipes extends Component {
   async componentDidMount() {
     this.props.getAllRecipesThunkDispatch()
     await axios.post('/api/scrape', {
-      url: 'https://sallysbakingaddiction.com/best-banana-cake/'
+      url:
+        'https://www.allrecipes.com/recipe/162760/fluffy-pancakes/?internalSource=previously%20viewed&referringContentType=Homepage&clickId=cardslot%203'
     })
   }
 
