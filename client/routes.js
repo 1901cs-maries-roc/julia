@@ -34,7 +34,7 @@ class Routes extends Component {
         <Route exact path="/recipes/:recipeId/cooking" component={RecipeStep} />
         {isLoggedIn && (
           <Switch>
-            <Route path="/recipes" component={UserHome} />
+            <Route path="/home" component={UserHome} />
           </Switch>
         )}
         <Route component={AllRecipes} />
