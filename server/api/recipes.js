@@ -53,3 +53,12 @@ router.get('/:recipeId/:stepNum', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newRecipe = await Recipe.create(req.body)
+    await Recipe.findById(newRecipe.id)
+  } catch (err) {
+    next(err)
+  }
+})

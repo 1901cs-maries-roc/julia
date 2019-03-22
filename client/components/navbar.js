@@ -16,7 +16,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="ml-auto">
-        <Nav.Link href="Recipes">Recipes</Nav.Link>
+        <Nav.Link href="/">Recipes</Nav.Link>
         {/* <NavDropdown title="Recipes" id="nav-dropdown">
           <NavDropdown.Item
             href="#action/4.1"

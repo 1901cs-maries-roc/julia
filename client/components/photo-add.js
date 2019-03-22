@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
-import Button from 'react-bootstrap/Button'
+// import Button from 'react-bootstrap/Button'
+import Figure from 'react-bootstrap/Figure'
 
 export default class PhotoAdd extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
       image: null,
@@ -13,13 +14,13 @@ export default class PhotoAdd extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    let form = document.forms.photoAdd
+    // let form = document.forms.photoAdd
     this.props.createPhoto({
-      name: form.name.value,
+      // name: form.name.value,
       image: this.state.image
     })
     // Clear the form and state for the next input.
-    form.name.value = ''
+    // form.name.value = ''
     this.setState = {
       image: null,
       imagePreviewUrl: null
@@ -40,6 +41,7 @@ export default class PhotoAdd extends Component {
     }
 
     reader.readAsDataURL(file)
+    console.log('file reader state', this.state)
   }
 
   render() {
@@ -55,7 +57,14 @@ export default class PhotoAdd extends Component {
         />
       )
     } else {
-      $imagePreview = <div className="previewText">Please select an image.</div>
+      $imagePreview = (
+        <Figure.Image
+          width={171}
+          height={180}
+          alt="171x180"
+          src="/imgPlaceholder.svg"
+        />
+      )
     }
     return (
       <div>
@@ -63,24 +72,19 @@ export default class PhotoAdd extends Component {
           <table>
             <tr>
               <td>
-                <label htmlFor="name">Name:</label>
-              </td>
-              <td>
-                <input type="text" name="name" id="name" placeholder="Name" />
+                <div className="img-preview">{$imagePreview}</div>
               </td>
             </tr>
             <tr>
               <td>
                 <input type="file" onChange={e => this.handleImageChange(e)} />
               </td>
-              <td>
-                <div className="img-preview">{$imagePreview}</div>
-              </td>
             </tr>
+            <br />
             <tr>
-              <Button variant="primary" type="submit">
-                Upload
-              </Button>
+              {/* <Button variant="primary" type="submit">
+                Upload Picture
+              </Button> */}
             </tr>
           </table>
         </form>
