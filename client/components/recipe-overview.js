@@ -48,7 +48,7 @@ class RecipeOverview extends Component {
             <img src={imgUrl} />
           </Col>
           <Col>
-            <h1>Recipe Title: {name}</h1>
+            <h1>{name}</h1>
             <p>Prep Time: {prepTime} minutes</p>
             <p>Cooking Time: {cookTime} minutes</p>
             <p>Wait Time: {waitTime} minutes</p>

@@ -18,9 +18,6 @@ export class AllRecipes extends Component {
       <Container className="container">
         <Row>
           <h1>All Recipes</h1>
-        </Row>
-
-        <Row>
           <CardGroup>
             {this.props.allRecipes.map(recipe => (
               <div key={recipe.id}>
