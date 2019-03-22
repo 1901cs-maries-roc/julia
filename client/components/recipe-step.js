@@ -150,7 +150,7 @@ class RecipeStep extends Component {
             />
           </div>
         </Row>
-        <Row>
+        <Row className="row-grid">
           <Col md={{span: 8, offset: 2}}>
             <div>
               <p>Instructions: </p>
