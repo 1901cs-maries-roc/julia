@@ -50,6 +50,8 @@ all-navigation-button {
   margin-top: 20em;
 }
 
-h1 {
+h1,
+h2,
+h3 {
   font-family: 'Baloo Chettan', cursive;
 }

@@ -56,7 +56,7 @@ class RecipeOverview extends Component {
             {/* add average time per user */}
             <p>Average Time for Users: No user data at this time</p>
             <div id="ingredient-list">
-              <p>Ingredients:</p>
+              <h3>Ingredients:</h3>
               {ingredients ? (
                 <IngredientsList ingredients={ingredients} isOverview={true} />
               ) : (
@@ -67,7 +67,7 @@ class RecipeOverview extends Component {
         </Row>
         <Row className="row-grid">
           <div id="recipe-steps">
-            <p>Instructions:</p>
+            <h3>Instructions:</h3>
             <ol>
               {steps ? (
                 steps.map(step => {
