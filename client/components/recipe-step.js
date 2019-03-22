@@ -113,7 +113,9 @@ class RecipeStep extends Component {
   }
 
   handleStop = () => {
-    speechSynthesis.cancel()
+    console.log('in stop/cancel')
+    responsiveVoice.cancel()
+//     speechSynthesis.cancel()
   }
 
   render() {
