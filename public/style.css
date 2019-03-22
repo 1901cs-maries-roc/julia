@@ -25,10 +25,15 @@ form div {
   float: right;
 }
 
-
 .container {
   margin-top: 3em;
   margin-bottom: 3em;
+}
 
 .navigation-button {
   margin-left: 0.5em;
+}
+
+.img-resize {
+  height: 186.33px;
+}
