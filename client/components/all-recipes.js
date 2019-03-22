@@ -3,6 +3,10 @@ import AllRecipesCard from './all-recipes-card'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getAllRecipesThunk} from '../store'
+import CardGroup from 'react-bootstrap/CardGroup'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 export class AllRecipes extends Component {
   componentDidMount() {
@@ -14,14 +18,16 @@ export class AllRecipes extends Component {
       <div>
         <h1>ALL MY RECIPES!</h1>
         <br />
-        {this.props.allRecipes.map(recipe => (
-          <div key={recipe.id}>
-            <Link to={`/recipes/${recipe.id}`}>
-              {' '}
-              <AllRecipesCard recipe={recipe} />
-            </Link>
-          </div>
-        ))}
+        <CardGroup>
+          {this.props.allRecipes.map(recipe => (
+            <div key={recipe.id}>
+              <Link to={`/recipes/${recipe.id}`}>
+                {' '}
+                <AllRecipesCard recipe={recipe} />
+              </Link>
+            </div>
+          ))}
+        </CardGroup>
       </div>
     )
   }
