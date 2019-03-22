@@ -25,10 +25,10 @@ form div {
   float: right;
 }
 
-.row-grid {
-  margin-top: 5em;
-}
+
+.container {
+  margin-top: 3em;
+  margin-bottom: 3em;
 
 .navigation-button {
   margin-left: 0.5em;
-}
