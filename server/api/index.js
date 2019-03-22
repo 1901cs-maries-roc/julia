@@ -33,15 +33,6 @@ router.post('/scrape', (req, res, next) => {
         instructions: findInstructions($)
       }
 
-      console.log('title: ', recipe.name)
-      console.log('imgUrl: ', recipe.imgUrl)
-      console.log('prep time: ', recipe.prepTime)
-      console.log('cookTime: ', recipe.cookTime)
-      console.log('totalTime: ', recipe.totalTime)
-      console.log('servings: ', recipe.servings)
-      console.log('Ingredients: ', recipe.ingredients)
-      console.log('Instructions: ', recipe.instructions)
-
       res.send(recipe).status(200)
     } else {
       next(error)
