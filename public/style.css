@@ -24,3 +24,7 @@ form div {
   background-color: Yellow;
   float: right;
 }
+
+.navbar {
+  margin-bottom: 3em;
+}
