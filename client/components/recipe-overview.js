@@ -42,7 +42,7 @@ class RecipeOverview extends Component {
     } = this.props.currentRecipe
 
     return (
-      <Container>
+      <Container className="container">
         <Row>
           <Col>
             <img src={imgUrl} />
@@ -78,24 +78,13 @@ class RecipeOverview extends Component {
               )}
             </ol>
           </div>
-          <div id="tags">
-            {/* add reference to tags */}
-            <p>Tags:</p>
-            <ul>
-              {tags === [] ? (
-                tags.map(tag => {
-                  return <li key={tag}>{tag}</li>
-                })
-              ) : (
-                <li>No tags are available</li>
-              )}
-            </ul>
-          </div>
         </Row>
         <Row className="row-grid">
-          <button type="button" onClick={this.handleClick}>
-            Start Cooking
-          </button>
+          <ButtonToolbar>
+            <Button variant="success" type="button" onClick={this.handleClick}>
+              Start Cooking
+            </Button>
+          </ButtonToolbar>
         </Row>
       </Container>
     )
