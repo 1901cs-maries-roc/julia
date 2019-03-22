@@ -1,18 +1,15 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Recipe, Ingredient} = require('../server/db/models')
-const {recipeIngredient} = require('../server/db/models/index')
+const {User, Recipe} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
-
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
-
+  const users = [
+    {email: 'cody@email.com', password: '123'},
+    {email: 'murphy@email.com', password: '123'}
+  ]
   const recipes = [
     {
       imgUrl:
@@ -100,8 +97,40 @@ async function seed() {
         '1/2 cup Parmesan cheese shredded',
         '1/4 tsp smoked paprika (or regular paprika)'
       ]
+    },
+    {
+      imgUrl:
+        'https://assets.epicurious.com/photos/5c7d6ee0d6c37575ccdd79c3/6:4/w_620%2Ch_413/SMALL-PLATES-Chickpea-Flatbread-recipe-27022019.jpg',
+      name: 'Chickpea Flatbreads with Burst Tomato Sauce',
+      serving: 4,
+      prepTime: 0,
+      cookTime: 15,
+      totalTime: 35,
+      ingredients: [
+        '1 cup chickpea flour',
+        '10 Tbsp. extra-virgin olive oil, divided, plus more for serving',
+        '1 1/2 tsp. kosher salt, divided',
+        '2 pints cherry tomatoes, halved if large',
+        '2 garlic cloves, finely chopped',
+        '1 (15-oz.) can chickpeas, drained, rinsed',
+        '1 Tbsp. dried oregano',
+        '1 tsp. sherry or red wine vinegar',
+        '1/4 tsp. smoked paprika (optional)',
+        '2 Tbsp. cold unsalted butter, cut into pieces',
+        '1 cup coarsely crumbled feta (about 5 oz.)',
+        'Baby greens, such as arugula, kale, or spinach, and lemon wedges (for serving)'
+      ],
+      steps: [
+        'Place a rack in top third of oven; preheat to 450°F. Whisk chickpea flour, 2 Tbsp. oil, 1 tsp. salt, and 1 cup water in a medium bowl or large measuring cup until combined. Let sit at least 10 minutes and up to 1 hour to let flour hydrate.',
+        'Heat 2 Tbsp. oil in a 12" cast-iron skillet over high until shimmering. Pour in exactly half (3/4 cup) of the chickpea batter and tilt to evenly coat skillet. Transfer to oven and bake flatbread until edges are golden brown, 8–10 minutes. Using a large spatula, transfer flatbread to a wire rack. Repeat with remaining batter.',
+        'Meanwhile, cook tomatoes, garlic, 1/4 cup oil, and remaining 1/2 tsp. salt in a large skillet over medium-high heat, stirring occasionally, until tomatoes begin to burst, 4–5 minutes. Stir in chickpeas, oregano, vinegar, and paprika (if using). Reduce heat to medium and continue to cook, stirring often, until tomatoes have burst more into a fully formed sauce, 3–4 minutes. Remove from heat and stir in butter.',
+        'Slice flatbreads in half. Serve with tomato-chickpea mixture, feta, greens, and lemon wedges alongside for squeezing and oil for drizzling.'
+      ]
     }
   ]
+
+  await Promise.all(users.map(user => User.create(user)))
+
   await Promise.all(recipes.map(recipe => Recipe.create(recipe)))
 
   console.log(`seeded successfully`)
