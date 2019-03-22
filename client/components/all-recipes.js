@@ -15,20 +15,33 @@ export class AllRecipes extends Component {
 
   render() {
     return (
-      <div>
-        <h1>ALL MY RECIPES!</h1>
-        <br />
-        <CardGroup>
-          {this.props.allRecipes.map(recipe => (
-            <div key={recipe.id}>
-              <Link to={`/recipes/${recipe.id}`}>
-                {' '}
-                <AllRecipesCard recipe={recipe} />
-              </Link>
-            </div>
-          ))}
-        </CardGroup>
-      </div>
+      <Container>
+        <Row>
+          <h1>All Recipes</h1>
+        </Row>
+
+        <Row>
+          <CardGroup>
+            {this.props.allRecipes.map(recipe => (
+              <div key={recipe.id}>
+                <Link to={`/recipes/${recipe.id}`}>
+                  {' '}
+                  <AllRecipesCard recipe={recipe} />
+                </Link>
+              </div>
+            ))}
+            {/* {for layout purposes only --> below} */}
+            {this.props.allRecipes.map(recipe => (
+              <div key={recipe.id}>
+                <Link to={`/recipes/${recipe.id}`}>
+                  {' '}
+                  <AllRecipesCard recipe={recipe} />
+                </Link>
+              </div>
+            ))}
+          </CardGroup>
+        </Row>
+      </Container>
     )
   }
 }

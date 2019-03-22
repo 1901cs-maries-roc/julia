@@ -16,7 +16,8 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="ml-auto">
-        <NavDropdown title="Recipes" id="nav-dropdown">
+        <Nav.Link href="Recipes">Recipes</Nav.Link>
+        {/* <NavDropdown title="Recipes" id="nav-dropdown">
           <NavDropdown.Item
             href="#action/4.1"
             onClick={() => {
@@ -50,7 +51,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
           >
             All Recipes
           </NavDropdown.Item>
-        </NavDropdown>
+        </NavDropdown> */}
       </Nav>
       {isLoggedIn ? (
         <Nav>
@@ -61,9 +62,9 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
             </NavDropdown.Item>
             <NavDropdown.Divider />
           </NavDropdown>
-          <Nav.Link href="Favorites">
+          {/* <Nav.Link href="Favorites">
             <i className="fab fa-gratipay" />
-          </Nav.Link>
+          </Nav.Link> */}
         </Nav>
       ) : (
         <Nav>

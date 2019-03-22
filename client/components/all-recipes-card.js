@@ -4,11 +4,10 @@ import Card from 'react-bootstrap/Card'
 const AllRecipesCard = props => {
   const {recipe} = props
   return (
-    <Card>
+    <Card style={{width: '18rem', height: '18rem'}}>
       <Card.Img variant="top" src={`${recipe.imgUrl}`} />
-      <Card.Body>
+      <Card.Body className="card-img-overlay">
         <Card.Title> {recipe.name} </Card.Title>
-        <Card.Text>Tags here?</Card.Text>
       </Card.Body>
     </Card>
   )
