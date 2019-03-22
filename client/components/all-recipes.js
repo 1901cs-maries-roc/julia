@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import AllRecipesCard from './all-recipes-card'
+import OneRecipeCard from './all-recipes-card'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getAllRecipesThunk} from '../store'
@@ -15,20 +15,47 @@ export class AllRecipes extends Component {
 
   render() {
     return (
-      <div>
-        <h1>ALL MY RECIPES!</h1>
-        <br />
-        <CardGroup>
-          {this.props.allRecipes.map(recipe => (
-            <div key={recipe.id}>
-              <Link to={`/recipes/${recipe.id}`}>
-                {' '}
-                <AllRecipesCard recipe={recipe} />
-              </Link>
-            </div>
-          ))}
-        </CardGroup>
-      </div>
+      <Container className="container">
+        <Row>
+          <h1>All Recipes</h1>
+        </Row>
+
+        <Row>
+          <CardGroup>
+            {this.props.allRecipes.map(recipe => (
+              <div key={recipe.id}>
+                <Col>
+                  <Link to={`/recipes/${recipe.id}`}>
+                    {' '}
+                    <OneRecipeCard recipe={recipe} />
+                  </Link>
+                </Col>
+              </div>
+            ))}
+            {/* test to be removed */}
+            {this.props.allRecipes.map(recipe => (
+              <div key={recipe.id}>
+                <Col>
+                  <Link to={`/recipes/${recipe.id}`}>
+                    {' '}
+                    <OneRecipeCard recipe={recipe} />
+                  </Link>
+                </Col>
+              </div>
+            ))}
+            {this.props.allRecipes.map(recipe => (
+              <div key={recipe.id}>
+                <Col>
+                  <Link to={`/recipes/${recipe.id}`}>
+                    {' '}
+                    <OneRecipeCard recipe={recipe} />
+                  </Link>
+                </Col>
+              </div>
+            ))}
+          </CardGroup>
+        </Row>
+      </Container>
     )
   }
 }

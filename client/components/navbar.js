@@ -11,12 +11,19 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 const NavigationBar = ({handleClick, isLoggedIn}) => (
   // error here: The prop `handleClick` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
   // error here: The prop `isLoggedIn` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
-  <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+  <Navbar
+    collapseOnSelect
+    expand="lg"
+    bg="dark"
+    variant="dark"
+    className="navbar"
+  >
     <Navbar.Brand href="/">JULIA</Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="ml-auto">
-        <NavDropdown title="Recipes" id="nav-dropdown">
+        <Nav.Link href="Recipes">Recipes</Nav.Link>
+        {/* <NavDropdown title="Recipes" id="nav-dropdown">
           <NavDropdown.Item
             href="#action/4.1"
             onClick={() => {
@@ -50,7 +57,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
           >
             All Recipes
           </NavDropdown.Item>
-        </NavDropdown>
+        </NavDropdown> */}
       </Nav>
       {isLoggedIn ? (
         <Nav>
@@ -61,9 +68,9 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
             </NavDropdown.Item>
             <NavDropdown.Divider />
           </NavDropdown>
-          <Nav.Link href="Favorites">
+          {/* <Nav.Link href="Favorites">
             <i className="fab fa-gratipay" />
-          </Nav.Link>
+          </Nav.Link> */}
         </Nav>
       ) : (
         <Nav>

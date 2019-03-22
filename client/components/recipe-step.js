@@ -122,7 +122,7 @@ class RecipeStep extends Component {
     const steps = this.props.currentRecipe.steps || []
 
     return (
-      <Container>
+      <Container className="container">
         <Row>
           <Col md={{span: 4, offset: 2}}>
             <h1 id="title">
