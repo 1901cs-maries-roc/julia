@@ -11,10 +11,40 @@ class RecipeForm extends Component {
   constructor() {
     super()
     this.state = {
-      manualEnter: false
+      // manualEnter: false,
+      name: '',
+      imgUrl: '',
+      prepTime: 0,
+      cookTime: 0,
+      waitTime: 0,
+      serving: 0,
+      steps: [],
+      ingredients: [],
+      tags: ''
     }
     this.createPhoto = this.createPhoto.bind(this)
     // this.manuallyEnter = this.manuallyEnter.bind(this)
+  }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    this.setState({
+      name: '',
+      imgUrl: '',
+      prepTime: 0,
+      cookTime: 0,
+      waitTime: 0,
+      serving: 0,
+      steps: [],
+      ingredients: [],
+      tags: ''
+    })
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.type]: event.target.value
+    })
   }
 
   // manuallyEnter = event => {

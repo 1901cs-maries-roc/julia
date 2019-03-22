@@ -56,8 +56,20 @@ router.get('/:recipeId/:stepNum', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const newRecipe = await Recipe.create(req.body)
-    await Recipe.findById(newRecipe.id)
+    const recipe = {
+      imgUrl: req.body.img,
+      name: req.body.title,
+      prepTime: req.body.prepTime,
+      cookTime: req.body.cookTime,
+      waitTime: req.body.waitTime,
+      serving: req.body.servings,
+      steps: req.body.instructions,
+      ingredients: req.body.ingredients,
+      tags: req.body.tags
+    }
+    const newRecipe = await Recipe.create(recipe)
+    res.json(newRecipe)
+    await Recipe.findById(recipe.id)
   } catch (err) {
     next(err)
   }
