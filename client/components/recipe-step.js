@@ -1,15 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import annyang from 'annyang'
-import {
-  getRecipeThunk,
-  nextStep,
-  prevStep,
-  restartSteps,
-  backToRecipeOverview
-} from '../store'
+import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
 import {
   nullCommand,
+  backToRecipeOverview,
   help,
   repeatStep,
   goBack,
@@ -46,8 +41,6 @@ class RecipeStep extends Component {
 
   componentWillUnmount = () => {
     annyang.abort()
-  }
-  componentWillUnmount() {
     this.props.restartRecipe()
   }
 
@@ -115,7 +108,7 @@ class RecipeStep extends Component {
   handleStop = () => {
     console.log('in stop/cancel')
     responsiveVoice.cancel()
-//     speechSynthesis.cancel()
+    //     speechSynthesis.cancel()
   }
 
   render() {
