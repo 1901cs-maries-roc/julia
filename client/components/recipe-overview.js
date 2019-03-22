@@ -38,9 +38,6 @@ class RecipeOverview extends Component {
 
     return (
       <div>
-        <button type="button" id="refresh" onClick={() => {}}>
-          Refresh
-        </button>
         <img src={imgUrl} />
         <h1>Recipe Title: {name}</h1>
         <p>Prep Time: {prepTime} minutes</p>
