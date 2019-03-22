@@ -24,3 +24,24 @@ form div {
   background-color: Yellow;
   float: right;
 }
+
+.container {
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.navigation-button {
+  margin-left: 0.5em;
+}
+
+.img-resize {
+  height: 186.33px;
+}
+
+.navbar {
+  background-color: #6f99a9;
+}
+
+.row-grid {
+  margin-top: 3em;
+}

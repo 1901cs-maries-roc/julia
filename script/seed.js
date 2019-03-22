@@ -31,7 +31,7 @@ async function seed() {
     Recipe.create({
       imgUrl:
         'https://www.landolakes.com/RecipeManagementSystem/media/Recipe-Media-Files/Recipes/Retail/x17/16018_Birthday-Party-Mug-Cake_600x600.jpg?ext=.jpg',
-      name: 'Microwave Chocolate Mug Cake',
+      name: 'Chocolate Mug Cake',
       serving: 1,
       prepTime: 5,
       cookTime: 2,
@@ -100,7 +100,7 @@ async function seed() {
       recipeId: superWaffle.id
     }),
     recipeIngredient.create({
-      quantity: 2,
+      quantity: '1/2',
       measure: 'tbs',
       sectionName: '',
       ingredientId: butter.id,
