@@ -1,7 +1,16 @@
+const findTitle = $ => {
+  let title = ''
+  const el = $('title')
+    .first()
+    .text()
+  title = el.includes('-') ? el.split(' - ')[0] : el
+  return title
+}
+
 const findIngredients = $ => {
   const ingredients = []
   $('li').each((i, elem) => {
-    const r = /ingredients/i
+    const r = /ingredient[s]?/i
     const s = /^\d.+[a-z]$/
     const parentsDiv = $(elem)
       .parents('div')
@@ -13,11 +22,7 @@ const findIngredients = $ => {
       .text()
       .trim()
     if ((r.test(parentsDiv) || r.test(parentsSec)) && s.test(el)) {
-      ingredients.push(
-        $(elem)
-          .text()
-          .trim()
-      )
+      ingredients.push(el)
     }
   })
   return ingredients
@@ -26,7 +31,7 @@ const findIngredients = $ => {
 const findInstructions = $ => {
   const instructions = []
   $('li').each((i, elem) => {
-    const r = /instructions|directions/i
+    const r = /instruction[s]?|direction[s]?/i
     const parents = $(elem)
       .parents('div')
       .attr('class')
@@ -35,8 +40,6 @@ const findInstructions = $ => {
       .trim()
     if (r.test(parents) && el.length) instructions.push(el)
   })
-  // currently pulling in prep/cook times
-  // need to check for OL parent
   return instructions
 }
 
@@ -54,28 +57,24 @@ const findImg = $ => {
 }
 
 const extractTime = rootEl => {
+  let time = null
   const num = /\d/
   const unit = /\sm|\sh/
   const timeIndex = rootEl.search(num)
   const unitIndex = rootEl.search(unit) + 1
-  const time = rootEl.slice(timeIndex, unitIndex)
+  time = rootEl.slice(timeIndex, unitIndex)
   return rootEl[unitIndex] === 'h' ? time * 60 : time
 }
 
 const findPrepTime = $ => {
   let rootEl
   $(':contains("Prep")').each((i, elem) => {
+    const el = $(elem)
+      .text()
+      .trim()
     const r = /^(<[^>]*>)?Prep/
-    if (
-      r.test(
-        $(elem)
-          .text()
-          .trim()
-      )
-    ) {
-      rootEl = $(elem)
-        .text()
-        .trim()
+    if (r.test(el)) {
+      rootEl = el
       return false
     }
   })
@@ -83,67 +82,51 @@ const findPrepTime = $ => {
 }
 
 const findCookTime = $ => {
-  const rootEl = $(':contains("Cook")')
-    .filter((i, elem) => {
-      const r = /^Cook\s|^Cook\d/
-      return r.test(
-        $(elem)
-          .text()
-          .trim()
-      )
-    })
-    .text()
-    .trim()
-  return extractTime(rootEl)
+  let totalTimeStr = ''
+  $('*').each((i, elem) => {
+    const r = /^(<[^>]*>)?(?<timeStr>Cook\s?\w*?:?\s?\d+\s?[a-z]+$)/i
+    const el = $(elem)
+      .text()
+      .trim()
+    if (r.test(el)) {
+      totalTimeStr = el.match(r).groups.timeStr
+    }
+  })
+  return extractTime(totalTimeStr)
 }
 
 const findTotalTime = $ => {
-  const rootElA = $(':contains("Total Time")')
-    .filter((i, elem) => {
-      const r = /^Total Time/
-      return r.test(
-        $(elem)
-          .text()
-          .trim()
-      )
-    })
-    .text()
-    .trim()
-
-  const rootElB = $(':contains("Ready In")')
-    .filter((i, elem) => {
-      const r = /^Ready In/
-      return r.test(
-        $(elem)
-          .text()
-          .trim()
-      )
-    })
-    .text()
-    .trim()
-  const rootEl = rootElA || rootElB
-  return extractTime(rootEl)
+  let totalTimeStr = ''
+  $('*').each((i, elem) => {
+    const r = /^(<[^>]*>)?(?<timeStr>(Total Time|Ready In):?\s?\d+\s?[a-z]+$)/i
+    const el = $(elem)
+      .text()
+      .trim()
+    if (r.test(el)) {
+      totalTimeStr = el.match(r).groups.timeStr
+    }
+  })
+  return extractTime(totalTimeStr)
 }
 
 const findServings = $ => {
-  const rootEl = $('*')
-    .filter((i, elem) => {
-      const r = /^Yield|^Makes|^Servings|servings$/
-      return r.test(
-        $(elem)
-          .text()
-          .trim()
-      )
-    })
-    .first()
-    .text()
-    .trim()
+  let servingsStr = ''
+  $('*').each((i, elem) => {
+    const r = /^(<[^>]*>)?(?<servStr>(\d+\s?servings)|((Yield[s]?|Makes|Servings|Serves):?\s?.*\d+))/i
+    const el = $(elem)
+      .text()
+      .trim()
+    if (r.test(el)) {
+      servingsStr = el.match(r).groups.servStr
+      return false
+    }
+  })
   const num = /\d+/g
-  const servings = rootEl.match(num) ? rootEl.match(num)[0] : null
-  return servings
+  return servingsStr.match(num) ? servingsStr.match(num)[0] : ''
 }
 
 module.exports = {
+  findTitle,
   findImg,
   findPrepTime,
   findCookTime,

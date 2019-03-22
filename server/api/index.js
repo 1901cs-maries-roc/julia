@@ -8,7 +8,8 @@ const {
   findTotalTime,
   findIngredients,
   findInstructions,
-  findServings
+  findServings,
+  findTitle
 } = require('../scrapers')
 
 module.exports = router
@@ -22,9 +23,7 @@ router.post('/scrape', (req, res, next) => {
       const $ = cheerio.load(html)
 
       const recipe = {
-        name: $('title')
-          .first()
-          .text(),
+        name: findTitle($),
         imgUrl: findImg($),
         prepTime: findPrepTime($),
         cookTime: findCookTime($),
@@ -34,12 +33,12 @@ router.post('/scrape', (req, res, next) => {
         instructions: findInstructions($)
       }
 
-      console.log('Title: ', recipe.name)
+      console.log('title: ', recipe.name)
       console.log('imgUrl: ', recipe.imgUrl)
       console.log('prep time: ', recipe.prepTime)
       console.log('cookTime: ', recipe.cookTime)
       console.log('totalTime: ', recipe.totalTime)
-      console.log('Servings: ', recipe.servings)
+      console.log('servings: ', recipe.servings)
       console.log('Ingredients: ', recipe.ingredients)
       console.log('Instructions: ', recipe.instructions)
 
