@@ -39,6 +39,7 @@
   "dependencies": {
     "annyang": "^2.6.1",
     "axios": "^0.15.3",
+    "cheerio": "^1.0.0-rc.2",
     "bootstrap": "^4.3.1",
     "compression": "^1.7.3",
     "connect-session-sequelize": "^4.1.0",
@@ -60,6 +61,7 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.3.0",
+    "request": "^2.88.0",
     "sequelize": "^4.38.0",
     "socket.io": "^2.1.1"
   },
