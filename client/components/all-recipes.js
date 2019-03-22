@@ -3,14 +3,10 @@ import AllRecipesCard from './all-recipes-card'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getAllRecipesThunk} from '../store'
-import axios from 'axios'
 
 export class AllRecipes extends Component {
-  async componentDidMount() {
+  componentDidMount() {
     this.props.getAllRecipesThunkDispatch()
-    await axios.post('/api/scrape', {
-      url: 'https://thestayathomechef.com/brownie-recipe/'
-    })
   }
 
   render() {
