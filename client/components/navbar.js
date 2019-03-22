@@ -12,7 +12,16 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
   // error here: The prop `handleClick` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
   // error here: The prop `isLoggedIn` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
   <Navbar collapseOnSelect expand="lg" variant="dark" className="navbar">
-    <Navbar.Brand href="/">JULIA</Navbar.Brand>
+    <Navbar.Brand href="/">
+      <img
+        alt=""
+        src="/favicon.ico"
+        width="30"
+        height="30"
+        className="d-inline-block align-top"
+      />
+      JULIA
+    </Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="ml-auto">
