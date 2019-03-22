@@ -26,5 +26,9 @@ form div {
 }
 
 .row-grid {
-  margin-top: 40px;
+  margin-top: 5em;
+}
+
+.navigation-button {
+  margin-left: 0.5em;
 }
