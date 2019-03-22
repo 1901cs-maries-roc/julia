@@ -140,7 +140,7 @@ class RecipeStep extends Component {
             </Portal>
           )}
           <div id="ingredients">
-            <p>Ingredients for this step:</p>
+            <h3>Ingredients for this step:</h3>
             <IngredientsList
               ingredients={this.props.currentRecipe.ingredients}
               instructions={steps[stepIndex]}
@@ -150,14 +150,14 @@ class RecipeStep extends Component {
         <Row className="row-grid">
           <Col md={{span: 8, offset: 2}}>
             <div>
-              <p>Instructions: </p>
-              <p id="step-instructions">{steps[stepIndex]}</p>
+              <h3>Instructions: </h3>
+              <h4 id="step-instructions">{steps[stepIndex]}</h4>
             </div>
-            <div id="timer">
-              <p>Timer</p>
-            </div>
-
-            <ButtonToolbar>
+          </Col>
+        </Row>
+        <Row className="row-grid">
+          <Col md={{span: 8, offset: 2}}>
+            <ButtonToolbar className="all-navigation-button">
               <Button
                 className="navigation-button"
                 variant="secondary"
