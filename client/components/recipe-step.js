@@ -141,17 +141,19 @@ class RecipeStep extends Component {
           )}
           <div id="ingredients">
             <h3>Ingredients for this step:</h3>
-            <IngredientsList
-              ingredients={this.props.currentRecipe.ingredients}
-              instructions={steps[stepIndex]}
-            />
+            <h5>
+              <IngredientsList
+                ingredients={this.props.currentRecipe.ingredients}
+                instructions={steps[stepIndex]}
+              />
+            </h5>
           </div>
         </Row>
         <Row className="row-grid">
           <Col md={{span: 8, offset: 2}}>
             <div>
-              <h3>Instructions: </h3>
-              <h4 id="step-instructions">{steps[stepIndex]}</h4>
+              <h3>Instructions:</h3>
+              <h5 id="step-instructions">{steps[stepIndex]}</h5>
             </div>
           </Col>
         </Row>
