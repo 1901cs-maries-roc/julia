@@ -15,6 +15,12 @@ import {
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import Portal from './portal'
+// import Col from 'react-bootstrap/bootstrap'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 class RecipeStep extends Component {
   constructor(props) {
@@ -116,78 +122,111 @@ class RecipeStep extends Component {
     const steps = this.props.currentRecipe.steps || []
 
     return (
-      <div>
-        <h1 id="title">
-          Step {stepIndex + 1}/{steps ? steps.length : 0}
-        </h1>
-        {this.state.isListening && (
-          <Portal>
+      <Container>
+        <Row>
+          <Col md={{span: 4, offset: 2}}>
+            <h1 id="title">
+              Step {stepIndex + 1}/{steps ? steps.length : 0}
+            </h1>
+          </Col>
+          {this.state.isListening && (
+            <Portal>
+              <div>
+                <i className="fas fa-microphone">
+                  {' '}
+                  I am listening to you my friend :)
+                </i>
+              </div>
+            </Portal>
+          )}
+          <div id="ingredients">
+            <p>Ingredients for this step:</p>
+            <IngredientsList
+              ingredients={this.props.currentRecipe.ingredients}
+              instructions={steps[stepIndex]}
+            />
+          </div>
+        </Row>
+        <Row className="row-grid">
+          <Col md={{span: 8, offset: 2}}>
             <div>
-              <i className="fas fa-microphone">
-                {' '}
-                I am listening to you my friend :)
-              </i>
+              <p>Instructions: </p>
+              <p id="step-instructions">{steps[stepIndex]}</p>
             </div>
-          </Portal>
-        )}
-        <div>
-          <button type="submit">Help</button>
-        </div>
-        <div id="ingredients">
-          <p>Ingredients for this step:</p>
-          <IngredientsList
-            ingredients={this.props.currentRecipe.ingredients}
-            instructions={steps[stepIndex]}
-          />
-        </div>
-        <div>
-          <p>Instructions: </p>
-          <p id="step-instructions">{steps[stepIndex]}</p>
-        </div>
-        <div id="timer">
-          <p>Timer</p>
-        </div>
-        <div>
-          <button
-            id="back"
-            type="button"
-            disabled={this.props.currentStepIndex === 0}
-            onClick={() => {
-              this.props.goToPrevStep(stepIndex)
-            }}
-          >
-            Back
-          </button>
-          <button id="start" type="button" onClick={this.annyang}>
-            Start
-          </button>
-          {/* change to resume once annyang is in componentDidMount */}
-          <button id="pause" type="button" onClick={() => this.handleStop()}>
-            Stop
-          </button>
-          <button
-            id="next"
-            disabled={
-              this.props.currentStepIndex >=
-              this.props.currentRecipe.steps.length - 1
-            }
-            type="button"
-            onClick={() => this.props.goToNextStep(stepIndex)}
-          >
-            Next
-          </button>
-          <button
-            id="recipeOverview"
-            type="button"
-            onClick={() => {
-              this.props.history.push(`/recipes/${this.props.currentRecipe.id}`)
-              annyang.abort()
-            }}
-          >
-            Back to Recipe Overview
-          </button>
-        </div>
-      </div>
+            <div id="timer">
+              <p>Timer</p>
+            </div>
+
+            <ButtonToolbar>
+              <Button
+                className="navigation-button"
+                variant="secondary"
+                id="back"
+                type="button"
+                disabled={this.props.currentStepIndex === 0}
+                onClick={() => {
+                  this.props.goToPrevStep(stepIndex)
+                }}
+              >
+                Back
+              </Button>
+              <Button
+                className="navigation-button"
+                variant="success"
+                id="start"
+                type="button"
+                onClick={this.annyang}
+              >
+                Start
+              </Button>
+              {/* change to resume once annyang is in componentDidMount */}
+              <Button
+                className="navigation-button"
+                variant="danger"
+                id="pause"
+                type="button"
+                onClick={() => this.handleStop()}
+              >
+                Stop
+              </Button>
+              <Button
+                className="navigation-button"
+                variant="secondary"
+                id="next"
+                disabled={
+                  this.props.currentStepIndex >=
+                  this.props.currentRecipe.steps.length - 1
+                }
+                type="button"
+                onClick={() => this.props.goToNextStep(stepIndex)}
+              >
+                Next
+              </Button>
+              <Button
+                variant="secondary"
+                className="navigation-button"
+                id="recipeOverview"
+                type="button"
+                onClick={() => {
+                  this.props.history.push(
+                    `/recipes/${this.props.currentRecipe.id}`
+                  )
+                  annyang.abort()
+                }}
+              >
+                Back to Recipe Overview
+              </Button>
+              <Button
+                variant="secondary"
+                type="submit"
+                className="navigation-button"
+              >
+                Help
+              </Button>
+            </ButtonToolbar>
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
