@@ -21,8 +21,8 @@ class RecipeForm extends Component {
       waitTime: 0,
       serving: 0,
       steps: [],
-      ingredients: [],
-      tags: ''
+      ingredients: []
+      // tags: ''
     }
     this.createPhoto = this.createPhoto.bind(this)
     // this.manuallyEnter = this.manuallyEnter.bind(this)
@@ -45,7 +45,7 @@ class RecipeForm extends Component {
 
   handleChange = event => {
     this.setState({
-      [event.target.type]: event.target.value
+      [event.target.id]: event.target.value
     })
   }
 
@@ -125,32 +125,32 @@ class RecipeForm extends Component {
               <Form.Row>
                 <Form.Group controlId="formPrepTime">
                   <Form.Label>Prep Time</Form.Label>
-                  <Form.Control type="prepTime" />
+                  <Form.Control type="number" id="prepTime" />
                 </Form.Group>
 
                 <Form.Group controlId="formCookTime">
                   <Form.Label>Cook Time</Form.Label>
-                  <Form.Control type="cookTime" />
+                  <Form.Control type="number" id="cookTime" />
                 </Form.Group>
               </Form.Row>
 
               <Form.Row>
                 <Form.Group controlId="formWaitTime">
                   <Form.Label>Wait Time</Form.Label>
-                  <Form.Control type="waitTime" />
+                  <Form.Control type="number" id="waitTime" />
                 </Form.Group>
 
-                <Form.Group controlId="servings">
+                <Form.Group controlId="serving">
                   <Form.Label>Number of servings</Form.Label>
-                  <Form.Control type="servings" />
+                  <Form.Control type="number" id="serving" />
                 </Form.Group>
               </Form.Row>
             </Col>
             <Col>
               <Form.Row>
-                <Form.Group md="6" controlId="formTitle">
+                <Form.Group md="6" controlId="formName">
                   <Form.Label>Recipe Title</Form.Label>
-                  <Form.Control type="title" placeholder="Enter title" />
+                  <Form.Control id="name" placeholder="Enter title" />
                 </Form.Group>
               </Form.Row>
 
@@ -158,7 +158,7 @@ class RecipeForm extends Component {
                 <Form.Group controlId="formIngredients">
                   <Form.Label>Ingredients</Form.Label>
                   <Form.Control
-                    type="ingredients"
+                    id="ingredients"
                     placeholder="Enter one ingredient"
                   />
                   <Form.Text className="text-muted">
@@ -173,6 +173,7 @@ class RecipeForm extends Component {
                   <Form.Control
                     as="textarea"
                     rows="2"
+                    id="steps"
                     placeholder="Enter one instruction"
                   />
                   <Form.Text className="text-muted">
@@ -181,7 +182,7 @@ class RecipeForm extends Component {
                 </Form.Group>
               </Form.Row>
 
-              <Form.Row>
+              {/* <Form.Row>
                 <Form.Group controlId="formTags">
                   <Form.Label>Tags</Form.Label>
                   <Form.Control as="select">
@@ -191,7 +192,7 @@ class RecipeForm extends Component {
                     <option>Hard</option>
                   </Form.Control>
                 </Form.Group>
-              </Form.Row>
+              </Form.Row> */}
 
               <Button variant="primary" type="submit">
                 Submit
