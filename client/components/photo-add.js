@@ -3,8 +3,8 @@ import React, {Component} from 'react'
 import Figure from 'react-bootstrap/Figure'
 
 export default class PhotoAdd extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
       image: null,

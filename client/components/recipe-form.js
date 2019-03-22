@@ -34,7 +34,7 @@ class RecipeForm extends Component {
     data.append('image', newPhoto.image)
     data.append('name', newPhoto.name)
     h.Accept = 'application/json' //if you expect JSON response
-    fetch('/api/item', {
+    fetch('/api/recipes', {
       method: 'POST',
       headers: h,
       body: data
