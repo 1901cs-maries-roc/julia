@@ -23,8 +23,8 @@ const tagRecipe = db.define('tagRecipe')
 
 Recipe.belongsTo(User)
 User.hasMany(Recipe)
-Ingredient.belongsToMany(Recipe, {through: recipeIngredient})
-Recipe.belongsToMany(Ingredient, {through: recipeIngredient})
+// Ingredient.belongsToMany(Recipe, {through: recipeIngredient})
+// Recipe.belongsToMany(Ingredient, {through: recipeIngredient})
 Tag.belongsToMany(Recipe, {through: tagRecipe})
 Recipe.belongsToMany(Tag, {through: tagRecipe})
 
