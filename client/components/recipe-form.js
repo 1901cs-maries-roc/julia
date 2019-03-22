@@ -1,63 +1,44 @@
 import React, {Component} from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-// import Col from 'react-bootstrap/Col'
-import Figure from 'react-bootstrap/Figure'
 import InputGroup from 'react-bootstrap/InputGroup'
 import PhotoAdd from './photo-add'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import {addRecipeThunk} from '../store'
+import {connect} from 'react-redux'
 
 class RecipeForm extends Component {
   constructor() {
     super()
     this.state = {
-      // manualEnter: false,
       name: '',
-      imgUrl: '',
+      // imgUrl: '',
       prepTime: 0,
       cookTime: 0,
       waitTime: 0,
       serving: 0,
       steps: [],
       ingredients: []
-      // tags: ''
     }
     this.createPhoto = this.createPhoto.bind(this)
-    // this.manuallyEnter = this.manuallyEnter.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    this.setState({
-      name: '',
-      imgUrl: '',
-      prepTime: 0,
-      cookTime: 0,
-      waitTime: 0,
-      serving: 0,
-      steps: [],
-      ingredients: [],
-      tags: ''
-    })
+    this.props.addRecipeThunkDispatch(this.state)
+    this.props.history.push('/')
   }
 
   handleChange = event => {
+    console.log(event.target)
     this.setState({
       [event.target.id]: event.target.value
     })
   }
-
-  // manuallyEnter = event => {
-  //   console.log('in manually enter')
-  //   event.preventDefault()
-  //   console.log('state before', this.state)
-  //   this.setState = {
-  //     manualEnter: true
-  //   }
-  //   console.log('state after', this.state)
-  // }
 
   createPhoto(newPhoto) {
     console.log('PHOTO:', newPhoto.image)
@@ -78,7 +59,6 @@ class RecipeForm extends Component {
   }
 
   render() {
-    // console.log('state in render', this.state)
     return (
       <Container className="container">
         <Row>
@@ -109,40 +89,44 @@ class RecipeForm extends Component {
           <h2>Manually Enter a Recipe</h2>
           <Row>
             <Col>
-              {/* <Figure> */}
-              {/* <Figure.Image
-              width={171}
-              height={180}
-              alt="171x180"
-              src="/imgPlaceholder.svg"
-            /> */}
-              {/* <Figure.Caption>Upload a picture here.</Figure.Caption> */}
               <PhotoAdd createPhoto={this.createPhoto} />
-              {/* <Button variant="primary" type="submit">
-              Upload
-            </Button> */}
-              {/* </Figure> */}
               <Form.Row>
                 <Form.Group controlId="formPrepTime">
                   <Form.Label>Prep Time</Form.Label>
-                  <Form.Control type="number" id="prepTime" />
+                  <Form.Control
+                    type="number"
+                    id="prepTime"
+                    onChange={this.handleChange}
+                  />
                 </Form.Group>
 
                 <Form.Group controlId="formCookTime">
                   <Form.Label>Cook Time</Form.Label>
-                  <Form.Control type="number" id="cookTime" />
+                  <Form.Control
+                    type="number"
+                    id="cookTime"
+                    onChange={this.handleChange}
+                  />
                 </Form.Group>
               </Form.Row>
 
               <Form.Row>
                 <Form.Group controlId="formWaitTime">
                   <Form.Label>Wait Time</Form.Label>
-                  <Form.Control type="number" id="waitTime" />
+                  <Form.Control
+                    type="number"
+                    id="waitTime"
+                    onChange={this.handleChange}
+                  />
                 </Form.Group>
 
                 <Form.Group controlId="serving">
                   <Form.Label>Number of servings</Form.Label>
-                  <Form.Control type="number" id="serving" />
+                  <Form.Control
+                    type="number"
+                    id="serving"
+                    onChange={this.handleChange}
+                  />
                 </Form.Group>
               </Form.Row>
             </Col>
@@ -150,7 +134,11 @@ class RecipeForm extends Component {
               <Form.Row>
                 <Form.Group md="6" controlId="formName">
                   <Form.Label>Recipe Title</Form.Label>
-                  <Form.Control id="name" placeholder="Enter title" />
+                  <Form.Control
+                    id="name"
+                    placeholder="Enter title"
+                    onChange={this.handleChange}
+                  />
                 </Form.Group>
               </Form.Row>
 
@@ -160,6 +148,7 @@ class RecipeForm extends Component {
                   <Form.Control
                     id="ingredients"
                     placeholder="Enter one ingredient"
+                    onChange={this.handleChange}
                   />
                   <Form.Text className="text-muted">
                     Enter each ingredient on its own line.
@@ -175,6 +164,7 @@ class RecipeForm extends Component {
                     rows="2"
                     id="steps"
                     placeholder="Enter one instruction"
+                    onChange={this.handleChange}
                   />
                   <Form.Text className="text-muted">
                     Enter each instruction on its own line.
@@ -182,19 +172,11 @@ class RecipeForm extends Component {
                 </Form.Group>
               </Form.Row>
 
-              {/* <Form.Row>
-                <Form.Group controlId="formTags">
-                  <Form.Label>Tags</Form.Label>
-                  <Form.Control as="select">
-                    <option>Choose...</option>
-                    <option>Easy</option>
-                    <option>Intermediate</option>
-                    <option>Hard</option>
-                  </Form.Control>
-                </Form.Group>
-              </Form.Row> */}
-
-              <Button variant="primary" type="submit">
+              <Button
+                variant="primary"
+                type="submit"
+                onClick={this.handleSubmit}
+              >
                 Submit
               </Button>
             </Col>
@@ -205,4 +187,10 @@ class RecipeForm extends Component {
   }
 }
 
-export default RecipeForm
+const mapDispatch = dispatch => {
+  return {
+    addRecipeThunkDispatch: recipe => dispatch(addRecipeThunk(recipe))
+  }
+}
+
+export default connect(null, mapDispatch)(RecipeForm)
