@@ -24,6 +24,8 @@ import Portal from './portal'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 class RecipeStep extends Component {
   constructor(props) {
@@ -159,52 +161,74 @@ class RecipeStep extends Component {
             <div id="timer">
               <p>Timer</p>
             </div>
+
+            <ButtonToolbar>
+              <Button variant="primary">Primary</Button>
+              <Button variant="secondary">Secondary</Button>
+              <Button variant="success">Success</Button>
+              <Button variant="warning">Warning</Button>
+              <Button variant="danger">Danger</Button>
+              <Button variant="info">Info</Button>
+              <Button variant="light">Light</Button>
+              <Button variant="dark">Dark</Button>
+              <Button variant="link">Link</Button>
+            </ButtonToolbar>
             <div>
-              <button
-                id="back"
-                type="button"
-                disabled={this.props.currentStepIndex === 0}
-                onClick={() => {
-                  this.props.goToPrevStep(stepIndex)
-                }}
-              >
-                Back
-              </button>
-              <button id="start" type="button" onClick={this.annyang}>
-                Start
-              </button>
-              {/* change to resume once annyang is in componentDidMount */}
-              <button
-                id="pause"
-                type="button"
-                onClick={() => this.handleStop()}
-              >
-                Stop
-              </button>
-              <button
-                id="next"
-                disabled={
-                  this.props.currentStepIndex >=
-                  this.props.currentRecipe.steps.length - 1
-                }
-                type="button"
-                onClick={() => this.props.goToNextStep(stepIndex)}
-              >
-                Next
-              </button>
-              <button
-                id="recipeOverview"
-                type="button"
-                onClick={() => {
-                  this.props.history.push(
-                    `/recipes/${this.props.currentRecipe.id}`
-                  )
-                  annyang.abort()
-                }}
-              >
-                Back to Recipe Overview
-              </button>
-              <button type="submit">Help</button>
+              <ButtonToolbar>
+                <Button
+                  variant="secondary"
+                  id="back"
+                  type="button"
+                  disabled={this.props.currentStepIndex === 0}
+                  onClick={() => {
+                    this.props.goToPrevStep(stepIndex)
+                  }}
+                >
+                  Back
+                </Button>
+                <Button
+                  variant="success"
+                  id="start"
+                  type="button"
+                  onClick={this.annyang}
+                >
+                  Start
+                </Button>
+                {/* change to resume once annyang is in componentDidMount */}
+                <Button
+                  variant="danger"
+                  id="pause"
+                  type="button"
+                  onClick={() => this.handleStop()}
+                >
+                  Stop
+                </Button>
+                <Button
+                  variant="secondary"
+                  id="next"
+                  disabled={
+                    this.props.currentStepIndex >=
+                    this.props.currentRecipe.steps.length - 1
+                  }
+                  type="button"
+                  onClick={() => this.props.goToNextStep(stepIndex)}
+                >
+                  Next
+                </Button>
+                <button
+                  id="recipeOverview"
+                  type="button"
+                  onClick={() => {
+                    this.props.history.push(
+                      `/recipes/${this.props.currentRecipe.id}`
+                    )
+                    annyang.abort()
+                  }}
+                >
+                  Back to Recipe Overview
+                </button>
+                <button type="submit">Help</button>
+              </ButtonToolbar>
             </div>
           </Col>
         </Row>
