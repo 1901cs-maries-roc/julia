@@ -100,7 +100,7 @@ async function seed() {
       recipeId: superWaffle.id
     }),
     recipeIngredient.create({
-      quantity: 2,
+      quantity: '1/2',
       measure: 'tbs',
       sectionName: '',
       ingredientId: butter.id,
