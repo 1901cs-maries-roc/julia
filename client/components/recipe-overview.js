@@ -49,14 +49,20 @@ class RecipeOverview extends Component {
           </Col>
           <Col>
             <h1>{name}</h1>
-            <p>Prep Time: {prepTime} minutes</p>
-            <p>Cooking Time: {cookTime} minutes</p>
-            <p>Wait Time: {waitTime} minutes</p>
-            <p>Serving Size: {serving}</p>
-            {/* add average time per user */}
-            <p>Average Time for Users: No user data at this time</p>
+            <p>
+              <strong>Prep Time:</strong> {prepTime} minutes
+            </p>
+            <p>
+              <strong>Cooking Time:</strong> {cookTime} minutes
+            </p>
+            <p>
+              <strong>Wait Time:</strong> {waitTime} minutes
+            </p>
+            <p>
+              <strong>Serving Size:</strong> {serving}
+            </p>
             <div id="ingredient-list">
-              <p>Ingredients:</p>
+              <h3>Ingredients:</h3>
               {ingredients ? (
                 <IngredientsList ingredients={ingredients} isOverview={true} />
               ) : (
@@ -66,25 +72,31 @@ class RecipeOverview extends Component {
           </Col>
         </Row>
         <Row className="row-grid">
-          <div id="recipe-steps">
-            <p>Instructions:</p>
-            <ol>
-              {steps ? (
-                steps.map(step => {
-                  return <li key={step}>{step}</li>
-                })
-              ) : (
-                <li>No Steps</li>
-              )}
-            </ol>
-          </div>
-        </Row>
-        <Row className="row-grid">
-          <ButtonToolbar>
-            <Button variant="success" type="button" onClick={this.handleClick}>
-              Start Cooking
-            </Button>
-          </ButtonToolbar>
+          <Col md={{span: 8, offset: 0}}>
+            <div id="recipe-steps">
+              <h3>Instructions:</h3>
+              <ol>
+                {steps ? (
+                  steps.map(step => {
+                    return <li key={step}>{step}</li>
+                  })
+                ) : (
+                  <li>No Steps</li>
+                )}
+              </ol>
+            </div>
+          </Col>
+          <Col md={{span: 2, offset: 2}}>
+            <ButtonToolbar>
+              <Button
+                variant="success"
+                type="button"
+                onClick={this.handleClick}
+              >
+                Start Cooking
+              </Button>
+            </ButtonToolbar>
+          </Col>
         </Row>
       </Container>
     )
