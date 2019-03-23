@@ -139,7 +139,7 @@ class RecipeStep extends Component {
               </div>
             </Portal>
           )}
-          <div id="ingredients">
+          <div>
             <h3>Ingredients for this step:</h3>
             <h5>
               <IngredientsList

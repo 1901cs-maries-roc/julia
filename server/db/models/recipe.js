@@ -3,8 +3,7 @@ const db = require('../db')
 
 const Recipe = db.define('recipe', {
   name: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   },
   imgUrl: {
     type: Sequelize.STRING,
@@ -28,12 +27,14 @@ const Recipe = db.define('recipe', {
       min: 0
     }
   },
-  waitTime: {
+  totalTime: {
     type: Sequelize.INTEGER,
     validate: {
       min: 0
-    },
-    defaultValue: 0
+    }
+  },
+  ingredients: {
+    type: Sequelize.ARRAY(Sequelize.STRING)
   },
   steps: {
     type: Sequelize.ARRAY(Sequelize.STRING)
