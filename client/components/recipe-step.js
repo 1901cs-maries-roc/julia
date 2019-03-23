@@ -155,7 +155,7 @@ class RecipeStep extends Component {
               </Modal.Dialog>;
             </Portal>
           )}
-          <div id="ingredients">
+          <div>
             <h3>Ingredients for this step:</h3>
             <h5>
               <IngredientsList
