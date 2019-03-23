@@ -14,13 +14,9 @@ export default class PhotoAdd extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    // let form = document.forms.photoAdd
     this.props.createPhoto({
-      // name: form.name.value,
       image: this.state.image
     })
-    // Clear the form and state for the next input.
-    // form.name.value = ''
     this.setState = {
       image: null,
       imagePreviewUrl: null
@@ -70,22 +66,21 @@ export default class PhotoAdd extends Component {
       <div>
         <form name="itemAdd" onSubmit={this.handleSubmit}>
           <table>
-            <tr>
-              <td>
-                <div className="img-preview">{$imagePreview}</div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="file" onChange={e => this.handleImageChange(e)} />
-              </td>
-            </tr>
-            <br />
-            <tr>
-              {/* <Button variant="primary" type="submit">
-                Upload Picture
-              </Button> */}
-            </tr>
+            <tbody>
+              <tr>
+                <td>
+                  <div className="img-preview">{$imagePreview}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    type="file"
+                    onChange={e => this.handleImageChange(e)}
+                  />
+                </td>
+              </tr>
+            </tbody>
           </table>
         </form>
       </div>
