@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import annyang from 'annyang'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -17,6 +15,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="ml-auto">
         <Nav.Link href="/">Recipes</Nav.Link>
+        <Nav.Link href="/recipes/addrecipe">Add Recipe</Nav.Link>
         {/* <NavDropdown title="Recipes" id="nav-dropdown">
           <NavDropdown.Item
             href="#action/4.1"
@@ -78,9 +77,6 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
   </Navbar>
 )
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id
@@ -97,9 +93,6 @@ const mapDispatch = dispatch => {
 
 export default connect(mapState, mapDispatch)(NavigationBar)
 
-/**
- * PROP TYPES
- */
 NavigationBar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
