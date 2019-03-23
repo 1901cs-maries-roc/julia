@@ -114,6 +114,7 @@ class RecipeStep extends Component {
 
   handleStop = () => {
     responsiveVoice.cancel()
+    annyang.abort()
     // this.setState = {
     //   isListening: false
     // }
