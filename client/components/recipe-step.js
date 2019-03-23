@@ -27,12 +27,14 @@ class RecipeStep extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isListening: false
+      isListening: false,
+      julia: ''
     }
   }
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
+    // const julia = SpeechSynthesisUtterance.text
     speechSynthesis.cancel()
   }
 
@@ -112,10 +114,6 @@ class RecipeStep extends Component {
     }
   }
 
-  handleChange = e => {
-    console.log('e', e)
-  }
-
   handleStop = () => {
     responsiveVoice.cancel()
     annyang.abort()
@@ -124,7 +122,6 @@ class RecipeStep extends Component {
   render() {
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
-    const julia = SpeechSynthesisUtterance.text
 
     return (
       <Container className="container">
@@ -144,7 +141,7 @@ class RecipeStep extends Component {
                 <Modal.Body scrollable="true" centered="true">
                   <i className="fas fa-microphone" />
                   <p>test</p>
-                  <p onChange={this.handleChange}>{julia}</p>
+                  <p>{this.julia}</p>
                 </Modal.Body>
               </Modal.Dialog>;
             </Portal>

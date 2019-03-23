@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import annyang from 'annyang'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -12,7 +10,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
   // error here: The prop `handleClick` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
   // error here: The prop `isLoggedIn` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
   <Navbar collapseOnSelect expand="lg" variant="dark" className="navbar">
-    <Navbar.Brand href="/">
+    <Navbar.Brand href="/" className="brand-name">
       <img
         alt=""
         src="/favicon.ico"
