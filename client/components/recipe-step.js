@@ -25,10 +25,11 @@ import Popover from 'react-bootstrap/Popover'
 import HelpInstructions from './help-instructions'
 
 class RecipeStep extends Component {
-  constructor(props, context) {
-    super(props, context)
+  constructor(...args) {
+    super(...args)
     this.state = {
-      isListening: false
+      isListening: false,
+      modalShow: true
     }
   }
   componentDidMount() {
@@ -122,6 +123,7 @@ class RecipeStep extends Component {
   render() {
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
+    let modalClose = () => this.setState({modalShow: false})
 
     return (
       <Container className="container">
@@ -228,7 +230,21 @@ class RecipeStep extends Component {
             </ButtonToolbar>
           </Col>
           <Col>
-            <HelpInstructions />
+            <ButtonToolbar>
+              <Button
+                variant="primary"
+                onClick={() =>
+                  this.setState({modalShow: !this.state.modalShow})
+                }
+              >
+                Help
+              </Button>
+
+              <HelpInstructions
+                show={this.state.modalShow}
+                onHide={modalClose}
+              />
+            </ButtonToolbar>
           </Col>
         </Row>
       </Container>
