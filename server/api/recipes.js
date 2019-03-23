@@ -17,15 +17,7 @@ router.get('/:recipeId', async (req, res, next) => {
     const recipe = await Recipe.findOne({
       where: {
         id: recipeId
-      },
-      include: [
-        {
-          model: Ingredient
-        },
-        {
-          model: Tag
-        }
-      ]
+      }
     })
     res.json(recipe)
   } catch (err) {
