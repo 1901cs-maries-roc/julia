@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import Container from 'react-bootstrap/Container'
-// import {connect} from 'react-redux'
-// import {addFavoriteRecipe} from '../store'
+import {connect} from 'react-redux'
 
 class UserFavorites extends Component {
   // componentDidMount() {
@@ -14,20 +13,20 @@ class UserFavorites extends Component {
       <div>
         <Container className="container">
           <h1>Here's my list of favorite Recipes:</h1>
+          {console.log('FAVORITE RECIPES LIST: ', this.props.favoriteRecipes)}
         </Container>
       </div>
     )
   }
 }
 
-export default UserFavorites
+// export default UserFavorites
 
-// const mapState = state => {
-//   return {
-//     favoriteRecipe: state.recipe.favorite,
-//     favortieRecipes: state.recipe.favorites
-//   }
-// }
+const mapState = state => {
+  return {
+    favoriteRecipes: state.recipe.favoriteRecipes
+  }
+}
 
 // const mapDispatch = dispatch => {
 //   return {
@@ -35,4 +34,4 @@ export default UserFavorites
 //   }
 // }
 
-// export default connect(mapState, mapDispatch)(UserFavorites)
+export default connect(mapState)(UserFavorites)
