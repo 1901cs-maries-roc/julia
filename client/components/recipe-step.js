@@ -142,9 +142,19 @@ class RecipeStep extends Component {
     const steps = this.props.currentRecipe.steps || []
 
     const processingInputSlug = this.state.isProcessingInput ? (
-      <span>Listening...</span>
+      <span>
+        <p>
+          <i className="fas fa-microphone fa-5x microphone-on" />
+        </p>
+        <h4>Listening...</h4>
+      </span>
     ) : (
-      <span>Wait a moment</span>
+      <span>
+        <p>
+          <i className="fas fa-microphone fa-5x microphone-off" />
+        </p>
+        <h4>Wait a moment</h4>
+      </span>
     )
 
     return (
@@ -158,15 +168,12 @@ class RecipeStep extends Component {
           {this.state.isListening && (
             <Portal>
               <Modal.Dialog id="modal">
-                <Modal.Header closeButton onHide={this.handleStop}>
+                {/* <Modal.Header closeButton onHide={this.handleStop}>
                   <Modal.Title>Julia Listening</Modal.Title>
-                </Modal.Header>
+                </Modal.Header> */}
 
                 <Modal.Body scrollable="true" centered="true">
-                  <p>
-                    <i className="fas fa-microphone" />
-                    {processingInputSlug}
-                  </p>
+                  {processingInputSlug}
                 </Modal.Body>
               </Modal.Dialog>;
             </Portal>
