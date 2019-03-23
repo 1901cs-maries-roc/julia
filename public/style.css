@@ -45,3 +45,13 @@ form div {
 .row-grid {
   margin-top: 3em;
 }
+
+all-navigation-button {
+  margin-top: 20em;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Baloo Chettan', cursive;
+}
