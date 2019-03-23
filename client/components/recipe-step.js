@@ -130,6 +130,7 @@ class RecipeStep extends Component {
               id="recipeOverview"
               type="button"
               className="back-button"
+              size="sm"
               onClick={() => {
                 this.props.history.push(
                   `/recipes/${this.props.currentRecipe.id}`
@@ -137,7 +138,7 @@ class RecipeStep extends Component {
                 annyang.abort()
               }}
             >
-              Back to Recipe Overview
+              Recipe Overview
             </Button>
           </Col>
         </Row>
