@@ -6,38 +6,24 @@ export const stop = () => {
   // setState to isListening: false
 }
 
+export const pauseProcessing = () => {
+  annyang.pause()
+  speak("Sorry, I didn't get that. Please try again.")
+  window.setTimeout(() => {
+    this.resumeProcessing()
+  }, 3500)
+}
+
 export const speak = words => {
   responsiveVoice.speak(words)
 }
 
 export const repeatStep = () => {
-  // console.log('inside repeatStep')
   speak(document.getElementById('step-instructions').innerText)
 }
 
 export const listIngredients = () => {
   speak(document.getElementById('ingredients').innerText)
-}
-
-export const goBack = () => {
-  if (document.getElementById('back').disabled) {
-    speak('You are on the first step of the recipe')
-  } else {
-    speak('Previous step')
-    document.getElementById('back').click()
-  }
-}
-
-export const goToNext = () => {
-  if (document.getElementById('next').disabled) {
-    return speak("You've reached the end of the recipe")
-  }
-  speak('Next Step')
-  document.getElementById('next').click()
-}
-
-export const backToRecipeOverview = () => {
-  document.getElementById('recipeOverview').click()
 }
 
 export const start = () => {

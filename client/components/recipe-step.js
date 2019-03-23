@@ -16,6 +16,7 @@ import {
   startCooking
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
+import StepNav from './recipe-step-nav'
 import Portal from './portal'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -49,36 +50,48 @@ class RecipeStep extends Component {
     this.props.restartRecipe()
   }
 
-  pauseProcessing = () => {
-    annyang.pause()
-    speak("Sorry, I didn't get that. Please try again.")
-
-    window.setTimeout(() => {
-      this.resumeProcessing()
-    }, 3500)
-  }
-
   goBack = () => {
     if (this.props.currentStepIndex === 0) {
       speak('You are on the first step of the recipe')
     } else {
       speak('Previous step')
-      document.getElementById('back').click()
+      const stepIndex = this.props.currentStepIndex
+      this.props.goToPrevStep(stepIndex)
     }
+  }
+
+  goToNext = () => {
+    if (
+      this.props.currentStepIndex >=
+      this.props.currentRecipe.steps.length - 1
+    ) {
+      speak("You've reached the end of the recipe")
+    } else {
+      speak('Next Step')
+      const stepIndex = this.props.currentStepIndex
+      this.props.goToNextStep(stepIndex)
+    }
+  }
+
+  backToRecipeOverview = () => {
+    this.props.history.push(`/recipes/${this.props.currentRecipe.id}`)
+    annyang.abort()
   }
 
   annyang = () => {
     if (annyang) {
       var commands = {
-        '(*word) hey julia': {
-          regexp: /hey (Julia|Julian|Juliet)$/,
-          callback: nullCommand
-        },
+        '(*word) hey julia': nullCommand,
         '(*word) hey julia help': help,
         '(*word) hey julia (can you) repeat(s)': repeatStep,
-        '(*word) hey julia (go) back (a step)': this.goBack,
-        '(*word) hey julia previous (step)': this.goBack,
-        '(*word) Hey julia next (step)': goToNext,
+        '(*word) hey julia back': {
+          regexp: /hey (Julia|Julian|Juliet) (back|bach|previous step)$/,
+          callback: this.goBack
+        },
+        '(*word) Hey julia next': {
+          regexp: /hey (Julia|Julian|Juliet) next ?(step)?$/,
+          callback: this.goToNext
+        },
         '(*word) Hey julia (*action) ingredient(s)': listIngredients,
         '(*word) Hey julia (*action) instruction(s)': start,
         '(*word) Hey julia (*action) start': start,
@@ -86,7 +99,7 @@ class RecipeStep extends Component {
         '(*word) Hey julia resume': start,
         '(*word) Hey julia stop': stop,
         '(*word) Hey julia off': stop,
-        '(*word) Hey julia back to *overview': backToRecipeOverview,
+        '(*word) Hey julia back to *overview': this.backToRecipeOverview,
         '(*word) Hey julia *word': this.unrecognisedWord
       }
       annyang.addCommands(commands)
@@ -97,17 +110,17 @@ class RecipeStep extends Component {
       })
 
       annyang.addCallback('error', function(evt) {
-        console.log('There was an error: ', evt)
+        if (evt.error !== 'no-speech') console.log('There was an error: ', evt)
       })
 
       annyang.addCallback('resultNoMatch', function(userSaid) {
         console.log('No match for this input: ', userSaid)
-        // speechSynthesis.cancel()
       })
 
       annyang.addCallback('start', () => {
         this.setState({isListening: true})
       })
+
       annyang.addCallback('end', () => {
         this.setState({isListening: false})
       })
@@ -118,9 +131,9 @@ class RecipeStep extends Component {
 
   render() {
     console.log('Current state: ', this.state)
+
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
-
     const processingInputSlug = this.state.isProcessingInput ? (
       <span>
         <p className="microphone">
@@ -147,12 +160,7 @@ class RecipeStep extends Component {
               type="button"
               className="back-button"
               size="sm"
-              onClick={() => {
-                this.props.history.push(
-                  `/recipes/${this.props.currentRecipe.id}`
-                )
-                annyang.abort()
-              }}
+              onClick={this.backToRecipeOverview}
             >
               Recipe Overview
             </Button>
@@ -190,60 +198,13 @@ class RecipeStep extends Component {
           </Col>
         </Row>
         <Row className="row-grid">
-          <Col md={{span: 8, offset: 2}}>
-            <ButtonToolbar className="all-navigation-button">
-              <Button
-                className="navigation-button"
-                variant="secondary"
-                id="back"
-                type="button"
-                disabled={this.props.currentStepIndex === 0}
-                onClick={() => {
-                  this.props.goToPrevStep(stepIndex)
-                }}
-              >
-                Back
-              </Button>
-              <Button
-                className="navigation-button"
-                variant="success"
-                id="start"
-                type="button"
-                onClick={this.annyang}
-              >
-                Start
-              </Button>
-              <Button
-                className="navigation-button"
-                variant="danger"
-                id="pause"
-                type="button"
-                onClick={() => stop()}
-              >
-                Stop
-              </Button>
-              <Button
-                className="navigation-button"
-                variant="secondary"
-                id="next"
-                disabled={
-                  this.props.currentStepIndex >=
-                  this.props.currentRecipe.steps.length - 1
-                }
-                type="button"
-                onClick={() => this.props.goToNextStep(stepIndex)}
-              >
-                Next
-              </Button>
-              <Button
-                variant="secondary"
-                type="submit"
-                className="navigation-button"
-              >
-                Help
-              </Button>
-            </ButtonToolbar>
-          </Col>
+          <StepNav
+            stepIndex={stepIndex}
+            steps={steps}
+            annyang={this.annyang}
+            goBack={this.goBack}
+            goToNext={this.goToNext}
+          />
         </Row>
       </Container>
     )
