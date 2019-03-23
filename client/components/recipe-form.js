@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-// import Col from 'react-bootstrap/Col'
-import Figure from 'react-bootstrap/Figure'
 import InputGroup from 'react-bootstrap/InputGroup'
 import PhotoAdd from './photo-add'
 import Container from 'react-bootstrap/Container'
