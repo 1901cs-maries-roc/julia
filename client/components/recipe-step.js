@@ -168,10 +168,6 @@ class RecipeStep extends Component {
           {this.state.isListening && (
             <Portal>
               <Modal.Dialog id="modal">
-                {/* <Modal.Header closeButton onHide={this.handleStop}>
-                  <Modal.Title>Julia Listening</Modal.Title>
-                </Modal.Header> */}
-
                 <Modal.Body>{processingInputSlug}</Modal.Body>
               </Modal.Dialog>;
             </Portal>
