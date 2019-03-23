@@ -52,7 +52,7 @@ export default class PhotoAdd extends Component {
         <img
           src={imagePreviewUrl}
           width={171}
-          height={181}
+          height={180}
           className="img-preview"
         />
       )
@@ -81,11 +81,7 @@ export default class PhotoAdd extends Component {
               </td>
             </tr>
             <br />
-            <tr>
-              {/* <Button variant="primary" type="submit">
-                Upload Picture
-              </Button> */}
-            </tr>
+            <tr />
           </table>
         </form>
       </div>
