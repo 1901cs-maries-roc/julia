@@ -68,7 +68,7 @@ class RecipeOverview extends Component {
                 type="button"
                 onClick={this.handleClick}
               >
-                Start Cooking
+                <h3>Start Cooking</h3>
               </Button>
             </ButtonToolbar>
           </Col>
