@@ -26,8 +26,11 @@ class RecipeStep extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      // Is the microphone on
       isListening: false,
-      julia: ''
+
+      // Is annyang processing inputs
+      isProcessingInput: true
     }
   }
 
@@ -37,14 +40,28 @@ class RecipeStep extends Component {
     speechSynthesis.cancel()
   }
 
-  unrecognisedWord = () => {
+  pauseProcessing = () => {
     annyang.pause()
+    this.setState({
+      isProcessingInput: false
+    })
+  }
+
+  resumeProcessing = () => {
+    annyang.resume()
+    this.setState({
+      isProcessingInput: true
+    })
+  }
+
+  unrecognisedWord = () => {
+    this.pauseProcessing()
 
     speak("Sorry, I didn't get that. Please try again.")
+
     window.setTimeout(() => {
-      annyang.resume()
-    }, 4000)
-    speechSynthesis.cancel()
+      this.resumeProcessing()
+    }, 3500)
   }
 
   componentWillUnmount = () => {
@@ -103,7 +120,6 @@ class RecipeStep extends Component {
         console.log('Error from result no match')
         speechSynthesis.cancel()
       })
-      // this.setState({julia: "I don't understand"})
 
       annyang.addCallback('start', () => {
         this.setState({isListening: true})
@@ -116,21 +132,20 @@ class RecipeStep extends Component {
     }
   }
 
-  // transcript = () => {
-  //   if (this.state.isListening === true) {
-  //     this.setState({julia: SpeechSynthesisUtterance.text})
-  //   }
-  // }
-
   handleStop = () => {
-    responsiveVoice.cancel()
+    window.responsiveVoice.cancel()
     annyang.abort()
   }
 
   render() {
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
-    console.log('state', this.state)
+
+    const processingInputSlug = this.state.isProcessingInput ? (
+      <span>Listening...</span>
+    ) : (
+      <span>Wait a moment</span>
+    )
 
     return (
       <Container className="container">
@@ -148,9 +163,10 @@ class RecipeStep extends Component {
                 </Modal.Header>
 
                 <Modal.Body scrollable="true" centered="true">
-                  <i className="fas fa-microphone" />
-                  <p>test</p>
-                  <p>{this.state.julia}</p>
+                  <p>
+                    <i className="fas fa-microphone" />
+                    {processingInputSlug}
+                  </p>
                 </Modal.Body>
               </Modal.Dialog>;
             </Portal>
