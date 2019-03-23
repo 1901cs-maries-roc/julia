@@ -85,7 +85,7 @@ export default function(state = initialState, action) {
       return {...state, currentStepIndex: nextIndex}
     }
     case ADD_RECIPE: {
-      return {...state, recipes: [...state.recipes, action.newRecipe]}
+      return {...state, recipe: [...state.recipes, action.newRecipe]}
     }
     case RESTART_STEPS:
       return {...state, currentStepIndex: 0}
