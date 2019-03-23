@@ -17,7 +17,6 @@ class RecipeOverview extends Component {
 
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
-
     this.props.getRecipeThunkDispatch(recipeId)
   }
 
@@ -37,17 +36,19 @@ class RecipeOverview extends Component {
       waitTime,
       serving,
       steps,
-      tags,
       ingredients
     } = this.props.currentRecipe
 
     return (
       <Container className="container">
         <Row>
-          <Col>
-            <img src={imgUrl} />
+          <Col md={{span: 5, offset: 1}}>
+            <img
+              src={imgUrl}
+              className="image-overview justify-content-md-center"
+            />
           </Col>
-          <Col>
+          <Col md={{span: 5, offset: 1}}>
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong> {prepTime} minutes
@@ -61,7 +62,20 @@ class RecipeOverview extends Component {
             <p>
               <strong>Serving Size:</strong> {serving}
             </p>
-            <div id="ingredient-list">
+            <ButtonToolbar className="start-button">
+              <Button
+                variant="success"
+                type="button"
+                onClick={this.handleClick}
+              >
+                <h3>Start Cooking</h3>
+              </Button>
+            </ButtonToolbar>
+          </Col>
+        </Row>
+        <Row className="row-grid">
+          <Col md={{span: 5, offset: 1}}>
+            <div id="recipe-steps">
               <h3>Ingredients:</h3>
               {ingredients ? (
                 <IngredientsList ingredients={ingredients} isOverview={true} />
@@ -70,32 +84,17 @@ class RecipeOverview extends Component {
               )}
             </div>
           </Col>
-        </Row>
-        <Row className="row-grid">
-          <Col md={{span: 8, offset: 0}}>
-            <div id="recipe-steps">
-              <h3>Instructions:</h3>
-              <ol>
-                {steps ? (
-                  steps.map(step => {
-                    return <li key={step}>{step}</li>
-                  })
-                ) : (
-                  <li>No Steps</li>
-                )}
-              </ol>
-            </div>
-          </Col>
-          <Col md={{span: 2, offset: 2}}>
-            <ButtonToolbar>
-              <Button
-                variant="success"
-                type="button"
-                onClick={this.handleClick}
-              >
-                Start Cooking
-              </Button>
-            </ButtonToolbar>
+          <Col md={{span: 5, offset: 1}}>
+            <h3>Instructions:</h3>
+            <ol>
+              {steps ? (
+                steps.map(step => {
+                  return <li key={step}>{step}</li>
+                })
+              ) : (
+                <li>No Steps</li>
+              )}
+            </ol>
           </Col>
         </Row>
       </Container>
