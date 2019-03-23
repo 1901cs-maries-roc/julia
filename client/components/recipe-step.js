@@ -21,13 +21,17 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import Overlay from 'react-bootstrap/Overlay'
+import Popover from 'react-bootstrap/Popover'
 
 class RecipeStep extends Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
     this.state = {
-      isListening: false
+      isListening: false,
+      show: true //help popover
     }
+    this.handleClick = this.handleClick.bind(this) //help popover
   }
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
@@ -115,6 +119,11 @@ class RecipeStep extends Component {
     console.log('in stop/cancel')
     responsiveVoice.cancel()
     //     speechSynthesis.cancel()
+  }
+
+  //  help popover
+  handleClick = ({target}) => {
+    this.setState(s => ({target, show: !s.show}))
   }
 
   render() {
@@ -223,15 +232,53 @@ class RecipeStep extends Component {
               >
                 Next
               </Button>
+            </ButtonToolbar>
+          </Col>
+          {/* help popover begins here -- modularize laster */}
+          <Col>
+            <ButtonToolbar>
               <Button
-                variant="secondary"
-                type="submit"
                 className="navigation-button"
+                variant="secondary"
+                id="help"
+                onClick={this.handleClick}
               >
                 Help
               </Button>
+              <Overlay
+                show={this.state.show}
+                target={this.state.target}
+                placement="right"
+                container={this}
+                containerPadding={40}
+              >
+                <Popover id="popover-contained" title="How to Use Julia">
+                  <br />
+                  <i className="far fa-play-circle" fa-10x />
+                  <strong> Press START to enable Julia</strong> <br />
+                  {/* <img src={process.env.PUBLIC_URL + '/start-button.png'} alt="start-button" /> */}
+                  <hr />
+                  You can ask Julia any of the following commands preceeded with
+                  "Hey Julia"
+                  <hr />
+                  <strong>Commands: </strong> <br />
+                  "Hey Julia Help" <br />
+                  "Hey Julia Repeat" <br />
+                  "Hey Julia Back" <br />
+                  "Hey Julia Next" <br />
+                  "Hey Julia Ingredients" <br />
+                  "Hey Julia Instructions" <br />
+                  "Hey Julia Stop" <br />
+                  "Hey Julia Back to Recipe" <br />
+                  <br />
+                  <Button size="sm" onClick={this.handleClick}>
+                    GOT IT
+                  </Button>
+                </Popover>
+              </Overlay>
             </ButtonToolbar>
           </Col>
+          {/* help popover ends here -- modularize laster */}
         </Row>
       </Container>
     )
