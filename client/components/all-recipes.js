@@ -14,9 +14,7 @@ export class AllRecipes extends Component {
   }
 
   render() {
-    console.log('this.props ', this.props)
     const allRecipes = this.props.allRecipes || []
-    console.log(allRecipes)
     const recipe = allRecipes.map(r => {
       return (
         <div key={r.id}>
@@ -30,7 +28,6 @@ export class AllRecipes extends Component {
       )
     })
 
-    console.log('all recipes', allRecipes)
     return (
       <Container className="container">
         <Row>
