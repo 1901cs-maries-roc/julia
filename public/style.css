@@ -80,3 +80,7 @@ h4,
 .microphone-off {
   color: orange;
 }
+
+.microphone {
+  text-align: center;
+}

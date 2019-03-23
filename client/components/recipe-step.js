@@ -143,14 +143,14 @@ class RecipeStep extends Component {
 
     const processingInputSlug = this.state.isProcessingInput ? (
       <span>
-        <p>
+        <p className="microphone">
           <i className="fas fa-microphone fa-5x microphone-on" />
         </p>
         <h4>Listening...</h4>
       </span>
     ) : (
       <span>
-        <p>
+        <p className="microphone">
           <i className="fas fa-microphone fa-5x microphone-off" />
         </p>
         <h4>Wait a moment</h4>
