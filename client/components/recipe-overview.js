@@ -61,7 +61,7 @@ class RecipeOverview extends Component {
             <p>
               <strong>Serving Size:</strong> {serving}
             </p>
-            <ButtonToolbar>
+            <ButtonToolbar className="start-button">
               <Button
                 variant="success"
                 type="button"

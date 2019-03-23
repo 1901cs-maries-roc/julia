@@ -55,3 +55,8 @@ h2,
 h3 {
   font-family: 'Baloo Chettan', cursive;
 }
+
+.start-button {
+  height: 5em;
+  width: 15em;
+}
