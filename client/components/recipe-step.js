@@ -131,6 +131,7 @@ class RecipeStep extends Component {
           <Col md={{span: 4, offset: 2}}>
             <h1 id="title">
               Step {stepIndex + 1}/{steps ? steps.length : 0}
+              {julia}
             </h1>
           </Col>
           {this.state.isListening && (
@@ -145,11 +146,6 @@ class RecipeStep extends Component {
                   <p>test</p>
                   <p>{julia}</p>
                 </Modal.Body>
-
-                <Modal.Footer>
-                  <Button variant="secondary">Close</Button>
-                  <Button variant="primary">Save changes</Button>
-                </Modal.Footer>
               </Modal.Dialog>;
             </Portal>
           )}
