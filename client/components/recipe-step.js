@@ -28,8 +28,7 @@ class RecipeStep extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isListening: false,
-      isFirstStep: this.props.currentStepIndex === 0
+      isListening: false
     }
   }
   componentDidMount() {
@@ -55,7 +54,7 @@ class RecipeStep extends Component {
   }
 
   goBack = () => {
-    if (this.state.isFirstStep) {
+    if (this.props.currentStepIndex === 0) {
       speak('You are on the first step of the recipe')
     } else {
       speak('Previous step')
@@ -66,7 +65,10 @@ class RecipeStep extends Component {
   annyang = () => {
     if (annyang) {
       var commands = {
-        '(*word) hey julia': nullCommand,
+        '(*word) hey julia': {
+          regexp: /hey (Julia|Julian|Juliet)$/,
+          callback: nullCommand
+        },
         '(*word) hey julia help': help,
         '(*word) hey julia (can you) repeat(s)': repeatStep,
         '(*word) hey julia (go) back (a step)': this.goBack,
@@ -79,22 +81,23 @@ class RecipeStep extends Component {
         '(*word) Hey julia resume': start,
         '(*word) Hey julia stop': stop,
         '(*word) Hey julia off': stop,
-        '(*word) Hey julia back to (*overview)': backToRecipeOverview,
+        '(*word) Hey julia back to *overview': backToRecipeOverview,
         '(*word) Hey julia *word': this.unrecognisedWord
       }
       annyang.addCommands(commands)
+
       annyang.addCallback('resultMatch', function(userSaid, commandText) {
         console.log('user said: ', userSaid)
         console.log('command: ', commandText)
       })
 
-      annyang.addCallback('error', function() {
-        console.log('There was an error!')
+      annyang.addCallback('error', function(evt) {
+        console.log('There was an error: ', evt)
       })
 
-      annyang.addCallback('resultNoMatch', function() {
-        console.log('Error from result no match')
-        speechSynthesis.cancel()
+      annyang.addCallback('resultNoMatch', function(userSaid) {
+        console.log('No match for this input: ', userSaid)
+        // speechSynthesis.cancel()
       })
 
       annyang.addCallback('start', () => {
@@ -175,7 +178,7 @@ class RecipeStep extends Component {
                 variant="secondary"
                 id="back"
                 type="button"
-                disabled={this.state.isFirstStep}
+                disabled={this.props.currentStepIndex === 0}
                 onClick={() => {
                   this.props.goToPrevStep(stepIndex)
                 }}

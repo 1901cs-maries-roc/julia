@@ -3,10 +3,10 @@ import annyang from 'annyang'
 export const stop = () => {
   console.log('in stop')
   responsiveVoice.cancel()
+  // setState to isListening: false
 }
 
 export const speak = words => {
-  console.log('Speaking: ', words)
   responsiveVoice.speak(words)
 }
 
