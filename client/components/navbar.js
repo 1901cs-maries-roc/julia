@@ -9,8 +9,6 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 
 const NavigationBar = ({handleClick, isLoggedIn}) => (
-  // error here: The prop `handleClick` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
-  // error here: The prop `isLoggedIn` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
   <Navbar collapseOnSelect expand="lg" variant="dark" className="navbar">
     <Navbar.Brand href="/">JULIA</Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -62,9 +60,9 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
             </NavDropdown.Item>
             <NavDropdown.Divider />
           </NavDropdown>
-          {/* <Nav.Link href="Favorites">
+          <Nav.Link href="/favorites">
             <i className="fab fa-gratipay" />
-          </Nav.Link> */}
+          </Nav.Link>
         </Nav>
       ) : (
         <Nav>

@@ -6,6 +6,7 @@ import {
   Login,
   Signup,
   UserHome,
+  UserFavorites,
   RecipeStep,
   RecipeOverview,
   AllRecipes,
@@ -28,13 +29,16 @@ class Routes extends Component {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
-        <Route exact path="/recipes" component={AllRecipes} />
+        <Route exact path="/" component={AllRecipes} />
         <Route exact path="/recipes/addrecipe" component={RecipeForm} />
         <Route exact path="/recipes/:recipeId" component={RecipeOverview} />
         <Route exact path="/recipes/:recipeId/cooking" component={RecipeStep} />
         {isLoggedIn && (
           <Switch>
             <Route path="/home" component={UserHome} />
+            <Route exact path="/favorites" component={UserFavorites} />
+            {/* ideal path to change to once backend is hooked up --> */}
+            {/* <Route exact path="/:user/favorites" component={UserFavorites} /> */}
           </Switch>
         )}
         <Route component={AllRecipes} />

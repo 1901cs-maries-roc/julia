@@ -9,13 +9,18 @@ const NEXT_STEP = 'NEXT_STEP'
 const PREV_STEP = 'PREV_STEP'
 const RESTART_STEPS = 'RESTART_STEPS'
 
+const ADD_FAVORITE = 'ADD_FAVORITE'
+// const FAVORITE_RECIPES = 'FAVORITE_RECIPES'
+
 /**
  * INITIAL STATE
  */
 const initialState = {
   recipes: [],
   recipe: {steps: []},
-  currentStepIndex: 0
+  currentStepIndex: 0,
+  // favoriteRecipe: {},
+  favoriteRecipes: []
 }
 
 /**
@@ -32,6 +37,10 @@ export const prevStep = currentStep => ({
   prevStep: currentStep - 1
 })
 export const restartSteps = () => ({type: RESTART_STEPS})
+
+export const addFavoriteRecipe = recipe => ({type: ADD_FAVORITE, recipe})
+// export const favoriteRecipes = () => ({type: FAVORITE_RECIPES})
+
 /**
  * THUNK CREATORS
  */
@@ -73,6 +82,15 @@ export default function(state = initialState, action) {
     }
     case RESTART_STEPS:
       return {...state, currentStepIndex: 0}
+    case ADD_FAVORITE: {
+      console.log('CURRENT STORE: ', state.favoriteRecipes)
+      return {
+        ...state,
+        favoriteRecipes: [...state.favoriteRecipes, action.recipe]
+      }
+    }
+    // case FAVORITE_RECIPES:
+    //   return {...state, favoriteRecipes: action.recipes}
     default:
       return state
   }
