@@ -21,10 +21,10 @@ form div {
 }
 
 #modal {
-  background-color: red !important;
   position: absolute;
   right: 0px;
   top: 10em;
+  margin-right: 5em;
 }
 
 .container {

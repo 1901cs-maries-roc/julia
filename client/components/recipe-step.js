@@ -136,7 +136,7 @@ class RecipeStep extends Component {
           </Col>
           {this.state.isListening && (
             <Portal>
-              <Modal.Dialog size="sm" id="modal">
+              <Modal.Dialog id="modal">
                 <Modal.Header closeButton onHide={this.handleStop}>
                   <Modal.Title>Julia Listening</Modal.Title>
                 </Modal.Header>
