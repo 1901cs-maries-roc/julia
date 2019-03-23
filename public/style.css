@@ -20,9 +20,10 @@ form div {
   display: inline-block;
 }
 
-#portal {
-  background-color: Yellow;
-  float: right;
+.modal {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .container {

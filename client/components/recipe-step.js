@@ -15,12 +15,13 @@ import {
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import Portal from './portal'
-// import Col from 'react-bootstrap/bootstrap'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import Modal from 'react-bootstrap/Modal'
+import Overlay from 'react-bootstrap/Overlay'
 
 class RecipeStep extends Component {
   constructor(props) {
@@ -112,14 +113,17 @@ class RecipeStep extends Component {
   }
 
   handleStop = () => {
-    console.log('in stop/cancel')
     responsiveVoice.cancel()
-    //     speechSynthesis.cancel()
+    // this.setState = {
+    //   isListening: false
+    // }
+    console.log(this.state)
   }
 
   render() {
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
+    const julia = SpeechSynthesisUtterance.text
 
     return (
       <Container className="container">
@@ -131,12 +135,22 @@ class RecipeStep extends Component {
           </Col>
           {this.state.isListening && (
             <Portal>
-              <div>
-                <i className="fas fa-microphone">
-                  {' '}
-                  I am listening to you my friend :)
-                </i>
-              </div>
+              <Modal.Dialog>
+                <Modal.Header closeButton onHide={this.handleStop}>
+                  <Modal.Title>Julia Listening</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                  <i className="fas fa-microphone" />
+                  <p>test</p>
+                  <p>{julia}</p>
+                </Modal.Body>
+
+                <Modal.Footer>
+                  <Button variant="secondary">Close</Button>
+                  <Button variant="primary">Save changes</Button>
+                </Modal.Footer>
+              </Modal.Dialog>;
             </Portal>
           )}
           <div id="ingredients">
