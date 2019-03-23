@@ -172,9 +172,7 @@ class RecipeStep extends Component {
                   <Modal.Title>Julia Listening</Modal.Title>
                 </Modal.Header> */}
 
-                <Modal.Body scrollable="true" centered="true">
-                  {processingInputSlug}
-                </Modal.Body>
+                <Modal.Body>{processingInputSlug}</Modal.Body>
               </Modal.Dialog>;
             </Portal>
           )}
