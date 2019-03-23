@@ -52,28 +52,28 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
             All Recipes
           </NavDropdown.Item>
         </NavDropdown> */}
-      </Nav>
-      {isLoggedIn ? (
-        <Nav>
-          <NavDropdown title="User" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="/home">My Account</NavDropdown.Item>
-            <NavDropdown.Item href="#" onClick={handleClick}>
-              Logout
-            </NavDropdown.Item>
-            <NavDropdown.Divider />
-          </NavDropdown>
-          {/* <Nav.Link href="Favorites">
+        {isLoggedIn ? (
+          <Nav>
+            <NavDropdown title="User" id="collasible-nav-dropdown">
+              {/* <NavDropdown.Item href="#">My Account</NavDropdown.Item> */}
+              <NavDropdown.Item href="#" onClick={handleClick}>
+                Logout
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+            </NavDropdown>
+            {/* <Nav.Link href="Favorites">
             <i className="fab fa-gratipay" />
           </Nav.Link> */}
-        </Nav>
-      ) : (
-        <Nav>
-          <NavDropdown title="User" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
-            <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-      )}
+          </Nav>
+        ) : (
+          <Nav>
+            <NavDropdown title="User" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
+              <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        )}
+      </Nav>
     </Navbar.Collapse>
   </Navbar>
 )

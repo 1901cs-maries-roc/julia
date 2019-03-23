@@ -28,17 +28,16 @@ class Routes extends Component {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
-        <Route exact path="/recipes" component={AllRecipes} />
+        <Route exact path="/" component={AllRecipes} />
         <Route exact path="/recipes/addrecipe" component={RecipeForm} />
         <Route exact path="/recipes/:recipeId" component={RecipeOverview} />
         <Route exact path="/recipes/:recipeId/cooking" component={RecipeStep} />
         {isLoggedIn && (
           <Switch>
-            <Route path="/home" component={UserHome} />
+            <Route path="/home" component={AllRecipes} />
           </Switch>
         )}
         <Route component={AllRecipes} />
-        {/* <Redirect to="/recipes" />  */}
       </Switch>
     )
   }
