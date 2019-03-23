@@ -125,6 +125,25 @@ class RecipeStep extends Component {
       <Container className="container">
         <Row>
           <Col md={{span: 4, offset: 2}}>
+            <Button
+              variant="outline-dark"
+              id="recipeOverview"
+              type="button"
+              className="back-button"
+              size="sm"
+              onClick={() => {
+                this.props.history.push(
+                  `/recipes/${this.props.currentRecipe.id}`
+                )
+                annyang.abort()
+              }}
+            >
+              Recipe Overview
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={{span: 4, offset: 2}}>
             <h1 id="title">
               Step {stepIndex + 1}/{steps ? steps.length : 0}
             </h1>
@@ -203,20 +222,6 @@ class RecipeStep extends Component {
                 onClick={() => this.props.goToNextStep(stepIndex)}
               >
                 Next
-              </Button>
-              <Button
-                variant="secondary"
-                className="navigation-button"
-                id="recipeOverview"
-                type="button"
-                onClick={() => {
-                  this.props.history.push(
-                    `/recipes/${this.props.currentRecipe.id}`
-                  )
-                  annyang.abort()
-                }}
-              >
-                Back to Recipe Overview
               </Button>
               <Button
                 variant="secondary"
