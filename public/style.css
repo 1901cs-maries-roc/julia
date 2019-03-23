@@ -20,10 +20,11 @@ form div {
   display: inline-block;
 }
 
-.modal {
+#modal {
+  background-color: red !important;
   position: absolute;
-  top: 0;
-  right: 0;
+  right: 0px;
+  top: 10em;
 }
 
 .container {
