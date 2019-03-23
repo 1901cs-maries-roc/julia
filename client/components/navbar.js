@@ -10,7 +10,16 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
   // error here: The prop `handleClick` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
   // error here: The prop `isLoggedIn` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
   <Navbar collapseOnSelect expand="lg" variant="dark" className="navbar">
-    <Navbar.Brand href="/">JULIA</Navbar.Brand>
+    <Navbar.Brand href="/">
+      <img
+        alt=""
+        src="/favicon.ico"
+        width="30"
+        height="30"
+        className="d-inline-block align-top"
+      />
+      {'   JULIA'}
+    </Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="ml-auto">
@@ -51,28 +60,28 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
             All Recipes
           </NavDropdown.Item>
         </NavDropdown> */}
-      </Nav>
-      {isLoggedIn ? (
-        <Nav>
-          <NavDropdown title="User" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="/home">My Account</NavDropdown.Item>
-            <NavDropdown.Item href="#" onClick={handleClick}>
-              Logout
-            </NavDropdown.Item>
-            <NavDropdown.Divider />
-          </NavDropdown>
-          {/* <Nav.Link href="Favorites">
+        {isLoggedIn ? (
+          <Nav>
+            <NavDropdown title="User" id="collasible-nav-dropdown">
+              {/* <NavDropdown.Item href="#">My Account</NavDropdown.Item> */}
+              <NavDropdown.Item href="#" onClick={handleClick}>
+                Logout
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+            </NavDropdown>
+            {/* <Nav.Link href="Favorites">
             <i className="fab fa-gratipay" />
           </Nav.Link> */}
-        </Nav>
-      ) : (
-        <Nav>
-          <NavDropdown title="User" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
-            <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-      )}
+          </Nav>
+        ) : (
+          <Nav>
+            <NavDropdown title="User" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
+              <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        )}
+      </Nav>
     </Navbar.Collapse>
   </Navbar>
 )
