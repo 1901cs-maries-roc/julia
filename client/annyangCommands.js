@@ -11,7 +11,7 @@ export const speak = words => {
 }
 
 export const repeatStep = () => {
-  console.log('inside repeatStep')
+  // console.log('inside repeatStep')
   speak(document.getElementById('step-instructions').innerText)
 }
 

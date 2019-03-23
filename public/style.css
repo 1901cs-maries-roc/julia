@@ -20,9 +20,11 @@ form div {
   display: inline-block;
 }
 
-#portal {
-  background-color: Yellow;
-  float: right;
+#modal {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  margin-right: 5em;
 }
 
 .container {
@@ -53,6 +55,7 @@ all-navigation-button {
 h1,
 h2,
 h3,
+h4,
 .start-button {
   font-family: 'Baloo Chettan', cursive;
 }
@@ -72,4 +75,16 @@ h3,
 
 .start-button {
   margin-top: 2em;
+}
+
+.microphone-on {
+  color: green;
+}
+
+.microphone-off {
+  color: orange;
+}
+
+.microphone {
+  text-align: center;
 }
