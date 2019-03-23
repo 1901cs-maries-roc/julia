@@ -4,11 +4,8 @@ import annyang from 'annyang'
 import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
 import {
   nullCommand,
-  backToRecipeOverview,
   help,
   repeatStep,
-  goBack,
-  goToNext,
   speak,
   listIngredients,
   start,
@@ -22,7 +19,6 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import Modal from 'react-bootstrap/Modal'
 
 class RecipeStep extends Component {
@@ -40,7 +36,6 @@ class RecipeStep extends Component {
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
-    // speechSynthesis.cancel()
     startCooking()
   }
 
