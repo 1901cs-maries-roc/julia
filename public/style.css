@@ -55,3 +55,7 @@ h2,
 h3 {
   font-family: 'Baloo Chettan', cursive;
 }
+
+.back-button {
+  margin-bottom: 1em;
+}
