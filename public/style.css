@@ -60,6 +60,9 @@ h4,
   font-family: 'Baloo Chettan', cursive;
 }
 
+.back-button {
+  margin-bottom: 1.5em;
+
 .start-button {
   height: 5em;
   width: 15em;
