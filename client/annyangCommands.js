@@ -69,8 +69,6 @@ export const goToNext = () => {
 }
 
 export const backToRecipeOverview = () => {
-  speak('Julia is now off')
-  annyang.abort()
   document.getElementById('recipeOverview').click()
 }
 
