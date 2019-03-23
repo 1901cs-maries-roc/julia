@@ -79,11 +79,6 @@ export const start = () => {
   document.getElementById('start').click()
 }
 
-// export const stop = () => {
-//   speechSynthesis.cancel()
-//   // document.getElementById('pause').click()
-// }
-
 export const startCooking = () => {
   console.log('in start cooking')
   speak('To begin cooking, press start, then say Hey Julia, instructions')
@@ -139,16 +134,16 @@ export const command = {
   // resume: start
 }
 
-export const commandCheck = action => {
-  if (command[action]) {
-    console.log('inside CommandCheck')
-    return command[action]()
-  } else {
-    const repeatRequest = "Sorry, I didn't get that. Please try again."
-    annyang.pause()
-    speak(repeatRequest)
-    window.setTimeout(() => {
-      annyang.resume()
-    }, 4000)
-  }
-}
+// export const commandCheck = action => {
+//   if (command[action]) {
+//     console.log('inside CommandCheck')
+//     return command[action]()
+//   } else {
+//     const repeatRequest = "Sorry, I didn't get that. Please try again."
+//     annyang.pause()
+//     speak(repeatRequest)
+//     window.setTimeout(() => {
+//       annyang.resume()
+//     }, 4000)
+//   }
+// }

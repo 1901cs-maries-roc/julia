@@ -11,7 +11,8 @@ import {
   goToNext,
   speak,
   listIngredients,
-  start
+  start,
+  stop
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import Portal from './portal'
@@ -37,7 +38,6 @@ class RecipeStep extends Component {
 
   unrecognisedWord = () => {
     annyang.pause()
-
     speak("Sorry, I didn't get that. Please try again.")
     window.setTimeout(() => {
       annyang.resume()
@@ -95,12 +95,6 @@ class RecipeStep extends Component {
     }
   }
 
-  handleStop = () => {
-    console.log('in stop/cancel')
-    responsiveVoice.cancel()
-    //     speechSynthesis.cancel()
-  }
-
   render() {
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
@@ -113,6 +107,7 @@ class RecipeStep extends Component {
               Step {stepIndex + 1}/{steps ? steps.length : 0}
             </h1>
           </Col>
+          {/* <h1>{responsiveVoice.voiceSupport() ? null : 'Please use Chrome' }</h1> */}
           {this.state.isListening && (
             <Portal>
               <div>
@@ -165,13 +160,12 @@ class RecipeStep extends Component {
               >
                 Start
               </Button>
-              {/* change to resume once annyang is in componentDidMount */}
               <Button
                 className="navigation-button"
                 variant="danger"
                 id="pause"
                 type="button"
-                onClick={() => this.handleStop()}
+                onClick={() => stop()}
               >
                 Stop
               </Button>
