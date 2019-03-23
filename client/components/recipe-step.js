@@ -21,7 +21,6 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import Modal from 'react-bootstrap/Modal'
-import Overlay from 'react-bootstrap/Overlay'
 
 class RecipeStep extends Component {
   constructor(props) {
@@ -31,10 +30,10 @@ class RecipeStep extends Component {
       julia: ''
     }
   }
+
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
-    // const julia = SpeechSynthesisUtterance.text
     speechSynthesis.cancel()
   }
 
@@ -90,6 +89,7 @@ class RecipeStep extends Component {
         '(*word) Hey julia *word': this.unrecognisedWord
       }
       annyang.addCommands(commands)
+
       annyang.addCallback('resultMatch', function(userSaid, commandText) {
         console.log('user said: ', userSaid)
         console.log('command: ', commandText)
@@ -103,6 +103,7 @@ class RecipeStep extends Component {
         console.log('Error from result no match')
         speechSynthesis.cancel()
       })
+      // this.setState({julia: "I don't understand"})
 
       annyang.addCallback('start', () => {
         this.setState({isListening: true})
@@ -110,9 +111,16 @@ class RecipeStep extends Component {
       annyang.addCallback('end', () => {
         this.setState({isListening: false})
       })
+
       annyang.start()
     }
   }
+
+  // transcript = () => {
+  //   if (this.state.isListening === true) {
+  //     this.setState({julia: SpeechSynthesisUtterance.text})
+  //   }
+  // }
 
   handleStop = () => {
     responsiveVoice.cancel()
@@ -122,6 +130,7 @@ class RecipeStep extends Component {
   render() {
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
+    console.log('state', this.state)
 
     return (
       <Container className="container">
@@ -141,7 +150,7 @@ class RecipeStep extends Component {
                 <Modal.Body scrollable="true" centered="true">
                   <i className="fas fa-microphone" />
                   <p>test</p>
-                  <p>{this.julia}</p>
+                  <p>{this.state.julia}</p>
                 </Modal.Body>
               </Modal.Dialog>;
             </Portal>

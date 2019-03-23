@@ -18,7 +18,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
         height="30"
         className="d-inline-block align-top"
       />
-      {'   JULIA'}
+      {'JULIA'}
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">

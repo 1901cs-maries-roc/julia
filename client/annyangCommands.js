@@ -5,12 +5,12 @@ export const stop = () => {
 }
 
 export const speak = words => {
-  console.log('in speak', words)
+  // console.log('in speak', words)
   responsiveVoice.speak(words)
 }
 
 export const repeatStep = () => {
-  console.log('inside repeatStep')
+  // console.log('inside repeatStep')
   speak(document.getElementById('step-instructions').innerText)
 }
 
@@ -63,18 +63,18 @@ export const help = () => {
   )
 }
 
-export const command = {}
+// export const command = {}
 
-export const commandCheck = action => {
-  if (command[action]) {
-    console.log('inside CommandCheck')
-    return command[action]()
-  } else {
-    const repeatRequest = "Sorry, I didn't get that. Please try again."
-    annyang.pause()
-    speak(repeatRequest)
-    window.setTimeout(() => {
-      annyang.resume()
-    }, 4000)
-  }
-}
+// export const commandCheck = action => {
+//   if (command[action]) {
+//     console.log('inside CommandCheck')
+//     return command[action]()
+//   } else {
+//     const repeatRequest = "Sorry, I didn't get that. Please try again."
+//     annyang.pause()
+//     speak(repeatRequest)
+//     window.setTimeout(() => {
+//       annyang.resume()
+//     }, 4000)
+//   }
+// }
