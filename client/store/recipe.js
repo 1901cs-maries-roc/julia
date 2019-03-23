@@ -8,6 +8,7 @@ const GET_RECIPE = 'GET_RECIPE'
 const NEXT_STEP = 'NEXT_STEP'
 const PREV_STEP = 'PREV_STEP'
 const RESTART_STEPS = 'RESTART_STEPS'
+const ADD_RECIPE = 'ADD_RECIPE'
 
 /**
  * INITIAL STATE
@@ -32,6 +33,8 @@ export const prevStep = currentStep => ({
   prevStep: currentStep - 1
 })
 export const restartSteps = () => ({type: RESTART_STEPS})
+
+export const addRecipe = recipe => ({type: ADD_RECIPE, recipe})
 /**
  * THUNK CREATORS
  */
@@ -48,6 +51,16 @@ export const getRecipeThunk = recipeId => async dispatch => {
   try {
     const recipe = await axios.get(`/api/recipes/${recipeId}`)
     dispatch(getRecipe(recipe.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const addRecipeThunk = recipe => async dispatch => {
+  try {
+    console.log('in add recipe thunk')
+    const newRecipe = await axios.post('/api/recipes', recipe)
+    dispatch(addRecipe(newRecipe.data))
   } catch (err) {
     console.error(err)
   }
@@ -70,6 +83,9 @@ export default function(state = initialState, action) {
     case PREV_STEP: {
       const nextIndex = action.prevStep >= 0 ? action.prevStep : null
       return {...state, currentStepIndex: nextIndex}
+    }
+    case ADD_RECIPE: {
+      return {...state, recipe: [...state.recipes, action.newRecipe]}
     }
     case RESTART_STEPS:
       return {...state, currentStepIndex: 0}
