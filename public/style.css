@@ -23,7 +23,7 @@ form div {
 #modal {
   position: absolute;
   right: 0px;
-  top: 10em;
+  bottom: 0px;
   margin-right: 5em;
 }
 
