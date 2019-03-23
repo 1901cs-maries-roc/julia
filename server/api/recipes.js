@@ -17,15 +17,7 @@ router.get('/:recipeId', async (req, res, next) => {
     const recipe = await Recipe.findOne({
       where: {
         id: recipeId
-      },
-      include: [
-        {
-          model: Ingredient
-        },
-        {
-          model: Tag
-        }
-      ]
+      }
     })
     res.json(recipe)
   } catch (err) {
@@ -56,8 +48,19 @@ router.get('/:recipeId/:stepNum', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const newRecipe = await Recipe.create(req.body)
-    await Recipe.findById(newRecipe.id)
+    const recipe = {
+      imgUrl: req.body.imgUrl,
+      name: req.body.name,
+      prepTime: req.body.prepTime,
+      cookTime: req.body.cookTime,
+      waitTime: req.body.waitTime,
+      serving: req.body.serving,
+      steps: req.body.steps,
+      ingredients: req.body.ingredients
+      // tags: req.body.tags
+    }
+    const newRecipe = await Recipe.create(recipe)
+    res.json(newRecipe)
   } catch (err) {
     next(err)
   }

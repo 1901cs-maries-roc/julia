@@ -52,10 +52,23 @@ all-navigation-button {
 
 h1,
 h2,
-h3 {
+h3,
+.start-button {
   font-family: 'Baloo Chettan', cursive;
 }
 
 .back-button {
   margin-bottom: 1.5em;
+
+.start-button {
+  height: 5em;
+  width: 15em;
+}
+
+.image-overview {
+  width: 30em;
+}
+
+.start-button {
+  margin-top: 2em;
 }
