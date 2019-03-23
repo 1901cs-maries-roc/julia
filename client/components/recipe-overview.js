@@ -61,32 +61,6 @@ class RecipeOverview extends Component {
             <p>
               <strong>Serving Size:</strong> {serving}
             </p>
-            <div id="ingredient-list">
-              <h3>Ingredients:</h3>
-              {ingredients ? (
-                <IngredientsList ingredients={ingredients} isOverview={true} />
-              ) : (
-                <p>No Ingredients</p>
-              )}
-            </div>
-          </Col>
-        </Row>
-        <Row className="row-grid">
-          <Col md={{span: 8, offset: 0}}>
-            <div id="recipe-steps">
-              <h3>Instructions:</h3>
-              <ol>
-                {steps ? (
-                  steps.map(step => {
-                    return <li key={step}>{step}</li>
-                  })
-                ) : (
-                  <li>No Steps</li>
-                )}
-              </ol>
-            </div>
-          </Col>
-          <Col md={{span: 2, offset: 2}}>
             <ButtonToolbar>
               <Button
                 variant="success"
@@ -96,6 +70,30 @@ class RecipeOverview extends Component {
                 Start Cooking
               </Button>
             </ButtonToolbar>
+          </Col>
+        </Row>
+        <Row className="row-grid">
+          <Col md={{span: 6, offset: 0}}>
+            <div id="recipe-steps">
+              <h3>Ingredients:</h3>
+              {ingredients ? (
+                <IngredientsList ingredients={ingredients} isOverview={true} />
+              ) : (
+                <p>No Ingredients</p>
+              )}
+            </div>
+          </Col>
+          <Col md={{span: 6, offset: 0}}>
+            <h3>Instructions:</h3>
+            <ol>
+              {steps ? (
+                steps.map(step => {
+                  return <li key={step}>{step}</li>
+                })
+              ) : (
+                <li>No Steps</li>
+              )}
+            </ol>
           </Col>
         </Row>
       </Container>
