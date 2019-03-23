@@ -25,7 +25,6 @@ class RecipeOverview extends Component {
     event.preventDefault()
     const recipeId = this.props.match.params.recipeId
     this.props.history.push(`/recipes/${recipeId}/cooking`)
-    startCooking()
   }
 
   render() {

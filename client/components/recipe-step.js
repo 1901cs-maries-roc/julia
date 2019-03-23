@@ -12,7 +12,8 @@ import {
   speak,
   listIngredients,
   start,
-  stop
+  stop,
+  startCooking
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import Portal from './portal'
@@ -33,7 +34,8 @@ class RecipeStep extends Component {
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
-    speechSynthesis.cancel()
+    // speechSynthesis.cancel()
+    startCooking()
   }
 
   unrecognisedWord = () => {
@@ -107,7 +109,6 @@ class RecipeStep extends Component {
               Step {stepIndex + 1}/{steps ? steps.length : 0}
             </h1>
           </Col>
-          {/* <h1>{responsiveVoice.voiceSupport() ? null : 'Please use Chrome' }</h1> */}
           {this.state.isListening && (
             <Portal>
               <div>
