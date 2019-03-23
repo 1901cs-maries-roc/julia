@@ -17,7 +17,6 @@ class RecipeOverview extends Component {
 
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
-
     this.props.getRecipeThunkDispatch(recipeId)
   }
 
@@ -37,17 +36,19 @@ class RecipeOverview extends Component {
       waitTime,
       serving,
       steps,
-      tags,
       ingredients
     } = this.props.currentRecipe
 
     return (
       <Container className="container">
         <Row>
-          <Col>
-            <img src={imgUrl} />
+          <Col md={{span: 5, offset: 1}}>
+            <img
+              src={imgUrl}
+              className="image-overview justify-content-md-center"
+            />
           </Col>
-          <Col>
+          <Col md={{span: 5, offset: 1}}>
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong> {prepTime} minutes
@@ -73,7 +74,7 @@ class RecipeOverview extends Component {
           </Col>
         </Row>
         <Row className="row-grid">
-          <Col md={{span: 6, offset: 0}}>
+          <Col md={{span: 5, offset: 1}}>
             <div id="recipe-steps">
               <h3>Ingredients:</h3>
               {ingredients ? (
@@ -83,7 +84,7 @@ class RecipeOverview extends Component {
               )}
             </div>
           </Col>
-          <Col md={{span: 6, offset: 0}}>
+          <Col md={{span: 5, offset: 1}}>
             <h3>Instructions:</h3>
             <ol>
               {steps ? (
