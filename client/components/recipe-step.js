@@ -112,6 +112,10 @@ class RecipeStep extends Component {
     }
   }
 
+  handleChange = e => {
+    console.log('e', e)
+  }
+
   handleStop = () => {
     responsiveVoice.cancel()
     annyang.abort()
@@ -128,7 +132,6 @@ class RecipeStep extends Component {
           <Col md={{span: 4, offset: 2}}>
             <h1 id="title">
               Step {stepIndex + 1}/{steps ? steps.length : 0}
-              {julia}
             </h1>
           </Col>
           {this.state.isListening && (
@@ -141,7 +144,7 @@ class RecipeStep extends Component {
                 <Modal.Body>
                   <i className="fas fa-microphone" />
                   <p>test</p>
-                  <p>{julia}</p>
+                  <p onChange={this.handleChange}>{julia}</p>
                 </Modal.Body>
               </Modal.Dialog>;
             </Portal>

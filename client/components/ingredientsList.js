@@ -11,7 +11,6 @@ export default function IngredientsList(props) {
     ? ingredients
     : ingredients.filter(i => instructionWords.includes(i.name.toLowerCase()))
 
-  console.log('is ingredientsList? ', ingredientsList.length)
   return ingredientsList.length ? (
     <Col>
       <ul id="ingredients">
