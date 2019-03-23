@@ -28,7 +28,8 @@ class RecipeStep extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isListening: false
+      isListening: false,
+      isFirstStep: this.props.currentStepIndex === 0
     }
   }
   componentDidMount() {
@@ -36,6 +37,12 @@ class RecipeStep extends Component {
     this.props.getRecipe(recipeId)
     // speechSynthesis.cancel()
     startCooking()
+  }
+
+  componentWillUnmount = () => {
+    speak('Julia is now off')
+    annyang.abort()
+    this.props.restartRecipe()
   }
 
   unrecognisedWord = () => {
@@ -47,10 +54,13 @@ class RecipeStep extends Component {
     speechSynthesis.cancel()
   }
 
-  componentWillUnmount = () => {
-    speak('Julia is now off')
-    annyang.abort()
-    this.props.restartRecipe()
+  goBack = () => {
+    if (this.state.isFirstStep) {
+      speak('You are on the first step of the recipe')
+    } else {
+      speak('Previous step')
+      document.getElementById('back').click()
+    }
   }
 
   annyang = () => {
@@ -59,8 +69,8 @@ class RecipeStep extends Component {
         '(*word) hey julia': nullCommand,
         '(*word) hey julia help': help,
         '(*word) hey julia (can you) repeat(s)': repeatStep,
-        '(*word) hey julia (go) back (a step)': goBack,
-        '(*word) hey julia previous (step)': goBack,
+        '(*word) hey julia (go) back (a step)': this.goBack,
+        '(*word) hey julia previous (step)': this.goBack,
         '(*word) Hey julia next (step)': goToNext,
         '(*word) Hey julia (*action) ingredient(s)': listIngredients,
         '(*word) Hey julia (*action) instruction(s)': start,
@@ -98,6 +108,7 @@ class RecipeStep extends Component {
   }
 
   render() {
+    console.log('Current state: ', this.state)
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
 
@@ -164,7 +175,7 @@ class RecipeStep extends Component {
                 variant="secondary"
                 id="back"
                 type="button"
-                disabled={this.props.currentStepIndex === 0}
+                disabled={this.state.isFirstStep}
                 onClick={() => {
                   this.props.goToPrevStep(stepIndex)
                 }}

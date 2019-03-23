@@ -6,7 +6,7 @@ export const stop = () => {
 }
 
 export const speak = words => {
-  console.log('in speak', words)
+  console.log('Speaking: ', words)
   responsiveVoice.speak(words)
 }
 
@@ -41,14 +41,12 @@ export const backToRecipeOverview = () => {
 }
 
 export const start = () => {
-  console.log('in start')
   annyang.resume()
   speak(document.getElementById('step-instructions').innerText)
   document.getElementById('start').click()
 }
 
 export const startCooking = () => {
-  console.log('in start cooking')
   speak('To begin cooking, press start, then say Hey Julia, instructions')
 }
 
