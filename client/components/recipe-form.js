@@ -58,21 +58,25 @@ class RecipeForm extends Component {
         <Row className="row-grid">
           <h4>Add a recipe from a URL</h4>
         </Row>
-        <Row>
-          <InputGroup>
-            <InputGroup.Prepend>
-              <InputGroup.Text id="uploadUrl">Recipe URL</InputGroup.Text>
-            </InputGroup.Prepend>
-            <Form.Control
-              placeholder="Enter the URL"
-              aria-label="Recipe URL"
-              aria-describedby="uploadUrl"
-            />
+        <Form.Row>
+          <Form.Group as={Col} md="10">
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text id="uploadUrl">Recipe URL</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control
+                placeholder="Enter the URL"
+                aria-label="Recipe URL"
+                aria-describedby="uploadUrl"
+              />
+            </InputGroup>
+          </Form.Group>
+          <Form.Group>
             <Button variant="primary" type="button">
               Upload
             </Button>
-          </InputGroup>
-        </Row>
+          </Form.Group>
+        </Form.Row>
 
         <Row className="row-grid">
           <h4>Manually Enter a Recipe</h4>
@@ -193,7 +197,7 @@ class RecipeForm extends Component {
                     alt="Recipe preview"
                   />
                 </Form.Group>
-                <Form.Group centered>
+                <Form.Group>
                   <Button
                     variant="primary"
                     type="submit"
