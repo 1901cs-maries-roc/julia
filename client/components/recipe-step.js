@@ -10,7 +10,7 @@ import {
   listIngredients,
   resume,
   startCooking,
-  pauseProcessing
+  unrecognized
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import StepNav from './recipe-step-nav'
@@ -101,24 +101,24 @@ class RecipeStep extends Component {
         },
         '(*words) (Hey) Julia resume': resume,
         '(*words) (Hey) Julia back to *overview': this.backToRecipeOverview,
-        '(*words) Hey Julia *word': pauseProcessing
+        '(*words) Hey Julia *word': unrecognized
       }
       annyang.addCommands(commands)
 
       annyang.addCallback('soundstart', () => {
-        if (!responsiveVoice.isPlaying())
+        if (!responsiveVoice.isPlaying()) {
+          // if user is speaking
           this.setState({isProcessingInput: true})
+        }
         window.setTimeout(() => this.setState({isProcessingInput: false}), 3000)
       })
 
       annyang.addCallback('resultMatch', (userSaid, commandText) => {
-        this.setState({isProcessingInput: false})
         console.log('user said: ', userSaid)
         console.log('command: ', commandText)
       })
 
       annyang.addCallback('resultNoMatch', userSaid => {
-        this.setState({isProcessingInput: false})
         console.log('No match for this input: ', userSaid)
       })
 
@@ -128,7 +128,7 @@ class RecipeStep extends Component {
 
       this.setState({isListening: true})
 
-      annyang.start({continuous: false})
+      annyang.start({autoRestart: true, continuous: false})
     }
   }
 
