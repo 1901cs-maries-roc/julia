@@ -46,6 +46,9 @@ class RecipeForm extends Component {
 
   render() {
     const {validated} = this.state
+    const imgUrl = this.state.imgUrl.length
+      ? this.state.imgUrl
+      : '/recipe-default.jpg'
     return (
       <Container className="container">
         <Row>
@@ -90,7 +93,7 @@ class RecipeForm extends Component {
                     onChange={this.handleChange}
                   />
                   <img
-                    src={this.state.imgUrl}
+                    src={imgUrl}
                     style={{width: '200px'}}
                     alt="Recipe preview"
                   />
