@@ -40,8 +40,8 @@ class RecipeStep extends Component {
   }
 
   componentWillUnmount = () => {
-    speak('Julia is now off')
-    window.setTimeout(() => annyang.abort(), 5000)
+    annyang.abort()
+    responsiveVoice.speak('Julia is now off')
     this.props.restartRecipe()
   }
 
@@ -74,9 +74,9 @@ class RecipeStep extends Component {
 
   stop = () => {
     responsiveVoice.cancel()
-    speak('Julia is now paused. To resume, press start again.')
+    annyang.abort()
+    responsiveVoice.speak('Julia is now paused. To resume, press start again.')
     this.setState({isListening: false})
-    window.setTimeout(() => annyang.abort(), 5000)
   }
 
   annyang = () => {
