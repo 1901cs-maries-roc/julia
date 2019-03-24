@@ -41,7 +41,7 @@ class RecipeStep extends Component {
 
   componentWillUnmount = () => {
     speak('Julia is now off')
-    annyang.abort()
+    window.setTimeout(() => annyang.abort(), 5000)
     this.props.restartRecipe()
   }
 
