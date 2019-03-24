@@ -7,10 +7,14 @@ import CardGroup from 'react-bootstrap/CardGroup'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Axios from 'axios'
 
 export class AllRecipes extends Component {
   componentDidMount() {
     this.props.getAllRecipesThunkDispatch()
+    Axios.post('/api/recipes/scrape', {
+      url: 'https://www.tasteofhome.com/recipes/best-lasagna/'
+    })
   }
 
   render() {

@@ -76,16 +76,13 @@ export default function(state = initialState, action) {
     case GET_RECIPE:
       return {...state, recipe: action.recipe}
     case NEXT_STEP: {
-      const nextIndex =
-        action.nextStep < state.recipe.steps.length ? action.nextStep : null
-      return {...state, currentStepIndex: nextIndex}
+      return {...state, currentStepIndex: action.nextStep}
     }
     case PREV_STEP: {
-      const nextIndex = action.prevStep >= 0 ? action.prevStep : null
-      return {...state, currentStepIndex: nextIndex}
+      return {...state, currentStepIndex: action.prevStep}
     }
     case ADD_RECIPE: {
-      return {...state, recipe: [...state.recipes, action.newRecipe]}
+      return {...state, recipes: [...state.recipes, action.newRecipe]}
     }
     case RESTART_STEPS:
       return {...state, currentStepIndex: 0}

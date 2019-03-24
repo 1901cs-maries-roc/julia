@@ -1,5 +1,18 @@
 const router = require('express').Router()
 const {Recipe, Ingredient, Tag} = require('../db/models')
+const request = require('request')
+const cheerio = require('cheerio')
+const axios = require('axios')
+const {
+  findImg,
+  findPrepTime,
+  findCookTime,
+  findTotalTime,
+  findIngredients,
+  findInstructions,
+  findServings,
+  findTitle
+} = require('../../script/scrapers')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -53,7 +66,7 @@ router.post('/', async (req, res, next) => {
       name: req.body.name,
       prepTime: req.body.prepTime,
       cookTime: req.body.cookTime,
-      waitTime: req.body.waitTime,
+      totalTime: req.body.waitTime,
       serving: req.body.serving,
       steps: req.body.steps,
       ingredients: req.body.ingredients
@@ -61,6 +74,29 @@ router.post('/', async (req, res, next) => {
     }
     const newRecipe = await Recipe.create(recipe)
     res.json(newRecipe)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/scrape', async (req, res, next) => {
+  try {
+    const {data: html} = await axios.get(req.body.url)
+    const $ = cheerio.load(html)
+    const recipe = {
+      name: findTitle($),
+      imgUrl: findImg($),
+      prepTime: findPrepTime($),
+      cookTime: findCookTime($),
+      totalTime: findTotalTime($),
+      serving: findServings($),
+      ingredients: findIngredients($),
+      steps: findInstructions($)
+    }
+    console.log('>> 1) Scraped recipe: ', recipe)
+
+    const savedRecipe = await Recipe.create(recipe)
+    res.send(savedRecipe).status(200)
   } catch (err) {
     next(err)
   }

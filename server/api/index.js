@@ -1,44 +1,9 @@
 const router = require('express').Router()
-const request = require('request')
-const cheerio = require('cheerio')
-const {
-  findImg,
-  findPrepTime,
-  findCookTime,
-  findTotalTime,
-  findIngredients,
-  findInstructions,
-  findServings,
-  findTitle
-} = require('../scrapers')
 
 module.exports = router
 
 router.use('/users', require('./users'))
 router.use('/recipes', require('./recipes'))
-
-router.post('/scrape', (req, res, next) => {
-  request(req.body.url, (error, response, html) => {
-    if (!error) {
-      const $ = cheerio.load(html)
-
-      const recipe = {
-        name: findTitle($),
-        imgUrl: findImg($),
-        prepTime: findPrepTime($),
-        cookTime: findCookTime($),
-        totalTime: findTotalTime($),
-        servings: findServings($),
-        ingredients: findIngredients($),
-        instructions: findInstructions($)
-      }
-
-      res.send(recipe).status(200)
-    } else {
-      next(error)
-    }
-  })
-})
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
