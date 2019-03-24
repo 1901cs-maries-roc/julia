@@ -14,7 +14,7 @@ class RecipeForm extends Component {
     super()
     this.state = {
       name: '',
-      // imgUrl: '',
+      imgUrl: '',
       prepTime: 0,
       cookTime: 0,
       waitTime: 0,
@@ -29,8 +29,15 @@ class RecipeForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    this.props.addRecipeThunkDispatch(this.state)
-    this.props.history.push('/')
+    const form = event.currentTarget
+    if (form.checkValidity() === false) {
+      event.preventDefault()
+      event.stopPropagation()
+    } else {
+      this.props.addRecipeThunkDispatch(this.state)
+      this.props.history.push('/')
+    }
+    this.setState({validated: true})
   }
 
   handleChange = event => {
@@ -59,6 +66,7 @@ class RecipeForm extends Component {
   }
 
   render() {
+    const {validated} = this.state
     return (
       <Container className="container">
         <Row>
@@ -87,27 +95,28 @@ class RecipeForm extends Component {
         <Row className="row-grid">
           <h4>Manually Enter a Recipe</h4>
         </Row>
-        <Form>
+        <Form onClick={this.handleSubmit} noValidate validated={validated}>
           <Row>
             <Col>
               <Col>
-                <PhotoAdd createPhoto={this.createPhoto} />
+                {/* <PhotoAdd createPhoto={this.createPhoto} /> */}
+                URL HERE
               </Col>
               <Col>
                 <Form.Row>
                   <Form.Group controlId="formPrepTime">
-                    <Form.Label>Prep Time</Form.Label>
+                    <Form.Label>Prep Time in min</Form.Label>
                     <Form.Control
-                      type="number"
+                      placeholder="ex: 60"
                       id="prepTime"
                       onChange={this.handleChange}
                     />
                   </Form.Group>
 
                   <Form.Group controlId="formCookTime">
-                    <Form.Label>Cook Time</Form.Label>
+                    <Form.Label>Cook Time in min</Form.Label>
                     <Form.Control
-                      type="number"
+                      placeholder="ex: 30"
                       id="cookTime"
                       onChange={this.handleChange}
                     />
@@ -117,9 +126,9 @@ class RecipeForm extends Component {
               <Col>
                 <Form.Row>
                   <Form.Group controlId="formWaitTime">
-                    <Form.Label>Wait Time</Form.Label>
+                    <Form.Label>Total Time in min</Form.Label>
                     <Form.Control
-                      type="number"
+                      placeholder="ex: 90"
                       id="waitTime"
                       onChange={this.handleChange}
                     />
@@ -130,8 +139,12 @@ class RecipeForm extends Component {
                     <Form.Control
                       type="number"
                       id="serving"
+                      required
                       onChange={this.handleChange}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please enter a serving.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Form.Row>
               </Col>
@@ -140,11 +153,16 @@ class RecipeForm extends Component {
               <Form.Row>
                 <Form.Group controlId="formName">
                   <Form.Label>Recipe Title</Form.Label>
+
                   <Form.Control
                     id="name"
+                    required={true}
                     placeholder="Enter title"
                     onChange={this.handleChange}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a title.
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>
 
@@ -153,12 +171,16 @@ class RecipeForm extends Component {
                   <Form.Label>Ingredients</Form.Label>
                   <Form.Control
                     id="ingredients"
+                    required
                     placeholder="Enter one ingredient"
                     onChange={this.handleChange}
                   />
                   <Form.Text className="text-muted">
                     Enter each ingredient on its own line.
                   </Form.Text>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter ingredients.
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>
 
@@ -167,22 +189,22 @@ class RecipeForm extends Component {
                   <Form.Label>Instructions</Form.Label>
                   <Form.Control
                     as="textarea"
-                    rows="2"
+                    rows="5"
                     id="steps"
+                    required
                     placeholder="Enter one instruction"
                     onChange={this.handleChange}
                   />
                   <Form.Text className="text-muted">
                     Enter each instruction on its own line.
                   </Form.Text>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter instructions.
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>
 
-              <Button
-                variant="primary"
-                type="submit"
-                onClick={this.handleSubmit}
-              >
+              <Button variant="primary" type="submit">
                 Submit
               </Button>
             </Col>
