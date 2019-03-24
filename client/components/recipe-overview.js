@@ -47,7 +47,7 @@ class RecipeOverview extends Component {
               className="image-overview justify-content-md-center"
             />
           </Col>
-          <Col md={{span: 5, offset: 1}}>
+          <Col md={{span: 5, offset: 1}} className="recipeBar">
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong> {prepTime} minutes

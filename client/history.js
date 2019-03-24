@@ -1,4 +1,5 @@
-import {createBrowserHistory, createMemoryHistory} from 'history'
+const createHistory = require('history').createBrowserHistory
+const createMemoryHistory = require('history').createMemoryHistory
 
 const history =
   process.env.NODE_ENV === 'test'
