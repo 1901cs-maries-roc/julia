@@ -9,7 +9,8 @@ import {
   speak,
   listIngredients,
   resume,
-  startCooking
+  startCooking,
+  pauseProcessing
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import StepNav from './recipe-step-nav'
@@ -28,7 +29,7 @@ class RecipeStep extends Component {
       isListening: false,
 
       // Is annyang processing inputs
-      isProcessingInput: true
+      isProcessingInput: false
     }
   }
 
@@ -100,34 +101,34 @@ class RecipeStep extends Component {
         },
         '(*words) (Hey) Julia resume': resume,
         '(*words) (Hey) Julia back to *overview': this.backToRecipeOverview,
-        '(*words) (Hey) Julia *word': this.unrecognisedWord
+        '(*words) Hey Julia *word': pauseProcessing
       }
       annyang.addCommands(commands)
 
-      annyang.addCallback('resultMatch', function(userSaid, commandText) {
+      annyang.addCallback('soundstart', () => {
+        if (!responsiveVoice.isPlaying())
+          this.setState({isProcessingInput: true})
+        window.setTimeout(() => this.setState({isProcessingInput: false}), 3000)
+      })
+
+      annyang.addCallback('resultMatch', (userSaid, commandText) => {
+        this.setState({isProcessingInput: false})
         console.log('user said: ', userSaid)
         console.log('command: ', commandText)
       })
 
-      annyang.addCallback('error', function(evt) {
-        if (evt.error !== 'no-speech') console.log('There was an error: ', evt)
-      })
-
-      annyang.addCallback('resultNoMatch', function(userSaid) {
+      annyang.addCallback('resultNoMatch', userSaid => {
+        this.setState({isProcessingInput: false})
         console.log('No match for this input: ', userSaid)
       })
 
-      annyang.addCallback('start', () => {
-        console.log('annyang in START')
-      })
-
-      annyang.addCallback('end', () => {
-        console.log('annyang in END')
+      annyang.addCallback('error', evt => {
+        if (evt.error !== 'no-speech') console.log('There was an error: ', evt)
       })
 
       this.setState({isListening: true})
 
-      annyang.start()
+      annyang.start({continuous: false})
     }
   }
 
@@ -139,16 +140,16 @@ class RecipeStep extends Component {
     const processingInputSlug = this.state.isProcessingInput ? (
       <span>
         <p className="microphone">
-          <i className="fas fa-microphone fa-5x microphone-on" />
+          <i className="fas fa-microphone fa-5x microphone-off" />
         </p>
-        <h4>Listening...</h4>
+        <h4>Thinking...</h4>
       </span>
     ) : (
       <span>
         <p className="microphone">
-          <i className="fas fa-microphone fa-5x microphone-off" />
+          <i className="fas fa-microphone fa-5x microphone-on" />
         </p>
-        <h4>Wait a moment</h4>
+        <h4>I'm listening</h4>
       </span>
     )
 

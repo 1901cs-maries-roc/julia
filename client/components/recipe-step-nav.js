@@ -2,7 +2,6 @@ import React from 'react'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
-// import {stop} from '../annyangCommands'
 
 export default function StepNav({
   stepIndex,

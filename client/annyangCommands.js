@@ -4,7 +4,8 @@ export const pauseProcessing = () => {
   annyang.pause()
   speak("Sorry, I didn't get that. Please try again.")
   window.setTimeout(() => {
-    this.resumeProcessing()
+    // this.resumeProcessing()
+    annyang.resume()
   }, 3500)
 }
 
@@ -20,35 +21,16 @@ export const listIngredients = () => {
   speak(document.getElementById('ingredients').innerText)
 }
 
-export const goBack = () => {
-  if (document.getElementById('back').disabled) {
-    speak('You are on the first step of the recipe')
-  } else {
-    speak('Previous step')
-    document.getElementById('back').click()
-  }
-}
-
-export const goToNext = () => {
-  if (document.getElementById('next').disabled) {
-    return speak("You've reached the end of the recipe")
-  }
-  document.getElementById('next').click()
-  speak(document.getElementById('step-instructions').innerText)
-}
-
 export const backToRecipeOverview = () => {
   speak('Julia is now off')
   annyang.abort()
   document.getElementById('recipeOverview').click()
 }
 
-export const start = () => {
-  console.log('in start')
+export const resume = () => {
+  console.log('in resume')
   annyang.resume()
   speak('Julia is back.')
-  // speak(document.getElementById('step-instructions').innerText)
-  // document.getElementById('start').click()
 }
 
 export const startCooking = () => {
