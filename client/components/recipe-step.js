@@ -74,9 +74,9 @@ class RecipeStep extends Component {
 
   stop = () => {
     responsiveVoice.cancel()
-    annyang.pause()
-    this.setState({isListening: false})
     speak('Julia is now paused. To resume, press start again.')
+    this.setState({isListening: false})
+    window.setTimeout(() => annyang.abort(), 5000)
   }
 
   annyang = () => {
