@@ -62,13 +62,11 @@ class RecipeForm extends Component {
     return (
       <Container className="container">
         <Row>
-          <div>
-            <h1>Add a recipe</h1>
-          </div>
+          <h1>Add a recipe</h1>
         </Row>
-        <hr />
-        <Row>
-          <h2>Add a recipe from a URL</h2>
+
+        <Row className="row-grid">
+          <h4>Add a recipe from a URL</h4>
         </Row>
         <InputGroup>
           <InputGroup.Prepend>
@@ -86,7 +84,7 @@ class RecipeForm extends Component {
         <hr />
 
         <Form>
-          <h2>Manually Enter a Recipe</h2>
+          <h4>Manually Enter a Recipe</h4>
           <Row>
             <Col>
               <PhotoAdd createPhoto={this.createPhoto} />
