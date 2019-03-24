@@ -50,6 +50,18 @@ all-navigation-button {
   margin-top: 20em;
 }
 
+/* adjustments on navbar */
+a.navbar-brand {
+  padding: 1px;
+  margin-left: 5rem;
+}
+
+.ml-auto,
+.mx-auto {
+  margin-right: 5rem;
+}
+/* adjustments on navbar */
+
 h1,
 h2,
 h3,
@@ -59,6 +71,7 @@ h3,
 
 .back-button {
   margin-bottom: 1.5em;
+}
 
 .start-button {
   height: 5em;
