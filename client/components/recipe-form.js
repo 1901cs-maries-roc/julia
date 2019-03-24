@@ -20,11 +20,12 @@ class RecipeForm extends Component {
       waitTime: 0,
       serving: 0,
       steps: [],
-      ingredients: []
+      ingredients: [],
+      validated: false
     }
-    this.createPhoto = this.createPhoto.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    // this.createPhoto = this.createPhoto.bind(this)
+    // this.handleChange = this.handleChange.bind(this)
+    // this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit = event => {
@@ -34,6 +35,7 @@ class RecipeForm extends Component {
       event.preventDefault()
       event.stopPropagation()
     } else {
+      console.log(this.state)
       this.props.addRecipeThunkDispatch(this.state)
       this.props.history.push('/')
     }
@@ -41,29 +43,28 @@ class RecipeForm extends Component {
   }
 
   handleChange = event => {
-    console.log(event.target)
     this.setState({
       [event.target.id]: event.target.value
     })
   }
 
-  createPhoto(newPhoto) {
-    console.log('PHOTO:', newPhoto.image)
-    const h = {} //headers
-    let data = new FormData()
-    data.append('image', newPhoto.image)
-    data.append('name', newPhoto.name)
-    h.Accept = 'application/json' //if you expect JSON response
-    fetch('/api/recipes', {
-      method: 'POST',
-      headers: h,
-      body: data
-    })
-      .then(response => {})
-      .catch(err => {
-        console.error(err)
-      })
-  }
+  // createPhoto(newPhoto) {
+  //   console.log('PHOTO:', newPhoto.image)
+  //   const h = {} //headers
+  //   let data = new FormData()
+  //   data.append('image', newPhoto.image)
+  //   data.append('name', newPhoto.name)
+  //   h.Accept = 'application/json' //if you expect JSON response
+  //   fetch('/api/recipes', {
+  //     method: 'POST',
+  //     headers: h,
+  //     body: data
+  //   })
+  //     .then(response => {})
+  //     .catch(err => {
+  //       console.error(err)
+  //     })
+  // }
 
   render() {
     const {validated} = this.state
@@ -95,16 +96,32 @@ class RecipeForm extends Component {
         <Row className="row-grid">
           <h4>Manually Enter a Recipe</h4>
         </Row>
-        <Form onClick={this.handleSubmit} noValidate validated={validated}>
+        <Form
+          onClick={e => this.handleSubmit(e)}
+          noValidate
+          validated={validated}
+        >
           <Row>
             <Col>
               <Col>
                 {/* <PhotoAdd createPhoto={this.createPhoto} /> */}
-                URL HERE
+                <Form.Group>
+                  <Form.Label>Image URL</Form.Label>
+                  <Form.Control
+                    placeholder="ex: "
+                    id="imgUrl"
+                    onChange={this.handleChange}
+                  />
+                  <img
+                    src={this.state.imgUrl}
+                    style={{width: '200px'}}
+                    alt="Recipe preview"
+                  />
+                </Form.Group>
               </Col>
               <Col>
                 <Form.Row>
-                  <Form.Group controlId="formPrepTime">
+                  <Form.Group>
                     <Form.Label>Prep Time in min</Form.Label>
                     <Form.Control
                       placeholder="ex: 60"
@@ -113,7 +130,7 @@ class RecipeForm extends Component {
                     />
                   </Form.Group>
 
-                  <Form.Group controlId="formCookTime">
+                  <Form.Group>
                     <Form.Label>Cook Time in min</Form.Label>
                     <Form.Control
                       placeholder="ex: 30"
@@ -125,7 +142,7 @@ class RecipeForm extends Component {
               </Col>
               <Col>
                 <Form.Row>
-                  <Form.Group controlId="formWaitTime">
+                  <Form.Group>
                     <Form.Label>Total Time in min</Form.Label>
                     <Form.Control
                       placeholder="ex: 90"
@@ -134,7 +151,7 @@ class RecipeForm extends Component {
                     />
                   </Form.Group>
 
-                  <Form.Group controlId="serving">
+                  <Form.Group>
                     <Form.Label>Number of servings</Form.Label>
                     <Form.Control
                       type="number"
@@ -151,7 +168,7 @@ class RecipeForm extends Component {
             </Col>
             <Col>
               <Form.Row>
-                <Form.Group controlId="formName">
+                <Form.Group>
                   <Form.Label>Recipe Title</Form.Label>
 
                   <Form.Control
@@ -167,7 +184,7 @@ class RecipeForm extends Component {
               </Form.Row>
 
               <Form.Row>
-                <Form.Group controlId="formIngredients">
+                <Form.Group>
                   <Form.Label>Ingredients</Form.Label>
                   <Form.Control
                     id="ingredients"
@@ -185,7 +202,7 @@ class RecipeForm extends Component {
               </Form.Row>
 
               <Form.Row>
-                <Form.Group controlId="formInstructions">
+                <Form.Group>
                   <Form.Label>Instructions</Form.Label>
                   <Form.Control
                     as="textarea"
