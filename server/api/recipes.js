@@ -82,6 +82,7 @@ router.post('/', async (req, res, next) => {
 router.post('/scrape', async (req, res, next) => {
   try {
     const {data: html} = await axios.get(req.body.url)
+    // catch error if html doesn't load
     const $ = cheerio.load(html)
     const recipe = {
       name: findTitle($),
@@ -93,7 +94,7 @@ router.post('/scrape', async (req, res, next) => {
       ingredients: findIngredients($),
       steps: findInstructions($)
     }
-    console.log('>> 1) Scraped recipe: ', recipe)
+    console.log('>> Scraped recipe: ', recipe)
 
     const savedRecipe = await Recipe.create(recipe)
     res.send(savedRecipe).status(200)

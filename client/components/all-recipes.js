@@ -13,7 +13,7 @@ export class AllRecipes extends Component {
   componentDidMount() {
     this.props.getAllRecipesThunkDispatch()
     Axios.post('/api/recipes/scrape', {
-      url: 'https://www.tasteofhome.com/recipes/best-lasagna/'
+      url: 'https://thestayathomechef.com/amazing-lasagna-recipe/'
     })
   }
 
