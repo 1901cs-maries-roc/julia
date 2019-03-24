@@ -69,7 +69,6 @@ export const addRecipeThunk = recipe => async dispatch => {
 /**
  * REDUCER
  */
-// eslint-disable-next-line complexity
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_RECIPES:
@@ -77,16 +76,13 @@ export default function(state = initialState, action) {
     case GET_RECIPE:
       return {...state, recipe: action.recipe}
     case NEXT_STEP: {
-      const nextIndex =
-        action.nextStep < state.recipe.steps.length ? action.nextStep : null
       return {...state, currentStepIndex: nextIndex}
     }
     case PREV_STEP: {
-      const nextIndex = action.prevStep >= 0 ? action.prevStep : null
       return {...state, currentStepIndex: nextIndex}
     }
     case ADD_RECIPE: {
-      return {...state, recipe: [...state.recipes, action.newRecipe]}
+      return {...state, recipes: [...state.recipes, action.newRecipe]}
     }
     case RESTART_STEPS:
       return {...state, currentStepIndex: 0}
