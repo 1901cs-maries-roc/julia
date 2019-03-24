@@ -23,19 +23,9 @@ export const listIngredients = () => {
   speak(document.getElementById('ingredients').innerText)
 }
 
-export const backToRecipeOverview = () => {
-  speak('Julia is now off')
-  annyang.abort()
-  document.getElementById('recipeOverview').click()
-}
-
 export const resume = () => {
   annyang.resume()
   speak('Julia is back.')
-}
-
-export const startCooking = () => {
-  speak('To begin cooking, press start, then say Hey Julia, instructions')
 }
 
 export const nullCommand = () => {

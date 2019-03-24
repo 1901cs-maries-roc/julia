@@ -9,7 +9,6 @@ import {
   speak,
   listIngredients,
   resume,
-  startCooking,
   unrecognized
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
@@ -27,30 +26,32 @@ class RecipeStep extends Component {
     this.state = {
       // Is the microphone on
       isListening: false,
-
       // Is annyang processing inputs
-      isProcessingInput: false
+      isProcessingInput: false,
+      isNarrating: false
     }
   }
 
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
-    startCooking()
+    responsiveVoice.speak(
+      'To begin cooking, press start, then say Hey Julia, instructions'
+    )
   }
 
   componentWillUnmount = () => {
     annyang.abort()
-    responsiveVoice.speak('Julia is now off')
+    responsiveVoice.speak('Bon appetit! Julia is now off.')
     this.props.restartRecipe()
   }
 
   goBack = () => {
+    const stepIndex = this.props.currentStepIndex
     if (this.props.currentStepIndex === 0) {
-      speak('You are on the first step of the recipe')
+      this.state.isNarrating && speak('You are on the first step of the recipe')
     } else {
-      speak('Previous step')
-      const stepIndex = this.props.currentStepIndex
+      this.state.isNarrating && speak('Previous step')
       this.props.goToPrevStep(stepIndex)
     }
   }
@@ -60,9 +61,9 @@ class RecipeStep extends Component {
       this.props.currentStepIndex >=
       this.props.currentRecipe.steps.length - 1
     ) {
-      speak("You've reached the end of the recipe")
+      this.state.isNarrating && speak("You've reached the end of the recipe")
     } else {
-      speak('Next Step')
+      this.state.isNarrating && speak('Next Step')
       const stepIndex = this.props.currentStepIndex
       this.props.goToNextStep(stepIndex)
     }
@@ -76,7 +77,7 @@ class RecipeStep extends Component {
     responsiveVoice.cancel()
     annyang.abort()
     responsiveVoice.speak('Julia is now paused. To resume, press start again.')
-    this.setState({isListening: false})
+    this.setState({isListening: false, isNarrating: false})
   }
 
   annyang = () => {
@@ -126,8 +127,7 @@ class RecipeStep extends Component {
         if (evt.error !== 'no-speech') console.log('There was an error: ', evt)
       })
 
-      this.setState({isListening: true})
-
+      this.setState({isListening: true, isNarrating: true})
       annyang.start({autoRestart: true, continuous: false})
     }
   }
