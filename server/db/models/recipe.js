@@ -3,7 +3,8 @@ const db = require('../db')
 
 const Recipe = db.define('recipe', {
   name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
   imgUrl: {
     type: Sequelize.STRING,
