@@ -169,9 +169,12 @@ class RecipeForm extends Component {
                 <Form.Group>
                   <Form.Label>Ingredients</Form.Label>
                   <Form.Control
+                    as="textarea"
+                    rows="5"
                     id="ingredients"
                     required
-                    placeholder="Enter one ingredient"
+                    // &#10 triggers a new line to show user an ex
+                    placeholder="Ingredient 1 &#10;Ingredient 2 &#10;Ingredient 3"
                     onChange={this.handleChange}
                   />
                   <Form.Text className="text-muted">
@@ -191,7 +194,7 @@ class RecipeForm extends Component {
                     rows="5"
                     id="steps"
                     required
-                    placeholder="Enter one instruction"
+                    placeholder="Instruction 1 &#10;Instruction 2 &#10;Instruction 3"
                     onChange={this.handleChange}
                   />
                   <Form.Text className="text-muted">
