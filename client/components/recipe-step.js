@@ -157,6 +157,8 @@ class RecipeStep extends Component {
       </span>
     )
 
+    const recipeOverview = '< Back to Recipe'
+
     return (
       <Container className="container">
         <Row>
@@ -174,7 +176,7 @@ class RecipeStep extends Component {
                 annyang.abort()
               }}
             >
-              Recipe Overview
+              {recipeOverview}
             </Button>
           </Col>
         </Row>
@@ -191,7 +193,9 @@ class RecipeStep extends Component {
               </Modal.Dialog>;
             </Portal>
           )}
-          <div>
+        </Row>
+        <Row>
+          <Col md={{span: 4, offset: 2}}>
             <h3>Ingredients for this step:</h3>
             <h5>
               <IngredientsList
@@ -199,7 +203,7 @@ class RecipeStep extends Component {
                 instructions={steps[stepIndex]}
               />
             </h5>
-          </div>
+          </Col>
         </Row>
         <Row className="row-grid">
           <Col md={{span: 8, offset: 2}}>
