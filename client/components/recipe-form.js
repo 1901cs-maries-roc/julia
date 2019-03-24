@@ -104,7 +104,7 @@ class RecipeForm extends Component {
                   <Form.Group>
                     <Form.Label>Prep Time in min</Form.Label>
                     <Form.Control
-                      placeholder="ex: 60"
+                      placeholder="60"
                       id="prepTime"
                       onChange={this.handleChange}
                     />
@@ -113,7 +113,7 @@ class RecipeForm extends Component {
                   <Form.Group>
                     <Form.Label>Cook Time in min</Form.Label>
                     <Form.Control
-                      placeholder="ex: 30"
+                      placeholder="30"
                       id="cookTime"
                       onChange={this.handleChange}
                     />
@@ -125,7 +125,7 @@ class RecipeForm extends Component {
                   <Form.Group>
                     <Form.Label>Total Time in min</Form.Label>
                     <Form.Control
-                      placeholder="ex: 90"
+                      placeholder="90"
                       id="waitTime"
                       onChange={this.handleChange}
                     />
@@ -136,6 +136,7 @@ class RecipeForm extends Component {
                     <Form.Control
                       type="number"
                       id="serving"
+                      placeholder="4"
                       required
                       onChange={this.handleChange}
                     />
