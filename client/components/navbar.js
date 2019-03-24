@@ -7,8 +7,6 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 
 const NavigationBar = ({handleClick, isLoggedIn}) => (
-  // error here: The prop `handleClick` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
-  // error here: The prop `isLoggedIn` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
   <Navbar
     collapseOnSelect
     expand="lg"

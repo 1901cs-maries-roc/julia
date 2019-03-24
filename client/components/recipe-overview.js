@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getRecipeThunk} from '../store'
 import IngredientsList from './ingredientsList'
-import {startCooking} from '../annyangCommands'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -24,7 +23,6 @@ class RecipeOverview extends Component {
     event.preventDefault()
     const recipeId = this.props.match.params.recipeId
     this.props.history.push(`/recipes/${recipeId}/cooking`)
-    startCooking()
   }
 
   render() {
@@ -48,7 +46,7 @@ class RecipeOverview extends Component {
               className="image-overview justify-content-md-center"
             />
           </Col>
-          <Col md={{span: 5, offset: 1}}>
+          <Col md={{span: 5, offset: 1}} className="recipeBar">
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong> {prepTime} minutes

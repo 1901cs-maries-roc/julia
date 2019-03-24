@@ -4,123 +4,158 @@ import annyang from 'annyang'
 import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
 import {
   nullCommand,
-  backToRecipeOverview,
   help,
   repeatStep,
-  goBack,
-  goToNext,
   speak,
   listIngredients,
-  start
+  resume,
+  unrecognized
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
+import StepNav from './recipe-step-nav'
 import Portal from './portal'
-// import Col from 'react-bootstrap/bootstrap'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import HelpInstructions from './help-instructions'
+import Modal from 'react-bootstrap/Modal'
 
 class RecipeStep extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isListening: false
+      // Is the microphone on
+      isListening: false,
+      // Is annyang processing inputs
+      isProcessingInput: false,
+      isNarrating: false
     }
   }
+
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
-    speechSynthesis.cancel()
-  }
-
-  unrecognisedWord = () => {
-    annyang.pause()
-
-    speak("Sorry, I didn't get that. Please try again.")
-    window.setTimeout(() => {
-      annyang.resume()
-    }, 4000)
-    speechSynthesis.cancel()
+    responsiveVoice.speak(
+      'To begin cooking, press start, then say Hey Julia, instructions'
+    )
   }
 
   componentWillUnmount = () => {
     annyang.abort()
+    responsiveVoice.speak('Bon appetit! Julia is now off.')
     this.props.restartRecipe()
+  }
+
+  goBack = () => {
+    const stepIndex = this.props.currentStepIndex
+    if (this.props.currentStepIndex === 0) {
+      this.state.isNarrating && speak('You are on the first step of the recipe')
+    } else {
+      this.state.isNarrating && speak('Previous step')
+      this.props.goToPrevStep(stepIndex)
+    }
+  }
+
+  goToNext = () => {
+    if (
+      this.props.currentStepIndex >=
+      this.props.currentRecipe.steps.length - 1
+    ) {
+      this.state.isNarrating && speak("You've reached the end of the recipe")
+    } else {
+      this.state.isNarrating && speak('Next Step')
+      const stepIndex = this.props.currentStepIndex
+      this.props.goToNextStep(stepIndex)
+    }
+  }
+
+  backToRecipeOverview = () => {
+    this.props.history.push(`/recipes/${this.props.currentRecipe.id}`)
+  }
+
+  stop = () => {
+    responsiveVoice.cancel()
+    annyang.abort()
+    responsiveVoice.speak('Julia is now paused. To resume, press start again.')
+    this.setState({isListening: false, isNarrating: false})
   }
 
   annyang = () => {
     if (annyang) {
       var commands = {
-        '(*word) hey julia': nullCommand,
-        '(*word) hey julia help': help,
-        '(*word) hey julia repeat': repeatStep,
-        '(*word) hey julia repeats': repeatStep,
-        '(*word) hey julia can you repeat': repeatStep,
-        '(*word) hey julia back': goBack,
-        '(*word) hey julia go back': goBack,
-        '(*word) hey julia go back a step': goBack,
-        '(*word) hey julia previous': goBack,
-        '(*word) hey julia previous step': goBack,
-        '(*word) Hey julia next': goToNext,
-        '(*word) Hey julia next step': goToNext,
-        '(*word) Hey julia ingredients': listIngredients,
-        '(*word) Hey julia ingredient': listIngredients,
-        '(*word) Hey julia what are the ingredients': listIngredients,
-        '(*word) Hey julia read ingredients': listIngredients,
-        '(*word) Hey julia read the ingredients': listIngredients,
-        '(*word) Hey julia instructions': start,
-        '(*word) Hey julia start': start,
-        '(*word) Hey julia read instructions': start,
-        '(*word) Hey julia what are the instructions': start,
-        '(*word) Hey julia please start': start,
-        '(*word) Hey julia resume': start,
-        '(*word) Hey julia read steps': start,
-        '(*word) Hey julia read the steps': start,
-        '(*word) Hey julia steps': start,
-        '(*word) Hey julia stop': stop,
-        '(*word) Hey julia off': stop,
-        '(*word) Hey julia back to recipe': backToRecipeOverview,
-        '(*word) Hey julia back to recipe overview': backToRecipeOverview,
-        '(*word) Hey julia back to overview': backToRecipeOverview,
-        '(*word) Hey julia *word': this.unrecognisedWord
+        '(*words) (hey) Julia': nullCommand,
+        '(*words) (hey) Julia help': help,
+        '(*words) (hey) Julia (can you) repeat(s)': repeatStep,
+        '(*words) (hey) Julia back': {
+          regexp: /(hey)? ?(Julia|Julian|Juliet) (back|Bach|previous step)$/,
+          callback: this.goBack
+        },
+        '(*words) (Hey) Julia next': {
+          regexp: /(hey)? ?(Julia|Julian|Juliet) next ?(step)?$/,
+          callback: this.goToNext
+        },
+        '(*words) (Hey) Julia (*action) ingredient(s)': listIngredients,
+        '(*words) (Hey) Julia (*action) instruction(s)': repeatStep,
+        '(*words) (Hey) Julia pause': {
+          regexp: /(hey)? ?(Julia|Julian|Juliet) (pause|stop|off)$/,
+          callback: this.stop
+        },
+        '(*words) (Hey) Julia resume': resume,
+        '(*words) (Hey) Julia back to *overview': this.backToRecipeOverview,
+        '(*words) Hey Julia *word': unrecognized
       }
       annyang.addCommands(commands)
-      annyang.addCallback('resultMatch', function(userSaid, commandText) {
+
+      annyang.addCallback('soundstart', () => {
+        if (!responsiveVoice.isPlaying()) {
+          // if user is speaking
+          this.setState({isProcessingInput: true})
+        }
+        window.setTimeout(() => this.setState({isProcessingInput: false}), 3000)
+      })
+
+      annyang.addCallback('resultMatch', (userSaid, commandText) => {
         console.log('user said: ', userSaid)
         console.log('command: ', commandText)
       })
 
-      annyang.addCallback('error', function() {
-        console.log('There was an error!')
+      annyang.addCallback('resultNoMatch', userSaid => {
+        console.log('No match for this input: ', userSaid)
       })
 
-      annyang.addCallback('resultNoMatch', function() {
-        console.log('Error from result no match')
-        speechSynthesis.cancel()
+      annyang.addCallback('error', evt => {
+        if (evt.error !== 'no-speech') console.log('There was an error: ', evt)
       })
 
-      annyang.addCallback('start', () => {
-        this.setState({isListening: true})
-      })
-      annyang.addCallback('end', () => {
-        this.setState({isListening: false})
-      })
-      annyang.start()
+      this.setState({isListening: true, isNarrating: true})
+      annyang.start({autoRestart: true, continuous: false})
     }
   }
 
-  handleStop = () => {
-    console.log('in stop/cancel')
-    responsiveVoice.cancel()
-    //     speechSynthesis.cancel()
-  }
-
   render() {
+    console.log('Current state: ', this.state)
+
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
+    const processingInputSlug = this.state.isProcessingInput ? (
+      <span>
+        <p className="microphone">
+          <i className="fas fa-microphone fa-5x microphone-off" />
+        </p>
+        <h4>Thinking...</h4>
+      </span>
+    ) : (
+      <span>
+        <p className="microphone">
+          <i className="fas fa-microphone fa-5x microphone-on" />
+        </p>
+        <h4>I'm listening</h4>
+      </span>
+    )
+
+    const recipeOverview = '< Back to Recipe'
 
     return (
       <Container className="container">
@@ -132,14 +167,9 @@ class RecipeStep extends Component {
               type="button"
               className="back-button"
               size="sm"
-              onClick={() => {
-                this.props.history.push(
-                  `/recipes/${this.props.currentRecipe.id}`
-                )
-                annyang.abort()
-              }}
+              onClick={this.backToRecipeOverview}
             >
-              Recipe Overview
+              {recipeOverview}
             </Button>
           </Col>
         </Row>
@@ -151,15 +181,14 @@ class RecipeStep extends Component {
           </Col>
           {this.state.isListening && (
             <Portal>
-              <div>
-                <i className="fas fa-microphone">
-                  {' '}
-                  I am listening to you my friend :)
-                </i>
-              </div>
+              <Modal.Dialog id="modal">
+                <Modal.Body>{processingInputSlug}</Modal.Body>
+              </Modal.Dialog>;
             </Portal>
           )}
-          <div>
+        </Row>
+        <Row>
+          <Col md={{span: 4, offset: 2}}>
             <h3>Ingredients for this step:</h3>
             <h5>
               <IngredientsList
@@ -167,7 +196,7 @@ class RecipeStep extends Component {
                 instructions={steps[stepIndex]}
               />
             </h5>
-          </div>
+          </Col>
         </Row>
         <Row className="row-grid">
           <Col md={{span: 8, offset: 2}}>
@@ -178,54 +207,16 @@ class RecipeStep extends Component {
           </Col>
         </Row>
         <Row className="row-grid">
-          <Col md={{span: 8, offset: 2}}>
-            <ButtonToolbar className="all-navigation-button">
-              <Button
-                className="navigation-button"
-                variant="secondary"
-                id="back"
-                type="button"
-                disabled={this.props.currentStepIndex === 0}
-                onClick={() => {
-                  this.props.goToPrevStep(stepIndex)
-                }}
-              >
-                Back
-              </Button>
-              <Button
-                className="navigation-button"
-                variant="success"
-                id="start"
-                type="button"
-                onClick={this.annyang}
-              >
-                Start
-              </Button>
-              {/* change to resume once annyang is in componentDidMount */}
-              <Button
-                className="navigation-button"
-                variant="danger"
-                id="pause"
-                type="button"
-                onClick={() => this.handleStop()}
-              >
-                Stop
-              </Button>
-              <Button
-                className="navigation-button"
-                variant="secondary"
-                id="next"
-                disabled={
-                  this.props.currentStepIndex >=
-                  this.props.currentRecipe.steps.length - 1
-                }
-                type="button"
-                onClick={() => this.props.goToNextStep(stepIndex)}
-              >
-                Next
-              </Button>
-            </ButtonToolbar>
-          </Col>
+          <StepNav
+            stepIndex={stepIndex}
+            steps={steps}
+            annyang={this.annyang}
+            goBack={this.goBack}
+            goToNext={this.goToNext}
+            stop={this.stop}
+          />
+        </Row>
+        <Row>
           <HelpInstructions />
         </Row>
       </Container>
