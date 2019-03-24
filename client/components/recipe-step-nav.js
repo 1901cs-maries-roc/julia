@@ -2,8 +2,16 @@ import React from 'react'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+// import {stop} from '../annyangCommands'
 
-export default function StepNav({stepIndex, steps, annyang, goBack, goToNext}) {
+export default function StepNav({
+  stepIndex,
+  steps,
+  annyang,
+  goBack,
+  goToNext,
+  stop
+}) {
   return (
     <Col md={{span: 8, offset: 2}}>
       <ButtonToolbar className="all-navigation-button">
@@ -31,7 +39,7 @@ export default function StepNav({stepIndex, steps, annyang, goBack, goToNext}) {
           variant="danger"
           id="pause"
           type="button"
-          onClick={() => stop()}
+          onClick={stop}
         >
           Stop
         </Button>

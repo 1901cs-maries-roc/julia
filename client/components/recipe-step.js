@@ -8,8 +8,7 @@ import {
   repeatStep,
   speak,
   listIngredients,
-  start,
-  stop,
+  resume,
   startCooking
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
@@ -70,32 +69,38 @@ class RecipeStep extends Component {
 
   backToRecipeOverview = () => {
     this.props.history.push(`/recipes/${this.props.currentRecipe.id}`)
-    annyang.abort()
+  }
+
+  stop = () => {
+    responsiveVoice.cancel()
+    annyang.pause()
+    this.setState({isListening: false})
+    speak('Julia is now paused. To resume, press start again.')
   }
 
   annyang = () => {
     if (annyang) {
       var commands = {
-        '(*word) hey julia': nullCommand,
-        '(*word) hey julia help': help,
-        '(*word) hey julia (can you) repeat(s)': repeatStep,
-        '(*word) hey julia back': {
-          regexp: /hey (Julia|Julian|Juliet) (back|bach|previous step)$/,
+        '(*words) (hey) Julia': nullCommand,
+        '(*words) (hey) Julia help': help,
+        '(*words) (hey) Julia (can you) repeat(s)': repeatStep,
+        '(*words) (hey) Julia back': {
+          regexp: /(hey)? ?(Julia|Julian|Juliet) (back|Bach|previous step)$/,
           callback: this.goBack
         },
-        '(*word) Hey julia next': {
-          regexp: /hey (Julia|Julian|Juliet) next ?(step)?$/,
+        '(*words) (Hey) Julia next': {
+          regexp: /(hey)? ?(Julia|Julian|Juliet) next ?(step)?$/,
           callback: this.goToNext
         },
-        '(*word) Hey julia (*action) ingredient(s)': listIngredients,
-        '(*word) Hey julia (*action) instruction(s)': start,
-        '(*word) Hey julia (*action) start': start,
-        '(*word) Hey julia (*action) steps': start,
-        '(*word) Hey julia resume': start,
-        '(*word) Hey julia stop': stop,
-        '(*word) Hey julia off': stop,
-        '(*word) Hey julia back to *overview': this.backToRecipeOverview,
-        '(*word) Hey julia *word': this.unrecognisedWord
+        '(*words) (Hey) Julia (*action) ingredient(s)': listIngredients,
+        '(*words) (Hey) Julia (*action) instruction(s)': repeatStep,
+        '(*words) (Hey) Julia pause': {
+          regexp: /(hey)? ?(Julia|Julian|Juliet) (pause|stop|off)$/,
+          callback: this.stop
+        },
+        '(*words) (Hey) Julia resume': resume,
+        '(*words) (Hey) Julia back to *overview': this.backToRecipeOverview,
+        '(*words) (Hey) Julia *word': this.unrecognisedWord
       }
       annyang.addCommands(commands)
 
@@ -113,12 +118,14 @@ class RecipeStep extends Component {
       })
 
       annyang.addCallback('start', () => {
-        this.setState({isListening: true})
+        console.log('annyang in START')
       })
 
       annyang.addCallback('end', () => {
-        this.setState({isListening: false})
+        console.log('annyang in END')
       })
+
+      this.setState({isListening: true})
 
       annyang.start()
     }
@@ -199,6 +206,7 @@ class RecipeStep extends Component {
             annyang={this.annyang}
             goBack={this.goBack}
             goToNext={this.goToNext}
+            stop={this.stop}
           />
         </Row>
       </Container>

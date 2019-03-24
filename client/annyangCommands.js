@@ -1,11 +1,5 @@
 import annyang from 'annyang'
 
-export const stop = () => {
-  console.log('in stop')
-  responsiveVoice.cancel()
-  // setState to isListening: false
-}
-
 export const pauseProcessing = () => {
   annyang.pause()
   speak("Sorry, I didn't get that. Please try again.")
@@ -26,10 +20,11 @@ export const listIngredients = () => {
   speak(document.getElementById('ingredients').innerText)
 }
 
-export const start = () => {
+export const resume = () => {
   annyang.resume()
-  speak(document.getElementById('step-instructions').innerText)
-  document.getElementById('start').click()
+  speak('Julia is back.')
+  // speak(document.getElementById('step-instructions').innerText)
+  // document.getElementById('start').click()
 }
 
 export const startCooking = () => {
