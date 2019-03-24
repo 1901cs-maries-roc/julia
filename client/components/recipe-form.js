@@ -80,6 +80,9 @@ class RecipeForm extends Component {
             </Button>
           </Form.Group>
         </Form.Row>
+        <Row className="row-grid">
+          <h4>Manually Enter a Recipe</h4>
+        </Row>
         <Button
           onClick={() => this.setState({open: !open})}
           aria-controls="example-collapse-text"
@@ -88,9 +91,6 @@ class RecipeForm extends Component {
           Manually Enter a Recipe
         </Button>
 
-        {/* <Row className="row-grid">
-          <h4>Manually Enter a Recipe</h4>
-        </Row> */}
         <Collapse in={this.state.open}>
           <Form
             onClick={e => this.handleSubmit(e)}
