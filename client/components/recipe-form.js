@@ -83,73 +83,52 @@ class RecipeForm extends Component {
           validated={validated}
         >
           <Row>
-            <Col>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Image URL</Form.Label>
-                  <Form.Control
-                    placeholder="ex: https://png.pngtree.com/element_origin_min_pic/16/07/09/155780a93ebd512.jpg "
-                    id="imgUrl"
-                    onChange={this.handleChange}
-                  />
-                  <img
-                    src={imgUrl}
-                    style={{width: '200px'}}
-                    alt="Recipe preview"
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Row>
-                  <Form.Group>
-                    <Form.Label>Prep Time in min</Form.Label>
-                    <Form.Control
-                      placeholder="60"
-                      id="prepTime"
-                      onChange={this.handleChange}
-                    />
-                  </Form.Group>
+            <Form.Row>
+              <Form.Group as={Col} md="2">
+                <Form.Label>Prep Time in min</Form.Label>
+                <Form.Control
+                  placeholder="60"
+                  id="prepTime"
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
 
-                  <Form.Group>
-                    <Form.Label>Cook Time in min</Form.Label>
-                    <Form.Control
-                      placeholder="30"
-                      id="cookTime"
-                      onChange={this.handleChange}
-                    />
-                  </Form.Group>
-                </Form.Row>
-              </Col>
-              <Col>
-                <Form.Row>
-                  <Form.Group>
-                    <Form.Label>Total Time in min</Form.Label>
-                    <Form.Control
-                      placeholder="90"
-                      id="waitTime"
-                      onChange={this.handleChange}
-                    />
-                  </Form.Group>
+              <Form.Group as={Col} md="2">
+                <Form.Label>Cook Time in min</Form.Label>
+                <Form.Control
+                  placeholder="30"
+                  id="cookTime"
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
 
-                  <Form.Group>
-                    <Form.Label>Number of servings</Form.Label>
-                    <Form.Control
-                      type="number"
-                      id="serving"
-                      placeholder="4"
-                      required
-                      onChange={this.handleChange}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Please enter a serving.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Form.Row>
-              </Col>
-            </Col>
-            <Col>
-              <Form.Row>
-                <Form.Group>
+              <Form.Group as={Col} md="2">
+                <Form.Label>Total Time in min</Form.Label>
+                <Form.Control
+                  placeholder="90"
+                  id="waitTime"
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} md="2">
+                <Form.Label>Number of servings</Form.Label>
+                <Form.Control
+                  type="number"
+                  id="serving"
+                  placeholder="4"
+                  required
+                  onChange={this.handleChange}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please enter a serving.
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Col} md="8">
+                <Form.Group as={Col} md="12">
                   <Form.Label>Recipe Title</Form.Label>
 
                   <Form.Control
@@ -162,10 +141,8 @@ class RecipeForm extends Component {
                     Please enter a title.
                   </Form.Control.Feedback>
                 </Form.Group>
-              </Form.Row>
 
-              <Form.Row>
-                <Form.Group>
+                <Form.Group as={Col} md="12">
                   <Form.Label>Ingredients</Form.Label>
                   <Form.Control
                     as="textarea"
@@ -183,10 +160,8 @@ class RecipeForm extends Component {
                     Please enter ingredients.
                   </Form.Control.Feedback>
                 </Form.Group>
-              </Form.Row>
 
-              <Form.Row>
-                <Form.Group>
+                <Form.Group as={Col} md="12">
                   <Form.Label>Instructions</Form.Label>
                   <Form.Control
                     as="textarea"
@@ -203,12 +178,32 @@ class RecipeForm extends Component {
                     Please enter instructions.
                   </Form.Control.Feedback>
                 </Form.Group>
-              </Form.Row>
-
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Col>
+              </Form.Group>
+              <Form.Group as={Col} md="3">
+                <Form.Group as={Col} md="12">
+                  <Form.Label>Image URL</Form.Label>
+                  <Form.Control
+                    placeholder="ex: https://png.pngtree.com/element_origin_min_pic/16/07/09/155780a93ebd512.jpg "
+                    id="imgUrl"
+                    onChange={this.handleChange}
+                  />
+                  <img
+                    src={imgUrl}
+                    style={{width: '200px'}}
+                    alt="Recipe preview"
+                  />
+                </Form.Group>
+                <Form.Group centered>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className="submit-button"
+                  >
+                    <h4>Submit</h4>
+                  </Button>
+                </Form.Group>
+              </Form.Group>
+            </Form.Row>
           </Row>
         </Form>
       </Container>

@@ -70,6 +70,12 @@ h4,
   margin-top: 2em;
 }
 
+.submit-button {
+  height: 4em;
+  width: 10em;
+  margin-top: 2em;
+}
+
 .image-overview {
   width: 30em;
 }
