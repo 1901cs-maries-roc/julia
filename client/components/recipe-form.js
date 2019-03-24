@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
-import PhotoAdd from './photo-add'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -23,9 +22,6 @@ class RecipeForm extends Component {
       ingredients: [],
       validated: false
     }
-    // this.createPhoto = this.createPhoto.bind(this)
-    // this.handleChange = this.handleChange.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit = event => {
@@ -86,11 +82,10 @@ class RecipeForm extends Component {
           <Row>
             <Col>
               <Col>
-                {/* <PhotoAdd createPhoto={this.createPhoto} /> */}
                 <Form.Group>
                   <Form.Label>Image URL</Form.Label>
                   <Form.Control
-                    placeholder="ex: "
+                    placeholder="ex: https://png.pngtree.com/element_origin_min_pic/16/07/09/155780a93ebd512.jpg "
                     id="imgUrl"
                     onChange={this.handleChange}
                   />
