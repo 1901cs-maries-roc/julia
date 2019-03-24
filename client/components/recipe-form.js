@@ -90,47 +90,51 @@ class RecipeForm extends Component {
         <Form>
           <Row>
             <Col>
-              <PhotoAdd createPhoto={this.createPhoto} />
-              <Form.Row>
-                <Form.Group controlId="formPrepTime">
-                  <Form.Label>Prep Time</Form.Label>
-                  <Form.Control
-                    type="number"
-                    id="prepTime"
-                    onChange={this.handleChange}
-                  />
-                </Form.Group>
+              <Col>
+                <PhotoAdd createPhoto={this.createPhoto} />
+              </Col>
+              <Col>
+                <Form.Row>
+                  <Form.Group controlId="formPrepTime">
+                    <Form.Label>Prep Time</Form.Label>
+                    <Form.Control
+                      type="number"
+                      id="prepTime"
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
 
-                <Form.Group controlId="formCookTime">
-                  <Form.Label>Cook Time</Form.Label>
-                  <Form.Control
-                    type="number"
-                    id="cookTime"
-                    onChange={this.handleChange}
-                  />
-                </Form.Group>
-              </Form.Row>
-            </Col>
-            <Col>
-              <Form.Row>
-                <Form.Group controlId="formWaitTime">
-                  <Form.Label>Wait Time</Form.Label>
-                  <Form.Control
-                    type="number"
-                    id="waitTime"
-                    onChange={this.handleChange}
-                  />
-                </Form.Group>
+                  <Form.Group controlId="formCookTime">
+                    <Form.Label>Cook Time</Form.Label>
+                    <Form.Control
+                      type="number"
+                      id="cookTime"
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
+                </Form.Row>
+              </Col>
+              <Col>
+                <Form.Row>
+                  <Form.Group controlId="formWaitTime">
+                    <Form.Label>Wait Time</Form.Label>
+                    <Form.Control
+                      type="number"
+                      id="waitTime"
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
 
-                <Form.Group controlId="serving">
-                  <Form.Label>Number of servings</Form.Label>
-                  <Form.Control
-                    type="number"
-                    id="serving"
-                    onChange={this.handleChange}
-                  />
-                </Form.Group>
-              </Form.Row>
+                  <Form.Group controlId="serving">
+                    <Form.Label>Number of servings</Form.Label>
+                    <Form.Control
+                      type="number"
+                      id="serving"
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
+                </Form.Row>
+              </Col>
             </Col>
             <Col>
               <Form.Row>
