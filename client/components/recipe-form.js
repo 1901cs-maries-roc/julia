@@ -87,7 +87,7 @@ class RecipeForm extends Component {
           validated={validated}
         >
           <Row>
-            <Form.Row>
+            <Form.Row className="recipe-time">
               <Form.Group as={Col} md="2">
                 <Form.Label>Prep Time in min</Form.Label>
                 <Form.Control
