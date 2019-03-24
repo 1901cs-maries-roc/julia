@@ -1,22 +1,18 @@
 import annyang from 'annyang'
 
-const voiceParams = {
+const voiceEvts = {
   onstart: annyang.pause,
   onend: annyang.resume
 }
 
+export const speak = words => {
+  responsiveVoice.speak(words, 'UK English Female', voiceEvts)
+}
+
 export const unrecognized = () => {
-  annyang.pause()
   speak(
     "Sorry, I didn't get that. You can say, 'Hey Julia help', for possible commands."
   )
-  window.setTimeout(() => {
-    annyang.resume()
-  }, 3500)
-}
-
-export const speak = words => {
-  responsiveVoice.speak(words, 'UK English Female', voiceParams)
 }
 
 export const repeatStep = () => {
@@ -34,7 +30,6 @@ export const backToRecipeOverview = () => {
 }
 
 export const resume = () => {
-  console.log('in resume')
   annyang.resume()
   speak('Julia is back.')
 }
