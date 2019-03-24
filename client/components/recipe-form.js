@@ -48,24 +48,6 @@ class RecipeForm extends Component {
     })
   }
 
-  // createPhoto(newPhoto) {
-  //   console.log('PHOTO:', newPhoto.image)
-  //   const h = {} //headers
-  //   let data = new FormData()
-  //   data.append('image', newPhoto.image)
-  //   data.append('name', newPhoto.name)
-  //   h.Accept = 'application/json' //if you expect JSON response
-  //   fetch('/api/recipes', {
-  //     method: 'POST',
-  //     headers: h,
-  //     body: data
-  //   })
-  //     .then(response => {})
-  //     .catch(err => {
-  //       console.error(err)
-  //     })
-  // }
-
   render() {
     const {validated} = this.state
     return (

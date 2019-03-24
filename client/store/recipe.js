@@ -69,6 +69,7 @@ export const addRecipeThunk = recipe => async dispatch => {
 /**
  * REDUCER
  */
+// eslint-disable-next-line complexity
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_RECIPES:
