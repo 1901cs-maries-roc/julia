@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import Breadcrumb from 'react-bootstrap/Breadcrumb'
 
 class RecipeOverview extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class RecipeOverview extends Component {
 
   render() {
     const {
+      id,
       name,
       imgUrl,
       cookTime,
@@ -41,6 +43,14 @@ class RecipeOverview extends Component {
 
     return (
       <Container className="container">
+        <Breadcrumb>
+          <Breadcrumb.Item href="/">Recipes</Breadcrumb.Item>
+          <Breadcrumb.Item active>Overview</Breadcrumb.Item>
+          <Breadcrumb.Item href={`/recipes/${id}/cooking`}>
+            Steps
+          </Breadcrumb.Item>
+        </Breadcrumb>
+
         <Row>
           <Col md={{span: 5, offset: 1}}>
             <img

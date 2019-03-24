@@ -21,6 +21,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import Modal from 'react-bootstrap/Modal'
+import Breadcrumb from 'react-bootstrap/Breadcrumb'
 
 class RecipeStep extends Component {
   constructor(props) {
@@ -161,6 +162,13 @@ class RecipeStep extends Component {
 
     return (
       <Container className="container">
+        <Breadcrumb>
+          <Breadcrumb.Item href="/">Recipes</Breadcrumb.Item>
+          <Breadcrumb.Item href={`/recipes/${this.props.currentRecipe.id}`}>
+            Overview
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>Steps</Breadcrumb.Item>
+        </Breadcrumb>
         <Row>
           <Col md={{span: 4, offset: 2}}>
             <Button
