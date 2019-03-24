@@ -10,7 +10,7 @@ export default function IngredientsList(props) {
 
   const filteredIngredients = ingredients.filter(ingredient => {
     const r = /\b(?:(?!tsp|cup|tbsp|oz|pint|and|if|or|to|large|small|\d)\w)+\b/gi
-    const ingWords = ingredient.match(r)
+    let ingWords = ingredient.match(r) || []
     let isRelevantIngredient = false
     for (let ing of ingWords) {
       if (instructionWords.includes(ing)) {

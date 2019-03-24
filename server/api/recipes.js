@@ -68,9 +68,8 @@ router.post('/', async (req, res, next) => {
       cookTime: req.body.cookTime,
       totalTime: req.body.waitTime,
       serving: req.body.serving,
-      steps: req.body.steps,
-      ingredients: req.body.ingredients
-      // tags: req.body.tags
+      steps: req.body.steps.split('\n'),
+      ingredients: req.body.ingredients.split('\n')
     }
     const newRecipe = await Recipe.create(recipe)
     res.json(newRecipe)
