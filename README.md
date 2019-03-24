@@ -8,6 +8,8 @@ Simply start by saying 'Hey Julia help' to have an overview of all the possible 
 
 Julia automatically displays your recipe one step at a time and she is able to read the relevant ingredients for the step, to read the instructions, to repeat, to go forward or backward - everything you need to focus on cooking, not fiddling with your laptop.
 
+http://maries-roc-julia.herokuapp.com/
+
 ## Dev Start
 
 `npm install`
