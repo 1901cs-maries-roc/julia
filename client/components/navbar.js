@@ -7,8 +7,6 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 
 const NavigationBar = ({handleClick, isLoggedIn}) => (
-  // error here: The prop `handleClick` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
-  // error here: The prop `isLoggedIn` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
   <Navbar
     collapseOnSelect
     expand="lg"
@@ -17,6 +15,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
     className="navbar"
   >
     <Navbar.Brand href="/">
+
       <img
         alt=""
         src="/juliaicon.png"
@@ -24,6 +23,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
         height="80"
         className="d-inline-block align-top"
       />
+
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
