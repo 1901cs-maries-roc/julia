@@ -31,8 +31,8 @@ export const goToNext = () => {
   if (document.getElementById('next').disabled) {
     return speak("You've reached the end of the recipe")
   }
-  speak('Next Step')
   document.getElementById('next').click()
+  speak(document.getElementById('step-instructions').innerText)
 }
 
 export const backToRecipeOverview = () => {
@@ -62,19 +62,3 @@ export const help = () => {
     'You can ask me any of the following: Repeat, Ingredients, Back, Next, or Pause.'
   )
 }
-
-// export const command = {}
-
-// export const commandCheck = action => {
-//   if (command[action]) {
-//     console.log('inside CommandCheck')
-//     return command[action]()
-//   } else {
-//     const repeatRequest = "Sorry, I didn't get that. Please try again."
-//     annyang.pause()
-//     speak(repeatRequest)
-//     window.setTimeout(() => {
-//       annyang.resume()
-//     }, 4000)
-//   }
-// }
