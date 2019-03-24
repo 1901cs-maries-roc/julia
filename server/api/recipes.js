@@ -80,23 +80,29 @@ router.post('/', async (req, res, next) => {
 
 router.post('/scrape', async (req, res, next) => {
   try {
-    const {data: html} = await axios.get(req.body.url)
-    // catch error if html doesn't load
-    const $ = cheerio.load(html)
-    const recipe = {
-      name: findTitle($),
-      imgUrl: findImg($),
-      prepTime: findPrepTime($),
-      cookTime: findCookTime($),
-      totalTime: findTotalTime($),
-      serving: findServings($),
-      ingredients: findIngredients($),
-      steps: findInstructions($)
-    }
-    console.log('>> Scraped recipe: ', recipe)
+    const {data: html, status} = await axios.get(req.body.url)
+    if (status === 200) {
+      const $ = cheerio.load(html)
+      const recipe = {
+        name: findTitle($),
+        imgUrl: findImg($),
+        prepTime: findPrepTime($),
+        cookTime: findCookTime($),
+        totalTime: findTotalTime($),
+        serving: findServings($),
+        ingredients: findIngredients($),
+        steps: findInstructions($)
+      }
+      console.log('>> Scraped recipe: ', recipe)
 
-    const savedRecipe = await Recipe.create(recipe)
-    res.send(savedRecipe).status(200)
+      const [savedRecipe, wasCreated] = await Recipe.findOrCreate({
+        where: {imgUrl: recipe.imgUrl},
+        defaults: recipe
+      })
+      res.status(200).send(savedRecipe)
+    } else {
+      res.status(500).send('Bad URL provided for scraping')
+    }
   } catch (err) {
     next(err)
   }
