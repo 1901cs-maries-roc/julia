@@ -218,17 +218,15 @@ class RecipeStep extends Component {
             </h5>
           </Col>
         </Row>
-        <Row className="row-grid">
-          <Col md={{span: 4, offset: 3}}>
-            <StepNav
-              stepIndex={stepIndex}
-              steps={steps}
-              annyang={this.annyang}
-              goBack={this.goBack}
-              goToNext={this.goToNext}
-              stop={this.stop}
-            />
-          </Col>
+        <Row className="justify-content-md-center">
+          <StepNav
+            stepIndex={stepIndex}
+            steps={steps}
+            annyang={this.annyang}
+            goBack={this.goBack}
+            goToNext={this.goToNext}
+            stop={this.stop}
+          />
         </Row>
       </Container>
     )
