@@ -58,7 +58,7 @@ router.post('/', async (req, res, next) => {
       steps: req.body.steps.split('\n'),
       ingredients: req.body.ingredients.split('\n')
     }
-    const newRecipe = await Recipe.create(recipe)
+    const newRecipe = await Recipes.create(recipe)
     res.json(newRecipe)
   } catch (err) {
     next(err)
