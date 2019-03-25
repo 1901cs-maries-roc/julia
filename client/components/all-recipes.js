@@ -16,6 +16,7 @@ export class AllRecipes extends Component {
   render() {
     const allRecipes = this.props.allRecipes || []
     const recipe = allRecipes.map(r => {
+      console.log('r is: ', r)
       return (
         <div key={r.id}>
           <Col>
