@@ -113,3 +113,18 @@ h4,
 .microphone {
   text-align: center;
 }
+
+/* .recipeBar {
+  background: rgba(163, 163, 163, 0.3)
+  padding-box;
+  padding: 10%;
+} */
+
+#close-help {
+  text-align: right;
+}
+
+#help-header {
+  margin-top: 2.5em;
+  margin-bottom: 1em;
+}
