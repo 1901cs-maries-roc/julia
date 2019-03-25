@@ -38,18 +38,14 @@ class HelpInstructions extends Component {
             container={this}
             containerPadding={20}
           >
-            <Popover id="popover-contained" title="How to Use Julia">
+            <Popover id="popover-contained">
               <br />
               <i className="far fa-play-circle" fa-10x />
               <strong>
                 {' '}
-                Press{' '}
-                <img
-                  src="/start-button.png"
-                  alt="start-button"
-                  width={30}
-                />{' '}
-                to enable Julia
+                PRESS{' '}
+                <img src="/start-button.png" alt="start-button" width={30} /> TO
+                ENABLE JULIA
               </strong>{' '}
               <br />
               <hr />
