@@ -77,19 +77,6 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:recipeId', async (req, res, next) => {
-  try {
-    const recipe = await Recipe.findOne({
-      where: {id: req.params.recipeId}
-    })
-
-    const updated = await recipe.update(req.body)
-    res.status(200).json(updated)
-  } catch (err) {
-    next(err)
-  }
-})
-
 router.post('/scrape', async (req, res, next) => {
   try {
     const {data: html, status} = await axios.get(req.body.url)
@@ -117,6 +104,28 @@ router.post('/scrape', async (req, res, next) => {
     } else {
       res.status(400).send('Error in URL provided for scraping')
     }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:recipeId', async (req, res, next) => {
+  try {
+    const oldRecipe = await Recipe.findOne({
+      where: {id: req.params.recipeId}
+    })
+    const recipe = {
+      imgUrl: req.body.imgUrl,
+      name: req.body.name,
+      prepTime: req.body.prepTime,
+      cookTime: req.body.cookTime,
+      totalTime: req.body.waitTime,
+      serving: req.body.serving,
+      steps: req.body.steps,
+      ingredients: req.body.ingredients
+    }
+    const updated = await oldRecipe.update(recipe)
+    res.status(200).json(updated)
   } catch (err) {
     next(err)
   }

@@ -9,9 +9,9 @@ const NEXT_STEP = 'NEXT_STEP'
 const PREV_STEP = 'PREV_STEP'
 const RESTART_STEPS = 'RESTART_STEPS'
 const ADD_RECIPE = 'ADD_RECIPE'
-const UPDATE_RECIPE = 'UPDATE_RECIPE'
 const ADD_NEW_RECIPE = 'ADD_NEW_RECIPE'
 const CLEAR_CURRENT_RECIPE = 'CLEAR_CURRENT_RECIPE'
+const UPDATE_RECIPE = 'UPDATE_RECIPE'
 
 /**
  * ACTION CREATORS
@@ -29,8 +29,8 @@ export const prevStep = currentStep => ({
 export const restartSteps = () => ({type: RESTART_STEPS})
 export const clearCurrentRecipe = () => ({type: CLEAR_CURRENT_RECIPE})
 export const addRecipe = recipe => ({type: ADD_RECIPE, recipe})
-export const updateRecipe = recipe => ({type: UPDATE_RECIPE, recipe})
 export const addNewRecipe = recipe => ({type: ADD_NEW_RECIPE, recipe})
+export const updateRecipe = recipe => ({type: UPDATE_RECIPE, recipe})
 
 /**
  * THUNK CREATORS
@@ -62,6 +62,11 @@ export const addRecipeThunk = recipe => async dispatch => {
   }
 }
 
+export const addRecipeFromUrl = url => async dispatch => {
+  const {data: recipe} = await axios.post('/api/recipes/scrape', {url})
+  dispatch(addNewRecipe(recipe))
+}
+
 export const updateRecipeThunk = recipe => async dispatch => {
   try {
     const updatedRecipe = await axios.put(`/api/recipes/${recipe.id}`, recipe)
@@ -69,11 +74,6 @@ export const updateRecipeThunk = recipe => async dispatch => {
   } catch (err) {
     console.error(err)
   }
-}
-
-export const addRecipeFromUrl = url => async dispatch => {
-  const {data: recipe} = await axios.post('/api/recipes/scrape', {url})
-  dispatch(addNewRecipe(recipe))
 }
 
 /**
@@ -109,17 +109,17 @@ export default function(state = initialState, action) {
     case ADD_RECIPE: {
       return {...state, recipes: [...state.recipes, action.recipe]}
     }
-    case UPDATE_RECIPE: {
-      const updatedRecipes = state.recipes.filter(
-        recipe => recipe.id !== action.recipe.id
-      )
-      return {...state, recipes: [...updatedRecipes, action.recipe]}
-    }
     case ADD_NEW_RECIPE: {
       return {...state, recipe: action.recipe}
     }
     case CLEAR_CURRENT_RECIPE: {
       return {...state, recipe: initialState.recipe}
+    }
+    case UPDATE_RECIPE: {
+      const oldRecipes = state.recipes.filter(
+        recipe => recipe.id !== action.recipe.id
+      )
+      return {...state, recipes: [...oldRecipes, action.recipe]}
     }
     default: {
       return state
