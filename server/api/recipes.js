@@ -46,6 +46,41 @@ router.get('/:recipeId/:stepNum', async (req, res, next) => {
   }
 })
 
+//find all recipes with the userId
+//added -- Marilyn
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const recipeByUser = await Recipe.findAll({
+      where: req.params.userId
+    })
+    res.json(recipeByUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//submit form by user
+//added -- Marilyn
+router.post('/:userId/', async (req, res, next) => {
+  try {
+    const recipe = {
+      imgUrl: req.body.imgUrl,
+      name: req.body.name,
+      prepTime: req.body.prepTime,
+      cookTime: req.body.cookTime,
+      waitTime: req.body.waitTime,
+      serving: req.body.serving,
+      steps: req.body.steps.split('\n'),
+      ingredients: req.body.ingredients.split('\n'),
+      userId: req.params.userId
+    }
+    const newRecipe = await Recipe.create(recipe)
+    res.json(newRecipe)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/', async (req, res, next) => {
   try {
     const recipe = {

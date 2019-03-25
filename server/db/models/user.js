@@ -26,6 +26,15 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  fullName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue:
+      'http://britishcanoeing.org.uk/uploads/staffImages/_325x325_crop_center-center_80/profile-placeholder.jpg'
   }
 })
 

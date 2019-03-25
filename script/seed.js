@@ -7,8 +7,8 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
   const users = [
-    {email: 'cody@email.com', password: '123'},
-    {email: 'murphy@email.com', password: '123'}
+    {email: 'cody@email.com', password: '123', fullName: 'Cody Pug'},
+    {email: 'murphy@email.com', password: '123', fullName: 'Murphy Cat'}
   ]
   const recipes = [
     {
