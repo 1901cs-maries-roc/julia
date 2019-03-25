@@ -60,10 +60,8 @@ class RecipeForm extends Component {
   }
 
   render() {
-    const {validated, newRecipeId, isSaving} = this.state
-    const imgUrl = this.state.imgUrl.length
-      ? this.state.imgUrl
-      : '/recipe-default.jpg'
+    let {validated, newRecipeId, isSaving, scrapeUrl, imgUrl} = this.state
+    imgUrl = imgUrl.length ? imgUrl : '/recipe-default.jpg'
 
     return (
       <Container className="container">
@@ -76,7 +74,7 @@ class RecipeForm extends Component {
           scrape={this.scrape}
           newRecipeId={newRecipeId}
           isSaving={isSaving}
-          scrapeUrl={this.state.scrapeUrl}
+          scrapeUrl={scrapeUrl}
         />
         <Row className="row-grid">
           <h4>Manually Enter a Recipe</h4>
