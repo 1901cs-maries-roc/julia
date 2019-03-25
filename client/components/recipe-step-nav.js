@@ -2,6 +2,7 @@ import React from 'react'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import HelpInstructions from './help-instructions'
 
 export default function StepNav({
   stepIndex,
@@ -52,9 +53,10 @@ export default function StepNav({
         >
           Next
         </Button>
-        <Button variant="secondary" type="submit" className="navigation-button">
-          Help
-        </Button>
+        {/* <Button variant="secondary" type="submit" className="navigation-button">
+            Help
+          </Button> */}
+        <HelpInstructions />
       </ButtonToolbar>
     </Col>
   )

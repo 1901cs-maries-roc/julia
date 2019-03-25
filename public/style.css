@@ -40,9 +40,9 @@ form div {
   height: 186.33px;
 }
 
-.navbar {
+/* .navbar {
   background-color: #6f99a9;
-}
+} */
 
 .row-grid {
   margin-top: 3em;
@@ -51,6 +51,18 @@ form div {
 all-navigation-button {
   margin-top: 20em;
 }
+
+/* adjustments on navbar */
+a.navbar-brand {
+  padding: 1px;
+  margin-left: 5rem;
+}
+
+.ml-auto,
+.mx-auto {
+  margin-right: 5rem;
+}
+/* adjustments on navbar */
 
 h1,
 h2,
