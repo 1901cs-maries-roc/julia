@@ -63,8 +63,8 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
         {isLoggedIn ? (
           <Nav>
             <NavDropdown title="User" id="collasible-nav-dropdown">
-              {/* <NavDropdown.Item href="#">My Account</NavDropdown.Item> */}
-              <NavDropdown.Item href="#" onClick={handleClick}>
+              <NavDropdown.Item href="/home">My Account</NavDropdown.Item>
+              <NavDropdown.Item href="/" onClick={handleClick}>
                 Logout
               </NavDropdown.Item>
               <NavDropdown.Divider />
