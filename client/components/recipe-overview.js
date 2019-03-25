@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getRecipeThunk} from '../store'
+import {getRecipeThunk, clearCurrentRecipe} from '../store'
 import IngredientsList from './ingredientsList'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -18,7 +18,9 @@ class RecipeOverview extends Component {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipeThunkDispatch(recipeId)
   }
-
+  componentWillUnmount() {
+    clearCurrentRecipe()
+  }
   handleClick(event) {
     event.preventDefault()
     const recipeId = this.props.match.params.recipeId
@@ -31,7 +33,7 @@ class RecipeOverview extends Component {
       imgUrl,
       cookTime,
       prepTime,
-      waitTime,
+      totalTime,
       serving,
       steps,
       ingredients
@@ -42,7 +44,11 @@ class RecipeOverview extends Component {
         <Row>
           <Col md={{span: 5, offset: 1}}>
             <img
-              src={imgUrl}
+              src={
+                imgUrl === 'recipe-default.jpg'
+                  ? `${window.location.origin}/${imgUrl}`
+                  : imgUrl
+              }
               className="image-overview justify-content-md-center"
             />
           </Col>
@@ -55,7 +61,7 @@ class RecipeOverview extends Component {
               <strong>Cooking Time:</strong> {cookTime} minutes
             </p>
             <p>
-              <strong>Wait Time:</strong> {waitTime} minutes
+              <strong>Total Time:</strong> {totalTime} minutes
             </p>
             <p>
               <strong>Serving Size:</strong> {serving}
@@ -75,11 +81,7 @@ class RecipeOverview extends Component {
           <Col md={{span: 5, offset: 1}}>
             <div id="recipe-steps">
               <h3>Ingredients:</h3>
-              {ingredients ? (
-                <IngredientsList ingredients={ingredients} isOverview={true} />
-              ) : (
-                <p>No Ingredients</p>
-              )}
+              <IngredientsList ingredients={ingredients} isOverview={true} />
             </div>
           </Col>
           <Col md={{span: 5, offset: 1}}>

@@ -1,7 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import annyang from 'annyang'
-import {getRecipeThunk, nextStep, prevStep, restartSteps} from '../store'
+import {
+  getRecipeThunk,
+  nextStep,
+  prevStep,
+  restartSteps,
+  clearCurrentRecipe
+} from '../store'
 import {
   nullCommand,
   help,
@@ -44,6 +50,7 @@ class RecipeStep extends Component {
     annyang.abort()
     responsiveVoice.speak('Bon appetit! Julia is now off.')
     this.props.restartRecipe()
+    clearCurrentRecipe()
   }
 
   goBack = () => {
@@ -63,9 +70,10 @@ class RecipeStep extends Component {
     ) {
       this.state.isNarrating && speak("You've reached the end of the recipe")
     } else {
-      this.state.isNarrating && speak('Next Step')
       const stepIndex = this.props.currentStepIndex
+      const steps = this.props.currentRecipe.steps
       this.props.goToNextStep(stepIndex)
+      this.state.isNarrating && speak(steps[stepIndex + 1])
     }
   }
 

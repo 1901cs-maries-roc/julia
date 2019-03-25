@@ -1,5 +1,17 @@
 const router = require('express').Router()
 const {Recipe, Ingredient, Tag} = require('../db/models')
+const cheerio = require('cheerio')
+const axios = require('axios')
+const {
+  findImg,
+  findPrepTime,
+  findCookTime,
+  findTotalTime,
+  findIngredients,
+  findInstructions,
+  findServings,
+  findTitle
+} = require('../../script/scrapers')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -53,12 +65,12 @@ router.post('/', async (req, res, next) => {
       name: req.body.name,
       prepTime: req.body.prepTime,
       cookTime: req.body.cookTime,
-      waitTime: req.body.waitTime,
+      totalTime: req.body.waitTime,
       serving: req.body.serving,
       steps: req.body.steps.split('\n'),
       ingredients: req.body.ingredients.split('\n')
     }
-    const newRecipe = await Recipe.create(recipe)
+    const newRecipe = await Recipes.create(recipe)
     res.json(newRecipe)
   } catch (err) {
     next(err)
@@ -73,6 +85,38 @@ router.put('/:recipeId', async (req, res, next) => {
 
     const updated = await recipe.update(req.body)
     res.status(200).json(updated)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/scrape', async (req, res, next) => {
+  try {
+    const {data: html, status} = await axios.get(req.body.url)
+    if (status === 200) {
+      const $ = cheerio.load(html)
+      const prepTime = findPrepTime($)
+      const cookTime = findCookTime($)
+      const recipe = {
+        name: findTitle($),
+        imgUrl: findImg($),
+        prepTime: prepTime,
+        cookTime: cookTime,
+        totalTime: findTotalTime($) || prepTime + cookTime,
+        serving: findServings($),
+        ingredients: findIngredients($),
+        steps: findInstructions($)
+      }
+      console.log('>> Scraped recipe: ', recipe)
+
+      const [savedRecipe, wasCreated] = await Recipe.findOrCreate({
+        where: {name: recipe.name},
+        defaults: recipe
+      })
+      res.status(200).send(savedRecipe)
+    } else {
+      res.status(400).send('Error in URL provided for scraping')
+    }
   } catch (err) {
     next(err)
   }
