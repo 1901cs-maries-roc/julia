@@ -9,7 +9,7 @@ const OneRecipeCard = props => {
       <Card>
         <Card.Img variant="top" src={recipe.imgUrl} className="img-resize" />
         <Card.Body>
-          <Card.Title>{recipe.name}</Card.Title>
+          <Card.Text>{recipe.name}</Card.Text>
         </Card.Body>
       </Card>
     </CardDeck>
