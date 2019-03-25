@@ -14,8 +14,7 @@ export default function StepNav({
   stop
 }) {
   return (
-    <Row className="test">
-      {/* <Col md={{span: 8, offset: 2}}> */}
+    <Row className="justify-content-md-center">
       <ButtonToolbar className="all-navigation-button">
         <Button
           className="navigation-button"
@@ -60,7 +59,6 @@ export default function StepNav({
           </Button> */}
         {/* <HelpInstructions /> */}
       </ButtonToolbar>
-      {/* </Col> */}
     </Row>
   )
 }
