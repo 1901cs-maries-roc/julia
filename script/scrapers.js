@@ -78,10 +78,10 @@ const extractTime = rootEl => {
 const findPrepTime = $ => {
   let rootEl
   $(':contains("Prep")').each((i, elem) => {
+    const r = /^(<[^>]*>)?(?<timeStr>Prep\s?\w*:?\s*(\d+\s?[a-z]+\s?)+)$/
     const el = $(elem)
       .text()
       .trim()
-    const r = /^(<[^>]*>)?Prep/
     if (r.test(el)) {
       rootEl = el
       return false
@@ -93,7 +93,7 @@ const findPrepTime = $ => {
 const findCookTime = $ => {
   let totalTimeStr = ''
   $('*').each((i, elem) => {
-    const r = /^(<[^>]*>)?(?<timeStr>(Cook\s?\w*:?\s*\d+\s?[a-z]+\s?)+)$/i
+    const r = /^(<[^>]*>)?(?<timeStr>Cook\s?\w*:?\s*(\d+\s?[a-z]+\s?)+)$/
     const el = $(elem)
       .text()
       .trim()
