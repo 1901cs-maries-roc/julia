@@ -38,6 +38,7 @@ form div {
 
 .img-resize {
   height: 186.33px;
+  object-fit: cover;
 }
 
 /* .navbar {
