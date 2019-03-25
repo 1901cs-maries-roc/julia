@@ -79,7 +79,10 @@ class RecipeForm extends Component {
       isSaving,
       scrapeUrl,
       imgUrl,
-      open
+      open,
+      name,
+      steps,
+      ingredients
     } = this.state
     // imgUrl = imgUrl.length ? imgUrl : '/recipe-default.jpg'
 
@@ -166,6 +169,7 @@ class RecipeForm extends Component {
                       id="name"
                       required={true}
                       placeholder="Enter title"
+                      value={name}
                       onChange={this.handleChange}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -179,6 +183,7 @@ class RecipeForm extends Component {
                       as="textarea"
                       rows="5"
                       id="ingredients"
+                      value={ingredients}
                       required
                       // &#10 triggers a new line to show user an ex
                       placeholder="Ingredient 1 &#10;Ingredient 2 &#10;Ingredient 3"
@@ -198,6 +203,7 @@ class RecipeForm extends Component {
                       as="textarea"
                       rows="5"
                       id="steps"
+                      value={steps}
                       required
                       placeholder="Instruction 1 &#10;Instruction 2 &#10;Instruction 3"
                       onChange={this.handleChange}
@@ -216,6 +222,7 @@ class RecipeForm extends Component {
                     <Form.Control
                       placeholder="ex: https://png.pngtree.com/element_origin_min_pic/16/07/09/155780a93ebd512.jpg "
                       id="imgUrl"
+                      value={imgUrl}
                       onChange={this.handleChange}
                     />
                     <img
