@@ -38,11 +38,16 @@ class HelpInstructions extends Component {
             container={this}
             containerPadding={20}
           >
-            <Popover id="popover-contained" title="How to Use Julia">
+            <Popover id="popover-contained">
               <br />
               <i className="far fa-play-circle" fa-10x />
-              <strong> Press START to enable Julia</strong> <br />
-              {/* <img src={process.env.PUBLIC_URL + '/start-button.png'} alt="start-button" /> */}
+              <strong>
+                {' '}
+                PRESS{' '}
+                <img src="/start-button.png" alt="start-button" width={30} /> TO
+                ENABLE JULIA
+              </strong>{' '}
+              <br />
               <hr />
               You can ask Julia any of the following commands preceeded with
               "Hey Julia"
