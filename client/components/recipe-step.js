@@ -168,7 +168,7 @@ class RecipeStep extends Component {
     return (
       <Container className="container">
         <Row>
-          <Col md={{span: 4, offset: 2}}>
+          <Col md={{span: 4, offset: 1}}>
             <Button
               variant="outline-dark"
               id="recipeOverview"
@@ -185,7 +185,8 @@ class RecipeStep extends Component {
           </Col>
         </Row>
         <Row>
-          <Col md={{span: 4, offset: 2}}>
+          <Col md={{span: 5, offset: 1}}>Recipe title</Col>
+          <Col md={{span: 3, offset: 2}}>
             <h1 id="title">
               Step {stepIndex + 1}/{steps ? steps.length : 0}
             </h1>
@@ -199,18 +200,7 @@ class RecipeStep extends Component {
           )}
         </Row>
         <Row>
-          <Col md={{span: 4, offset: 2}}>
-            <h3>Ingredients for this step:</h3>
-            <h5>
-              <IngredientsList
-                ingredients={this.props.currentRecipe.ingredients}
-                instructions={steps[stepIndex]}
-              />
-            </h5>
-          </Col>
-        </Row>
-        <Row className="row-grid">
-          <Col md={{span: 8, offset: 2}}>
+          <Col md={{span: 5, offset: 0}}>
             <div>
               <h3>Instructions:</h3>
               <h5 id="step-instructions">{steps[stepIndex]}</h5>
@@ -226,6 +216,16 @@ class RecipeStep extends Component {
             goToNext={this.goToNext}
             stop={this.stop}
           />
+
+          <Col md={{span: 4, offset: 1}}>
+            <h3>Ingredients for this step:</h3>
+            <h5>
+              <IngredientsList
+                ingredients={this.props.currentRecipe.ingredients}
+                instructions={steps[stepIndex]}
+              />
+            </h5>
+          </Col>
         </Row>
       </Container>
     )
