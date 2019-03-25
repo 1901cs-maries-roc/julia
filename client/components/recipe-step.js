@@ -25,6 +25,8 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import HelpInstructions from './help-instructions'
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 class RecipeStep extends Component {
   constructor(props) {
@@ -177,6 +179,9 @@ class RecipeStep extends Component {
             >
               {recipeOverview}
             </Button>
+          </Col>
+          <Col md={{span: 3, offset: 3}}>
+            <HelpInstructions />
           </Col>
         </Row>
         <Row>
