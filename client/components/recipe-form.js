@@ -46,7 +46,6 @@ class RecipeForm extends Component {
     event.preventDefault()
     const form = event.currentTarget
     if (form.checkValidity() === false) {
-      // event.preventDefault()
       event.stopPropagation()
     } else {
       const recipe = {
@@ -70,6 +69,7 @@ class RecipeForm extends Component {
     this.setState({
       [event.target.id]: event.target.value
     })
+    console.log('after handlechange in form', this.state)
   }
 
   render() {
@@ -111,11 +111,7 @@ class RecipeForm extends Component {
         </Button>
 
         <Collapse in={this.state.open}>
-          <Form
-            onClick={e => this.handleSubmit(e)}
-            noValidate
-            validated={validated}
-          >
+          <Form noValidate validated={validated}>
             <Row>
               <Form.Row className="recipe-time">
                 <Form.Group as={Col} md="2">
@@ -236,6 +232,7 @@ class RecipeForm extends Component {
                       variant="primary"
                       type="submit"
                       className="submit-button"
+                      onClick={e => this.handleSubmit(e)}
                     >
                       <h4>Submit</h4>
                     </Button>

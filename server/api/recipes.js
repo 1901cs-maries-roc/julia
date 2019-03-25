@@ -130,3 +130,16 @@ router.put('/:recipeId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.delete('/:recipeId', async (req, res, next) => {
+  try {
+    const recipeId = req.params.recipeId
+    await Recipe.destroy({
+      where: {
+        id: recipeId
+      }
+    })
+  } catch (err) {
+    next(err)
+  }
+})

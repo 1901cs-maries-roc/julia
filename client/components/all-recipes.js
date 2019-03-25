@@ -17,7 +17,6 @@ export class AllRecipes extends Component {
     const allRecipes = this.props.allRecipes || []
     const recipe = allRecipes.length ? (
       allRecipes.map(r => {
-        console.log(r)
         return (
           <div key={r.id}>
             <Col>

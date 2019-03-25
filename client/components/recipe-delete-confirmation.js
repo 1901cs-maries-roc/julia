@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import {connect} from 'react-redux'
+import {deleteRecipeThunk} from '../store'
+import {withRouter} from 'react-router'
 
-export default class DeleteModal extends Component {
+class DeleteModal extends Component {
   constructor() {
     super()
     this.state = {
@@ -25,7 +28,7 @@ export default class DeleteModal extends Component {
 
   handleDelete = () => {
     // this.setState({show: false, closeClicked: true})
-    // this.props.resetForm()
+    this.props.deleteRecipeThunkDispatch(this.props.recipeId)
     this.props.history.push('/')
   }
 
@@ -64,3 +67,11 @@ export default class DeleteModal extends Component {
     )
   }
 }
+
+const mapDispatch = dispatch => {
+  return {
+    deleteRecipeThunkDispatch: recipeId => dispatch(deleteRecipeThunk(recipeId))
+  }
+}
+
+export default withRouter(connect(null, mapDispatch)(DeleteModal))

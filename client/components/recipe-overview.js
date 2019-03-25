@@ -52,12 +52,13 @@ class RecipeOverview extends Component {
       totalTime,
       serving,
       steps,
-      ingredients
+      ingredients,
+      id
     } = this.props.currentRecipe
 
     return (
       <Container className="container">
-        <DeleteModal deleteClicked={this.state.deleteClicked} />
+        <DeleteModal deleteClicked={this.state.deleteClicked} recipeId={id} />
         <Row>
           <Col md={{span: 5, offset: 1}}>
             <img
