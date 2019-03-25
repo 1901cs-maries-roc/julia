@@ -64,3 +64,16 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:recipeId', async (req, res, next) => {
+  try {
+    const recipe = await Recipe.findOne({
+      where: {id: req.params.recipeId}
+    })
+
+    const updated = await recipe.update(req.body)
+    res.status(200).json(updated)
+  } catch (err) {
+    next(err)
+  }
+})
