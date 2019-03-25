@@ -97,7 +97,7 @@ router.post('/scrape', async (req, res, next) => {
       console.log('>> Scraped recipe: ', recipe)
 
       const [savedRecipe, wasCreated] = await Recipe.findOrCreate({
-        where: {imgUrl: recipe.imgUrl},
+        where: {name: recipe.name},
         defaults: recipe
       })
       res.status(200).send(savedRecipe)

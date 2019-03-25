@@ -50,7 +50,6 @@ const findImg = $ => {
     const imgHeight = Number($(elem).attr('height'))
     const imgWidth = Number($(elem).attr('width'))
     const imgUrl = $(elem).attr('src')
-    console.log('>> imgUrl: ', imgUrl)
     const r = /(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpg|gif|png))(?:\?([^#]*))?(?:#(.*))?/
     if (imgHeight < imgWidth * 2 && imgHeight > 300 && r.test(imgUrl)) {
       imgUrlFinal = imgUrl
@@ -73,19 +72,6 @@ const extractTime = rootEl => {
 }
 
 const findPrepTime = $ => {
-  // let rootEl
-  // $(':contains("Prep")').each((i, elem) => {
-  //   const r = /^(<[^>]*>)?(?<timeStr>Prep\s?\w*:?\s*(\d+\s?[a-z]+\s?)+)$/
-  //   const el = $(elem)
-  //     .text()
-  //     .trim()
-  //   if (r.test(el)) {
-  //     rootEl = el
-  //     return false
-  //   }
-  // })
-  // return extractTime(rootEl.slice(rootEl.search(/Prep/)))
-
   let prepTimeStr = ''
   $('*').each((i, elem) => {
     const r = /^(<[^>]*>)?(?<timeStr>Prep\s?\w*:?\s*(\d+\s?[a-z]+\s?)+)$/
