@@ -65,12 +65,12 @@ router.post('/', async (req, res, next) => {
       name: req.body.name,
       prepTime: req.body.prepTime,
       cookTime: req.body.cookTime,
-      totalTime: req.body.waitTime,
+      totalTime: req.body.totalTime,
       serving: req.body.serving,
       steps: req.body.steps.split('\n'),
       ingredients: req.body.ingredients.split('\n')
     }
-    const newRecipe = await Recipes.create(recipe)
+    const newRecipe = await Recipe.create(recipe)
     res.json(newRecipe)
   } catch (err) {
     next(err)
@@ -119,7 +119,7 @@ router.put('/:recipeId', async (req, res, next) => {
       name: req.body.name,
       prepTime: req.body.prepTime,
       cookTime: req.body.cookTime,
-      totalTime: req.body.waitTime,
+      totalTime: req.body.totalTime,
       serving: req.body.serving,
       steps: req.body.steps,
       ingredients: req.body.ingredients

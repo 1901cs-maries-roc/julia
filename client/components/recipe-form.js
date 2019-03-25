@@ -15,10 +15,10 @@ class RecipeForm extends Component {
     super()
     this.state = {
       name: '',
-      imgUrl: '',
+      imgUrl: '/recipe-default.jpg',
       prepTime: 0,
       cookTime: 0,
-      waitTime: 0,
+      totalTime: 0,
       serving: 0,
       steps: [],
       ingredients: [],
@@ -42,15 +42,26 @@ class RecipeForm extends Component {
     this.setState({newRecipeId, isSaving: false})
   }
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault()
     const form = event.currentTarget
     if (form.checkValidity() === false) {
-      event.preventDefault()
+      // event.preventDefault()
       event.stopPropagation()
     } else {
-      this.props.addRecipeThunkDispatch(this.state)
-      this.props.history.push('/')
+      const recipe = {
+        imgUrl: this.state.imgUrl,
+        name: this.state.name,
+        prepTime: this.state.prepTime,
+        cookTime: this.state.cookTime,
+        totalTime: this.state.totalTime,
+        serving: this.state.serving,
+        steps: this.state.steps,
+        ingredients: this.state.ingredients
+      }
+      await this.props.addRecipeThunkDispatch(recipe)
+      const newRecipeId = this.props.newRecipe.id
+      this.setState({newRecipeId, isSaving: false})
     }
     this.setState({validated: true})
   }
@@ -62,8 +73,15 @@ class RecipeForm extends Component {
   }
 
   render() {
-    let {validated, newRecipeId, isSaving, scrapeUrl, imgUrl, open} = this.state
-    imgUrl = imgUrl.length ? imgUrl : '/recipe-default.jpg'
+    const {
+      validated,
+      newRecipeId,
+      isSaving,
+      scrapeUrl,
+      imgUrl,
+      open
+    } = this.state
+    // imgUrl = imgUrl.length ? imgUrl : '/recipe-default.jpg'
 
     return (
       <Container className="container">
@@ -100,7 +118,7 @@ class RecipeForm extends Component {
                 <Form.Group as={Col} md="2">
                   <Form.Label>Prep Time in min</Form.Label>
                   <Form.Control
-                    placeholder="60"
+                    placeholder="00"
                     id="prepTime"
                     onChange={this.handleChange}
                   />
@@ -109,7 +127,7 @@ class RecipeForm extends Component {
                 <Form.Group as={Col} md="2">
                   <Form.Label>Cook Time in min</Form.Label>
                   <Form.Control
-                    placeholder="30"
+                    placeholder="00"
                     id="cookTime"
                     onChange={this.handleChange}
                   />
@@ -118,8 +136,8 @@ class RecipeForm extends Component {
                 <Form.Group as={Col} md="2">
                   <Form.Label>Total Time in min</Form.Label>
                   <Form.Control
-                    placeholder="90"
-                    id="waitTime"
+                    placeholder="00"
+                    id="totalTime"
                     onChange={this.handleChange}
                   />
                 </Form.Group>
@@ -129,7 +147,7 @@ class RecipeForm extends Component {
                   <Form.Control
                     type="number"
                     id="serving"
-                    placeholder="4"
+                    placeholder="0"
                     required
                     onChange={this.handleChange}
                   />

@@ -28,7 +28,7 @@ export const prevStep = currentStep => ({
 })
 export const restartSteps = () => ({type: RESTART_STEPS})
 export const clearCurrentRecipe = () => ({type: CLEAR_CURRENT_RECIPE})
-export const addRecipe = recipe => ({type: ADD_RECIPE, recipe})
+// export const addRecipe = recipe => ({type: ADD_RECIPE, recipe})
 export const addNewRecipe = recipe => ({type: ADD_NEW_RECIPE, recipe})
 export const updateRecipe = recipe => ({type: UPDATE_RECIPE, recipe})
 
@@ -56,7 +56,7 @@ export const getRecipeThunk = recipeId => async dispatch => {
 export const addRecipeThunk = recipe => async dispatch => {
   try {
     const newRecipe = await axios.post('/api/recipes', recipe)
-    dispatch(addRecipe(newRecipe.data))
+    dispatch(addNewRecipe(newRecipe.data))
   } catch (err) {
     console.error(err)
   }
@@ -105,9 +105,6 @@ export default function(state = initialState, action) {
     }
     case RESTART_STEPS: {
       return {...state, currentStepIndex: initialState.currentStepIndex}
-    }
-    case ADD_RECIPE: {
-      return {...state, recipes: [...state.recipes, action.recipe]}
     }
     case ADD_NEW_RECIPE: {
       return {...state, recipe: action.recipe}
