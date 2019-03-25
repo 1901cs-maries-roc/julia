@@ -15,18 +15,23 @@ export class AllRecipes extends Component {
 
   render() {
     const allRecipes = this.props.allRecipes || []
-    const recipe = allRecipes.map(r => {
-      return (
-        <div key={r.id}>
-          <Col>
-            <Link to={`/recipes/${r.id}`}>
-              {' '}
-              <OneRecipeCard recipe={r} />
-            </Link>
-          </Col>
-        </div>
-      )
-    })
+    const recipe = allRecipes.length ? (
+      allRecipes.map(r => {
+        console.log(r)
+        return (
+          <div key={r.id}>
+            <Col>
+              <Link to={`/recipes/${r.id}`}>
+                {' '}
+                <OneRecipeCard recipe={r} />
+              </Link>
+            </Col>
+          </div>
+        )
+      })
+    ) : (
+      <div>Empty</div>
+    )
 
     return (
       <Container className="container">
