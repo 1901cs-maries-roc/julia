@@ -147,19 +147,16 @@ class RecipeStep extends Component {
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
     const processingInputSlug = this.state.isProcessingInput ? (
-      <span>
-        <p className="microphone">
-          <i className="fas fa-microphone fa-5x microphone-off" />
-        </p>
-        <h4>Thinking...</h4>
-      </span>
+      <p className="microphone">
+        <i className="fas fa-microphone fa-3x microphone-off">
+          <h4>Thinking...</h4>
+        </i>
+      </p>
     ) : (
-      <span>
-        <p className="microphone">
-          <i className="fas fa-microphone fa-5x microphone-on" />
-        </p>
+      <p className="microphone">
+        <i className="fas fa-microphone fa-3x microphone-on" />
         <h4>I'm listening</h4>
-      </span>
+      </p>
     )
 
     const recipeOverview = '< Back to Recipe'
@@ -167,7 +164,7 @@ class RecipeStep extends Component {
     return (
       <Container className="container">
         <Row>
-          <Col md={{span: 4, offset: 1}}>
+          <Col md={{span: 7, offset: 1}}>
             <Button
               variant="outline-dark"
               id="recipeOverview"
@@ -179,7 +176,7 @@ class RecipeStep extends Component {
               {recipeOverview}
             </Button>
           </Col>
-          <Col md={{span: 2, offset: 5}}>
+          <Col className="justify-content-end" md={{span: 3, offset: 1}}>
             <HelpInstructions />
           </Col>
         </Row>
@@ -200,7 +197,7 @@ class RecipeStep extends Component {
             </Portal>
           )}
         </Row>
-        <Row className="row-grid">
+        <Row className="row-grid test">
           <Col md={{span: 5, offset: 1}}>
             <div>
               <h3>Instructions:</h3>

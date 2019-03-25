@@ -21,10 +21,9 @@ form div {
 }
 
 #modal {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  margin-right: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
