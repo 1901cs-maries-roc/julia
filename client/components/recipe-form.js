@@ -107,7 +107,7 @@ class RecipeForm extends Component {
           aria-controls="example-collapse-text"
           aria-expanded={open}
         >
-          Manually Enter a Recipe
+          Add
         </Button>
 
         <Collapse in={this.state.open}>

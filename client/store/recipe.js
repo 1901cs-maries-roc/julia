@@ -12,6 +12,7 @@ const ADD_RECIPE = 'ADD_RECIPE'
 const ADD_NEW_RECIPE = 'ADD_NEW_RECIPE'
 const CLEAR_CURRENT_RECIPE = 'CLEAR_CURRENT_RECIPE'
 const UPDATE_RECIPE = 'UPDATE_RECIPE'
+const DELETE_RECIPE = 'DELETE_RECIPE'
 
 /**
  * ACTION CREATORS
@@ -31,6 +32,7 @@ export const clearCurrentRecipe = () => ({type: CLEAR_CURRENT_RECIPE})
 // export const addRecipe = recipe => ({type: ADD_RECIPE, recipe})
 export const addNewRecipe = recipe => ({type: ADD_NEW_RECIPE, recipe})
 export const updateRecipe = recipe => ({type: UPDATE_RECIPE, recipe})
+export const deleteRecipe = () => ({type: DELETE_RECIPE})
 
 /**
  * THUNK CREATORS
@@ -76,6 +78,11 @@ export const updateRecipeThunk = recipe => async dispatch => {
   }
 }
 
+export const deleteRecipeThunk = recipeId => async dispatch => {
+  await axios.delete(`/api/recipes/${recipeId}`)
+  dispatch(deleteRecipe())
+}
+
 /**
  * INITIAL STATE
  */
@@ -117,6 +124,9 @@ export default function(state = initialState, action) {
         recipe => recipe.id !== action.recipe.id
       )
       return {...state, recipes: [...oldRecipes, action.recipe]}
+    }
+    case DELETE_RECIPE: {
+      return {...state, recipe: initialState.recipe}
     }
     default: {
       return state
