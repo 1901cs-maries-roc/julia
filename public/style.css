@@ -71,8 +71,14 @@ h1,
 h2,
 h3,
 h4,
-.start-button {
+.start-button,
+.micro-text {
   font-family: 'Baloo Chettan', cursive;
+}
+
+.micro-text {
+  font-size: 1.5em;
+  padding-left: 0.5em;
 }
 
 .recipe-time {

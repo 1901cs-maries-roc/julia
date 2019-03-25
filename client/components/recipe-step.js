@@ -148,14 +148,13 @@ class RecipeStep extends Component {
     const steps = this.props.currentRecipe.steps || []
     const processingInputSlug = this.state.isProcessingInput ? (
       <p className="microphone">
-        <i className="fas fa-microphone fa-3x microphone-off">
-          <h4>Thinking...</h4>
-        </i>
+        <i className="fas fa-microphone fa-2x microphone-off" />
+        <span className="micro-text">I'm listening</span>
       </p>
     ) : (
       <p className="microphone">
-        <i className="fas fa-microphone fa-3x microphone-on" />
-        <h4>I'm listening</h4>
+        <i className="fas fa-microphone fa-2x microphone-on" />
+        <span className="micro-text">I'm listening</span>
       </p>
     )
 
@@ -191,7 +190,7 @@ class RecipeStep extends Component {
           </Col>
           {this.state.isListening && (
             <Portal>
-              <Modal.Dialog id="modal">
+              <Modal.Dialog id="modal" className="sm">
                 <Modal.Body>{processingInputSlug}</Modal.Body>
               </Modal.Dialog>;
             </Portal>
