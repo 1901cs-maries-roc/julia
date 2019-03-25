@@ -3,8 +3,11 @@ const findTitle = $ => {
   const el = $('title')
     .first()
     .text()
+  // refactor to allow for hyphenated titles
+  // ie) pan-seared salmon
   const r = /(\w+\s?)+/
   title = el.match(r)[0] || 'Recipe Name Not Found'
+  // title = el || 'Recipe Name Not Found'
   return title
 }
 

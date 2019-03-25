@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col'
 import {addRecipeThunk, addRecipeFromUrl} from '../store/recipe'
 import {connect} from 'react-redux'
 import AddUrl from './recipe-form-addUrl'
+import SubmittedModal from './recipe-form-submitted'
 
 class RecipeForm extends Component {
   constructor() {
@@ -25,9 +26,14 @@ class RecipeForm extends Component {
       newRecipeId: 0,
       isSaving: false
     }
+    this.baseState = this.state
   }
 
-  scrapeUrl = async () => {
+  resetForm = () => {
+    this.setState(this.baseState)
+  }
+
+  scrape = async () => {
     this.setState({isSaving: true})
     await this.props.addRecipeFromUrl(this.state.scrapeUrl)
     const newRecipeId = this.props.newRecipe.id
@@ -61,14 +67,16 @@ class RecipeForm extends Component {
 
     return (
       <Container className="container">
+        <SubmittedModal newRecipeId={newRecipeId} resetForm={this.resetForm} />
         <Row>
           <h1>Add a recipe</h1>
         </Row>
         <AddUrl
           handleChange={this.handleChange}
-          scrapeUrl={this.scrapeUrl}
+          scrape={this.scrape}
           newRecipeId={newRecipeId}
           isSaving={isSaving}
+          scrapeUrl={this.state.scrapeUrl}
         />
         <Row className="row-grid">
           <h4>Manually Enter a Recipe</h4>
