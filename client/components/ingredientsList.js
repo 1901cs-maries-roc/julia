@@ -25,7 +25,9 @@ export default function IngredientsList(props) {
 
   return ingredientsList.length ? (
     <Col>
-      <ul id="ingredients">{ingredientsList.map(i => <li key={i}>{i}</li>)}</ul>
+      <ul id="ingredients">
+        {ingredientsList.map((i, idx) => <li key={idx}>{i}</li>)}
+      </ul>
     </Col>
   ) : (
     <p>There are no ingredients in this step</p>

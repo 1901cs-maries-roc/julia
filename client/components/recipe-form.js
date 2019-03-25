@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import InputGroup from 'react-bootstrap/InputGroup'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import {addRecipeThunk} from '../store'
+import {addRecipeThunk, addRecipeFromUrl} from '../store/recipe'
 import {connect} from 'react-redux'
+import AddUrl from './recipe-form-addUrl'
+import SubmittedModal from './recipe-form-submitted'
 import Collapse from 'react-bootstrap/Collapse'
 
 class RecipeForm extends Component {
@@ -22,8 +23,23 @@ class RecipeForm extends Component {
       steps: [],
       ingredients: [],
       validated: false,
+      scrapeUrl: '',
+      newRecipeId: 0,
+      isSaving: false,
       open: false
     }
+    this.baseState = this.state
+  }
+
+  resetForm = () => {
+    this.setState(this.baseState)
+  }
+
+  scrape = async () => {
+    this.setState({isSaving: true})
+    await this.props.addRecipeFromUrl(this.state.scrapeUrl)
+    const newRecipeId = this.props.newRecipe.id
+    this.setState({newRecipeId, isSaving: false})
   }
 
   handleSubmit = event => {
@@ -33,7 +49,6 @@ class RecipeForm extends Component {
       event.preventDefault()
       event.stopPropagation()
     } else {
-      console.log(this.state)
       this.props.addRecipeThunkDispatch(this.state)
       this.props.history.push('/')
     }
@@ -47,39 +62,22 @@ class RecipeForm extends Component {
   }
 
   render() {
-    const {validated} = this.state
-    const {open} = this.state
-    const imgUrl = this.state.imgUrl.length
-      ? this.state.imgUrl
-      : '/recipe-default.jpg'
+    let {validated, newRecipeId, isSaving, scrapeUrl, imgUrl, open} = this.state
+    imgUrl = imgUrl.length ? imgUrl : '/recipe-default.jpg'
+
     return (
       <Container className="container">
+        <SubmittedModal newRecipeId={newRecipeId} resetForm={this.resetForm} />
         <Row>
           <h1>Add a recipe</h1>
         </Row>
-
-        <Row className="row-grid">
-          <h4>Add a recipe from a URL</h4>
-        </Row>
-        <Form.Row>
-          <Form.Group as={Col} md="10">
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text id="uploadUrl">Recipe URL</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control
-                placeholder="Enter the URL"
-                aria-label="Recipe URL"
-                aria-describedby="uploadUrl"
-              />
-            </InputGroup>
-          </Form.Group>
-          <Form.Group>
-            <Button variant="primary" type="button">
-              Upload
-            </Button>
-          </Form.Group>
-        </Form.Row>
+        <AddUrl
+          handleChange={this.handleChange}
+          scrape={this.scrape}
+          newRecipeId={newRecipeId}
+          isSaving={isSaving}
+          scrapeUrl={scrapeUrl}
+        />
         <Row className="row-grid">
           <h4>Manually Enter a Recipe</h4>
         </Row>
@@ -227,10 +225,15 @@ class RecipeForm extends Component {
   }
 }
 
+const mapState = state => ({
+  newRecipe: state.recipe.recipe
+})
+
 const mapDispatch = dispatch => {
   return {
-    addRecipeThunkDispatch: recipe => dispatch(addRecipeThunk(recipe))
+    addRecipeThunkDispatch: recipe => dispatch(addRecipeThunk(recipe)),
+    addRecipeFromUrl: url => dispatch(addRecipeFromUrl(url))
   }
 }
 
-export default connect(null, mapDispatch)(RecipeForm)
+export default connect(mapState, mapDispatch)(RecipeForm)

@@ -9,15 +9,8 @@ const NEXT_STEP = 'NEXT_STEP'
 const PREV_STEP = 'PREV_STEP'
 const RESTART_STEPS = 'RESTART_STEPS'
 const ADD_RECIPE = 'ADD_RECIPE'
-
-/**
- * INITIAL STATE
- */
-const initialState = {
-  recipes: [],
-  recipe: {steps: []},
-  currentStepIndex: 0
-}
+const ADD_NEW_RECIPE = 'ADD_NEW_RECIPE'
+const CLEAR_CURRENT_RECIPE = 'CLEAR_CURRENT_RECIPE'
 
 /**
  * ACTION CREATORS
@@ -33,8 +26,9 @@ export const prevStep = currentStep => ({
   prevStep: currentStep - 1
 })
 export const restartSteps = () => ({type: RESTART_STEPS})
-
+export const clearCurrentRecipe = () => ({type: CLEAR_CURRENT_RECIPE})
 export const addRecipe = recipe => ({type: ADD_RECIPE, recipe})
+const addNewRecipe = recipe => ({type: ADD_NEW_RECIPE, recipe})
 /**
  * THUNK CREATORS
  */
@@ -58,7 +52,6 @@ export const getRecipeThunk = recipeId => async dispatch => {
 
 export const addRecipeThunk = recipe => async dispatch => {
   try {
-    console.log('in add recipe thunk')
     const newRecipe = await axios.post('/api/recipes', recipe)
     dispatch(addRecipe(newRecipe.data))
   } catch (err) {
@@ -66,9 +59,24 @@ export const addRecipeThunk = recipe => async dispatch => {
   }
 }
 
+export const addRecipeFromUrl = url => async dispatch => {
+  const {data: recipe} = await axios.post('/api/recipes/scrape', {url})
+  dispatch(addNewRecipe(recipe))
+}
+
+/**
+ * INITIAL STATE
+ */
+const initialState = {
+  recipes: [],
+  recipe: {steps: []},
+  currentStepIndex: 0
+}
+
 /**
  * REDUCER
  */
+// eslint-disable-next-line complexity
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_RECIPES:
@@ -81,11 +89,16 @@ export default function(state = initialState, action) {
     case PREV_STEP: {
       return {...state, currentStepIndex: action.prevStep}
     }
-    case ADD_RECIPE: {
-      return {...state, recipes: [...state.recipes, action.newRecipe]}
-    }
     case RESTART_STEPS:
-      return {...state, currentStepIndex: 0}
+      return {...state, currentStepIndex: initialState.currentStepIndex}
+    case ADD_RECIPE: {
+      return {...state, recipes: [...state.recipes, action.recipe]}
+    }
+    case ADD_NEW_RECIPE: {
+      return {...state, recipe: action.recipe}
+    }
+    case CLEAR_CURRENT_RECIPE:
+      return {...state, recipe: initialState.recipe}
     default:
       return state
   }
