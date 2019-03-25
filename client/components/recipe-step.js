@@ -18,8 +18,6 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
-import HelpInstructions from './help-instructions'
 import Modal from 'react-bootstrap/Modal'
 
 class RecipeStep extends Component {
@@ -215,9 +213,6 @@ class RecipeStep extends Component {
             goToNext={this.goToNext}
             stop={this.stop}
           />
-        </Row>
-        <Row>
-          <HelpInstructions />
         </Row>
       </Container>
     )
