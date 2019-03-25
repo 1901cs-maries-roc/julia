@@ -17,16 +17,13 @@ export class AllRecipes extends Component {
     const allRecipes = this.props.allRecipes || []
     const recipe = allRecipes.length ? (
       allRecipes.map(r => {
-        console.log(r)
         return (
-          <div key={r.id}>
-            <Col>
-              <Link to={`/recipes/${r.id}`}>
-                {' '}
-                <OneRecipeCard recipe={r} />
-              </Link>
-            </Col>
-          </div>
+          <Col key={r.id} md={{span: 3}}>
+            <Link to={`/recipes/${r.id}`}>
+              {' '}
+              <OneRecipeCard recipe={r} />
+            </Link>
+          </Col>
         )
       })
     ) : (
@@ -35,10 +32,8 @@ export class AllRecipes extends Component {
 
     return (
       <Container className="container">
-        <Row>
-          <h1>All Recipes</h1>
-          <CardGroup>{recipe.length ? recipe : <div>loading</div>}</CardGroup>
-        </Row>
+        <h1>All Recipes</h1>
+        <CardGroup>{recipe.length ? recipe : <div>loading</div>}</CardGroup>
       </Container>
     )
   }
