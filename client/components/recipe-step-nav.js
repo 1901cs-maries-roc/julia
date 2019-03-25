@@ -25,6 +25,16 @@ export default function StepNav({
       </Button>
       <Button
         className="navigation-button"
+        variant="secondary"
+        id="next"
+        disabled={stepIndex >= steps.length - 1}
+        type="button"
+        onClick={goToNext}
+      >
+        Next
+      </Button>
+      <Button
+        className="navigation-button"
         variant="success"
         id="start"
         type="button"
@@ -40,16 +50,6 @@ export default function StepNav({
         onClick={stop}
       >
         Stop
-      </Button>
-      <Button
-        className="navigation-button"
-        variant="secondary"
-        id="next"
-        disabled={stepIndex >= steps.length - 1}
-        type="button"
-        onClick={goToNext}
-      >
-        Next
       </Button>
     </ButtonToolbar>
   )
