@@ -25,7 +25,9 @@ export const UserHome = props => {
               <Card.Text>Email: {email} </Card.Text>
             </Card.Body>
             <Card.Body>
-              <Card.Link href={`/${userId}/favorites`}>My Favorites</Card.Link>
+              <Card.Link href={`/${userId}/favorites`}>
+                <i className="far fa-heart" /> My Favorites
+              </Card.Link>
               <Card.Link href="#">Edit Profile</Card.Link>
             </Card.Body>
           </Card>

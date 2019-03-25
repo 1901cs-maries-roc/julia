@@ -61,7 +61,7 @@ router.get('/:userId', async (req, res, next) => {
 
 //submit form by user
 //added -- Marilyn
-router.post('/:userId/', async (req, res, next) => {
+router.post('/:userId', async (req, res, next) => {
   try {
     const recipe = {
       imgUrl: req.body.imgUrl,
@@ -80,6 +80,15 @@ router.post('/:userId/', async (req, res, next) => {
     next(err)
   }
 })
+
+//user favorites
+// router.get('/:userId/favorites', async (req, res, next) => {
+//   try {
+//     const
+//   } catch (error) {
+//     next(error);
+//   }
+// })
 
 router.post('/', async (req, res, next) => {
   try {
