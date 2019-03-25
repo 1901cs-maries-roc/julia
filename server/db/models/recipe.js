@@ -38,7 +38,7 @@ const Recipe = db.define('recipe', {
     type: Sequelize.ARRAY(Sequelize.STRING)
   },
   steps: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
+    type: Sequelize.ARRAY(Sequelize.TEXT)
   }
 })
 

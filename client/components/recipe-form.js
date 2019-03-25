@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {addRecipeThunk} from '../store'
 import {connect} from 'react-redux'
+import Collapse from 'react-bootstrap/Collapse'
 
 class RecipeForm extends Component {
   constructor() {
@@ -20,7 +21,8 @@ class RecipeForm extends Component {
       serving: 0,
       steps: [],
       ingredients: [],
-      validated: false
+      validated: false,
+      open: false
     }
   }
 
@@ -46,6 +48,7 @@ class RecipeForm extends Component {
 
   render() {
     const {validated} = this.state
+    const {open} = this.state
     const imgUrl = this.state.imgUrl.length
       ? this.state.imgUrl
       : '/recipe-default.jpg'
@@ -58,158 +61,167 @@ class RecipeForm extends Component {
         <Row className="row-grid">
           <h4>Add a recipe from a URL</h4>
         </Row>
-        <Row>
-          <InputGroup>
-            <InputGroup.Prepend>
-              <InputGroup.Text id="uploadUrl">Recipe URL</InputGroup.Text>
-            </InputGroup.Prepend>
-            <Form.Control
-              placeholder="Enter the URL"
-              aria-label="Recipe URL"
-              aria-describedby="uploadUrl"
-            />
+        <Form.Row>
+          <Form.Group as={Col} md="10">
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text id="uploadUrl">Recipe URL</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control
+                placeholder="Enter the URL"
+                aria-label="Recipe URL"
+                aria-describedby="uploadUrl"
+              />
+            </InputGroup>
+          </Form.Group>
+          <Form.Group>
             <Button variant="primary" type="button">
               Upload
             </Button>
-          </InputGroup>
-        </Row>
-
+          </Form.Group>
+        </Form.Row>
         <Row className="row-grid">
           <h4>Manually Enter a Recipe</h4>
         </Row>
-        <Form
-          onClick={e => this.handleSubmit(e)}
-          noValidate
-          validated={validated}
+        <Button
+          onClick={() => this.setState({open: !open})}
+          aria-controls="example-collapse-text"
+          aria-expanded={open}
         >
-          <Row>
-            <Col>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Image URL</Form.Label>
+          Manually Enter a Recipe
+        </Button>
+
+        <Collapse in={this.state.open}>
+          <Form
+            onClick={e => this.handleSubmit(e)}
+            noValidate
+            validated={validated}
+          >
+            <Row>
+              <Form.Row className="recipe-time">
+                <Form.Group as={Col} md="2">
+                  <Form.Label>Prep Time in min</Form.Label>
                   <Form.Control
-                    placeholder="ex: https://png.pngtree.com/element_origin_min_pic/16/07/09/155780a93ebd512.jpg "
-                    id="imgUrl"
+                    placeholder="60"
+                    id="prepTime"
                     onChange={this.handleChange}
                   />
-                  <img
-                    src={imgUrl}
-                    style={{width: '200px'}}
-                    alt="Recipe preview"
+                </Form.Group>
+
+                <Form.Group as={Col} md="2">
+                  <Form.Label>Cook Time in min</Form.Label>
+                  <Form.Control
+                    placeholder="30"
+                    id="cookTime"
+                    onChange={this.handleChange}
                   />
                 </Form.Group>
-              </Col>
-              <Col>
-                <Form.Row>
-                  <Form.Group>
-                    <Form.Label>Prep Time in min</Form.Label>
-                    <Form.Control
-                      placeholder="ex: 60"
-                      id="prepTime"
-                      onChange={this.handleChange}
-                    />
-                  </Form.Group>
 
-                  <Form.Group>
-                    <Form.Label>Cook Time in min</Form.Label>
-                    <Form.Control
-                      placeholder="ex: 30"
-                      id="cookTime"
-                      onChange={this.handleChange}
-                    />
-                  </Form.Group>
-                </Form.Row>
-              </Col>
-              <Col>
-                <Form.Row>
-                  <Form.Group>
-                    <Form.Label>Total Time in min</Form.Label>
-                    <Form.Control
-                      placeholder="ex: 90"
-                      id="waitTime"
-                      onChange={this.handleChange}
-                    />
-                  </Form.Group>
+                <Form.Group as={Col} md="2">
+                  <Form.Label>Total Time in min</Form.Label>
+                  <Form.Control
+                    placeholder="90"
+                    id="waitTime"
+                    onChange={this.handleChange}
+                  />
+                </Form.Group>
 
-                  <Form.Group>
-                    <Form.Label>Number of servings</Form.Label>
+                <Form.Group as={Col} md="2">
+                  <Form.Label>Number of servings</Form.Label>
+                  <Form.Control
+                    type="number"
+                    id="serving"
+                    placeholder="4"
+                    required
+                    onChange={this.handleChange}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a serving.
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Form.Row>
+
+              <Form.Row>
+                <Form.Group as={Col} md="8">
+                  <Form.Group as={Col} md="12">
+                    <Form.Label>Recipe Title</Form.Label>
+
                     <Form.Control
-                      type="number"
-                      id="serving"
-                      required
+                      id="name"
+                      required={true}
+                      placeholder="Enter title"
                       onChange={this.handleChange}
                     />
                     <Form.Control.Feedback type="invalid">
-                      Please enter a serving.
+                      Please enter a title.
                     </Form.Control.Feedback>
                   </Form.Group>
-                </Form.Row>
-              </Col>
-            </Col>
-            <Col>
-              <Form.Row>
-                <Form.Group>
-                  <Form.Label>Recipe Title</Form.Label>
 
-                  <Form.Control
-                    id="name"
-                    required={true}
-                    placeholder="Enter title"
-                    onChange={this.handleChange}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please enter a title.
-                  </Form.Control.Feedback>
+                  <Form.Group as={Col} md="12">
+                    <Form.Label>Ingredients</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows="5"
+                      id="ingredients"
+                      required
+                      // &#10 triggers a new line to show user an ex
+                      placeholder="Ingredient 1 &#10;Ingredient 2 &#10;Ingredient 3"
+                      onChange={this.handleChange}
+                    />
+                    <Form.Text className="text-muted">
+                      Enter each ingredient on its own line.
+                    </Form.Text>
+                    <Form.Control.Feedback type="invalid">
+                      Please enter ingredients.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group as={Col} md="12">
+                    <Form.Label>Instructions</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows="5"
+                      id="steps"
+                      required
+                      placeholder="Instruction 1 &#10;Instruction 2 &#10;Instruction 3"
+                      onChange={this.handleChange}
+                    />
+                    <Form.Text className="text-muted">
+                      Enter each instruction on its own line.
+                    </Form.Text>
+                    <Form.Control.Feedback type="invalid">
+                      Please enter instructions.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Form.Group>
+                <Form.Group as={Col} md="3">
+                  <Form.Group as={Col} md="12">
+                    <Form.Label>Image URL</Form.Label>
+                    <Form.Control
+                      placeholder="ex: https://png.pngtree.com/element_origin_min_pic/16/07/09/155780a93ebd512.jpg "
+                      id="imgUrl"
+                      onChange={this.handleChange}
+                    />
+                    <img
+                      src={imgUrl}
+                      style={{width: '200px'}}
+                      alt="Recipe preview"
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      className="submit-button"
+                    >
+                      <h4>Submit</h4>
+                    </Button>
+                  </Form.Group>
                 </Form.Group>
               </Form.Row>
-
-              <Form.Row>
-                <Form.Group>
-                  <Form.Label>Ingredients</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows="5"
-                    id="ingredients"
-                    required
-                    // &#10 triggers a new line to show user an ex
-                    placeholder="Ingredient 1 &#10;Ingredient 2 &#10;Ingredient 3"
-                    onChange={this.handleChange}
-                  />
-                  <Form.Text className="text-muted">
-                    Enter each ingredient on its own line.
-                  </Form.Text>
-                  <Form.Control.Feedback type="invalid">
-                    Please enter ingredients.
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Form.Row>
-
-              <Form.Row>
-                <Form.Group>
-                  <Form.Label>Instructions</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows="5"
-                    id="steps"
-                    required
-                    placeholder="Instruction 1 &#10;Instruction 2 &#10;Instruction 3"
-                    onChange={this.handleChange}
-                  />
-                  <Form.Text className="text-muted">
-                    Enter each instruction on its own line.
-                  </Form.Text>
-                  <Form.Control.Feedback type="invalid">
-                    Please enter instructions.
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Form.Row>
-
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Col>
-          </Row>
-        </Form>
+            </Row>
+          </Form>
+        </Collapse>
       </Container>
     )
   }
