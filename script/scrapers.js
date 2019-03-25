@@ -45,25 +45,22 @@ const findInstructions = $ => {
 }
 
 const findImg = $ => {
-  let imgUrl
+  let imgUrlFinal
   $('img').each((i, elem) => {
     const imgHeight = Number($(elem).attr('height'))
     const imgWidth = Number($(elem).attr('width'))
-    if (imgHeight < imgWidth * 2 && imgHeight > 300) {
-      imgUrl = $(elem).attr('data-src') || $(elem).attr('src')
+    const imgUrl = $(elem).attr('src')
+    console.log('>> imgUrl: ', imgUrl)
+    const r = /(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpg|gif|png))(?:\?([^#]*))?(?:#(.*))?/
+    if (imgHeight < imgWidth * 2 && imgHeight > 300 && r.test(imgUrl)) {
+      imgUrlFinal = imgUrl
       return false
     }
   })
-  return imgUrl
+  return imgUrlFinal
 }
 
 const extractTime = rootEl => {
-  // const num = /\d/
-  // const unit = /\sm|\sh/
-  // const timeIndex = rootEl.search(num)
-  // const unitIndex = rootEl.search(unit) + 1
-  // const time = rootEl.slice(timeIndex, unitIndex)
-  // return rootEl[unitIndex] === 'h' ? time * 60 : time * 1
   const timeRegexp = /\D*(?<hours>\d+\sh\w*)?\s?(?<min>\d+\sm\w*)?/i
   const hourStr = rootEl.match(timeRegexp).groups.hours
   const minStr = rootEl.match(timeRegexp).groups.min
@@ -76,32 +73,44 @@ const extractTime = rootEl => {
 }
 
 const findPrepTime = $ => {
-  let rootEl
-  $(':contains("Prep")').each((i, elem) => {
+  // let rootEl
+  // $(':contains("Prep")').each((i, elem) => {
+  //   const r = /^(<[^>]*>)?(?<timeStr>Prep\s?\w*:?\s*(\d+\s?[a-z]+\s?)+)$/
+  //   const el = $(elem)
+  //     .text()
+  //     .trim()
+  //   if (r.test(el)) {
+  //     rootEl = el
+  //     return false
+  //   }
+  // })
+  // return extractTime(rootEl.slice(rootEl.search(/Prep/)))
+
+  let prepTimeStr = ''
+  $('*').each((i, elem) => {
     const r = /^(<[^>]*>)?(?<timeStr>Prep\s?\w*:?\s*(\d+\s?[a-z]+\s?)+)$/
     const el = $(elem)
       .text()
       .trim()
     if (r.test(el)) {
-      rootEl = el
-      return false
+      prepTimeStr = el.match(r).groups.timeStr
     }
   })
-  return extractTime(rootEl.slice(rootEl.search(/Prep/)))
+  return extractTime(prepTimeStr)
 }
 
 const findCookTime = $ => {
-  let totalTimeStr = ''
+  let cookTimeStr = ''
   $('*').each((i, elem) => {
     const r = /^(<[^>]*>)?(?<timeStr>Cook\s?\w*:?\s*(\d+\s?[a-z]+\s?)+)$/
     const el = $(elem)
       .text()
       .trim()
     if (r.test(el)) {
-      totalTimeStr = el.match(r).groups.timeStr
+      cookTimeStr = el.match(r).groups.timeStr
     }
   })
-  return extractTime(totalTimeStr)
+  return extractTime(cookTimeStr)
 }
 
 const findTotalTime = $ => {

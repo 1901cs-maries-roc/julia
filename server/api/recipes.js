@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {Recipe, Ingredient, Tag} = require('../db/models')
-const request = require('request')
 const cheerio = require('cheerio')
 const axios = require('axios')
 const {
@@ -83,12 +82,14 @@ router.post('/scrape', async (req, res, next) => {
     const {data: html, status} = await axios.get(req.body.url)
     if (status === 200) {
       const $ = cheerio.load(html)
+      const prepTime = findPrepTime($)
+      const cookTime = findCookTime($)
       const recipe = {
         name: findTitle($),
         imgUrl: findImg($),
-        prepTime: findPrepTime($),
-        cookTime: findCookTime($),
-        totalTime: findTotalTime($),
+        prepTime: prepTime,
+        cookTime: cookTime,
+        totalTime: findTotalTime($) || prepTime + cookTime,
         serving: findServings($),
         ingredients: findIngredients($),
         steps: findInstructions($)
