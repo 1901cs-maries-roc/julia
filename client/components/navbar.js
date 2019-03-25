@@ -6,9 +6,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 
-const NavigationBar = ({handleClick, isLoggedIn}) => (
-  // error here: The prop `handleClick` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
-  // error here: The prop `isLoggedIn` is marked as required in `Bootstrap(undefined)`, but its value is `undefined`.
+const NavigationBar = ({handleClick, isLoggedIn, userId}) => (
   <Navbar collapseOnSelect expand="lg" variant="dark" className="navbar">
     <Navbar.Brand href="/" className="brand-name">
       <img
@@ -63,15 +61,17 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
         {isLoggedIn ? (
           <Nav>
             <NavDropdown title="User" id="collasible-nav-dropdown">
-              {/* <NavDropdown.Item href="#">My Account</NavDropdown.Item> */}
+              <NavDropdown.Item href={`/${userId}/profile`}>
+                My Account
+              </NavDropdown.Item>
               <NavDropdown.Item href="#" onClick={handleClick}>
                 Logout
               </NavDropdown.Item>
               <NavDropdown.Divider />
             </NavDropdown>
-            {/* <Nav.Link href="Favorites">
-            <i className="fab fa-gratipay" />
-          </Nav.Link> */}
+            <Nav.Link href="/favorites">
+              <i className="fab fa-gratipay" />
+            </Nav.Link>
           </Nav>
         ) : (
           <Nav>
@@ -88,7 +88,8 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    userId: state.user.id
   }
 }
 

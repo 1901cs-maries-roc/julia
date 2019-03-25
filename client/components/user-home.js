@@ -12,26 +12,27 @@ import Col from 'react-bootstrap/Col'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
+  const {userId, email, fullName, imageUrl} = props
 
   return (
     <Container className="container">
       <Row>
         <Col md={{span: 4}}>
           <Card style={{width: '18rem'}}>
-            <Card.Img variant="top" src="/placeholder.svg" />
+            <Card.Img variant="top" src={`${imageUrl}`} />
             <Card.Body>
-              <Card.Title>Welcome, {email}</Card.Title>
-              <Card.Text>Quick blurb about user</Card.Text>
+              <Card.Title>Welcome, {fullName}</Card.Title>
+              <Card.Text>Email: {email} </Card.Text>
             </Card.Body>
             <Card.Body>
-              <Card.Link href="/favorites">My Favorites</Card.Link>
+              <Card.Link href={`/${userId}/favorites`}>My Favorites</Card.Link>
               <Card.Link href="#">Edit Profile</Card.Link>
             </Card.Body>
           </Card>
         </Col>
         <Col md={{span: 6}}>
-          <h3>My Recipes:</h3>
+          <h3>My Submitted Recipes:</h3>
+          <br />
           <Media>
             <img
               width={64}
@@ -107,7 +108,10 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    userId: state.user.id,
+    email: state.user.email,
+    fullName: state.user.fullName,
+    imageUrl: state.user.imageUrl
   }
 }
 

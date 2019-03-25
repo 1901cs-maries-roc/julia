@@ -7,8 +7,13 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
   const users = [
-    {email: 'cody@email.com', password: '123', fullName: 'Cody Pug'},
-    {email: 'murphy@email.com', password: '123', fullName: 'Murphy Cat'}
+    {
+      email: 'cody@email.com',
+      password: '123',
+      fullName: 'Cody The Pug',
+      imageUrl: 'https://www.animalgenetics.us/images/canine/Pug1.jpg'
+    },
+    {email: 'murphy@email.com', password: '123', fullName: 'Murphy The Cat'}
   ]
   const recipes = [
     {
