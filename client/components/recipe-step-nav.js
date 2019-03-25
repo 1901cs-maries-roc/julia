@@ -14,7 +14,7 @@ export default function StepNav({
   stop
 }) {
   return (
-    <Row>
+    <Row className="test">
       {/* <Col md={{span: 8, offset: 2}}> */}
       <ButtonToolbar className="all-navigation-button">
         <Button

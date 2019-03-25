@@ -49,9 +49,11 @@ form div {
   margin-top: 3em;
 }
 
-all-navigation-button {
+.test {
   margin-top: 20em;
-  display: fixed;
+  margin-bottom: 1em;
+  position: fixed;
+  bottom: 0;
 }
 
 /* adjustments on navbar */
