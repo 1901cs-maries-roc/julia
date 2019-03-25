@@ -51,10 +51,6 @@ export default function StepNav({
       >
         Next
       </Button>
-      {/* <Button variant="secondary" type="submit" className="navigation-button">
-            Help
-          </Button> */}
-      {/* <HelpInstructions /> */}
     </ButtonToolbar>
   )
 }
