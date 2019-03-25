@@ -26,7 +26,6 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import HelpInstructions from './help-instructions'
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 class RecipeStep extends Component {
   constructor(props) {
@@ -180,12 +179,14 @@ class RecipeStep extends Component {
               {recipeOverview}
             </Button>
           </Col>
-          <Col md={{span: 3, offset: 3}}>
+          <Col md={{span: 2, offset: 5}}>
             <HelpInstructions />
           </Col>
         </Row>
         <Row>
-          <Col md={{span: 5, offset: 1}}>Recipe title</Col>
+          <Col md={{span: 5, offset: 1}}>
+            <h1>{this.props.currentRecipe.name}</h1>
+          </Col>
           <Col md={{span: 3, offset: 2}}>
             <h1 id="title">
               Step {stepIndex + 1}/{steps ? steps.length : 0}
@@ -199,25 +200,15 @@ class RecipeStep extends Component {
             </Portal>
           )}
         </Row>
-        <Row>
-          <Col md={{span: 5, offset: 0}}>
+        <Row className="row-grid">
+          <Col md={{span: 5, offset: 1}}>
             <div>
               <h3>Instructions:</h3>
               <h5 id="step-instructions">{steps[stepIndex]}</h5>
             </div>
           </Col>
-        </Row>
-        <Row className="row-grid">
-          <StepNav
-            stepIndex={stepIndex}
-            steps={steps}
-            annyang={this.annyang}
-            goBack={this.goBack}
-            goToNext={this.goToNext}
-            stop={this.stop}
-          />
 
-          <Col md={{span: 4, offset: 1}}>
+          <Col md={{span: 5, offset: 1}}>
             <h3>Ingredients for this step:</h3>
             <h5>
               <IngredientsList
@@ -225,6 +216,18 @@ class RecipeStep extends Component {
                 instructions={steps[stepIndex]}
               />
             </h5>
+          </Col>
+        </Row>
+        <Row className="row-grid">
+          <Col md={{span: 4, offset: 3}}>
+            <StepNav
+              stepIndex={stepIndex}
+              steps={steps}
+              annyang={this.annyang}
+              goBack={this.goBack}
+              goToNext={this.goToNext}
+              stop={this.stop}
+            />
           </Col>
         </Row>
       </Container>

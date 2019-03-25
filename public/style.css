@@ -51,6 +51,7 @@ form div {
 
 all-navigation-button {
   margin-top: 20em;
+  display: fixed;
 }
 
 /* adjustments on navbar */
