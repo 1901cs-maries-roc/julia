@@ -1,5 +1,18 @@
 import annyang from 'annyang'
 
+export const browserCompatibility = () => {
+  let speechSyn = responsiveVoice.voiceSupport()
+
+  if (!annyang) {
+    return 'Speech Recognition is not supported'
+  } else if (!speechSyn) {
+    return 'Your browser does not support speech synthesis. Please use Julia in Chrome, Firefox or Safari'
+  } else if (!annyang && !speechSyn) {
+    return 'Your browser does not support speech recognition and speech synthesis. Please use Julia in Chrome, Firefox or Safari'
+  }
+  return null
+}
+
 const voiceEvts = {
   onstart: annyang.pause,
   onend: annyang.resume

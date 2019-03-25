@@ -15,7 +15,8 @@ import {
   speak,
   listIngredients,
   resume,
-  unrecognized
+  unrecognized,
+  browserCompatibility
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import StepNav from './recipe-step-nav'
@@ -39,11 +40,13 @@ class RecipeStep extends Component {
   }
 
   componentDidMount() {
+    const browserCompatible = browserCompatibility()
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipe(recipeId)
     responsiveVoice.speak(
       'To begin cooking, press start, then say Hey Julia, instructions'
     )
+    return browserCompatible ? <browserCompatibility /> : null
   }
 
   componentWillUnmount = () => {

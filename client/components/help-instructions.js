@@ -40,7 +40,7 @@ class HelpInstructions extends Component {
           >
             <Popover id="popover-contained">
               <br />
-              <i className="far fa-play-circle" fa-10x />
+              <i className="far fa-play-circle fa-1x" />
               <strong>
                 {' '}
                 PRESS{' '}
