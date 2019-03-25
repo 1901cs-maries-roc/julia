@@ -101,7 +101,7 @@ router.post('/scrape', async (req, res, next) => {
       })
       res.status(200).send(savedRecipe)
     } else {
-      res.status(500).send('Bad URL provided for scraping')
+      res.status(400).send('Error in URL provided for scraping')
     }
   } catch (err) {
     next(err)

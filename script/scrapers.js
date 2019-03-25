@@ -58,13 +58,21 @@ const findImg = $ => {
 }
 
 const extractTime = rootEl => {
-  let time = null
-  const num = /\d/
-  const unit = /\sm|\sh/
-  const timeIndex = rootEl.search(num)
-  const unitIndex = rootEl.search(unit) + 1
-  time = rootEl.slice(timeIndex, unitIndex)
-  return rootEl[unitIndex] === 'h' ? time * 60 : time * 1
+  // const num = /\d/
+  // const unit = /\sm|\sh/
+  // const timeIndex = rootEl.search(num)
+  // const unitIndex = rootEl.search(unit) + 1
+  // const time = rootEl.slice(timeIndex, unitIndex)
+  // return rootEl[unitIndex] === 'h' ? time * 60 : time * 1
+  const timeRegexp = /\D*(?<hours>\d+\sh\w*)?\s?(?<min>\d+\sm\w*)?/i
+  const hourStr = rootEl.match(timeRegexp).groups.hours
+  const minStr = rootEl.match(timeRegexp).groups.min
+  const numRegexp = /\d+/
+  let hrs = 0
+  let mins = 0
+  if (hourStr) hrs = hourStr.match(numRegexp)[0] * 60
+  if (minStr) mins = minStr.match(numRegexp)[0] * 1
+  return hrs + mins
 }
 
 const findPrepTime = $ => {
@@ -85,7 +93,7 @@ const findPrepTime = $ => {
 const findCookTime = $ => {
   let totalTimeStr = ''
   $('*').each((i, elem) => {
-    const r = /^(<[^>]*>)?(?<timeStr>Cook\s?\w*?:?\s?\d+\s?[a-z]+$)/i
+    const r = /^(<[^>]*>)?(?<timeStr>(Cook\s?\w*:?\s*\d+\s?[a-z]+\s?)+)$/i
     const el = $(elem)
       .text()
       .trim()
@@ -99,7 +107,7 @@ const findCookTime = $ => {
 const findTotalTime = $ => {
   let totalTimeStr = ''
   $('*').each((i, elem) => {
-    const r = /^(<[^>]*>)?(?<timeStr>(Total Time|Ready In):?\s?\d+\s?[a-z]+$)/i
+    const r = /^(<[^>]*>)?(Total Time|Ready In):?\s*(?<timeStr>(\d+\s?[a-z]+\s?)+)$/i
     const el = $(elem)
       .text()
       .trim()
