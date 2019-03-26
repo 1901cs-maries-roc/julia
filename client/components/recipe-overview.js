@@ -42,7 +42,7 @@ class RecipeOverview extends Component {
     return (
       <Container className="container">
         <Row>
-          <Col>
+          <Col xs={6} md={4}>
             <img
               src={
                 imgUrl === 'recipe-default.jpg'
@@ -54,7 +54,6 @@ class RecipeOverview extends Component {
           </Col>
 
           <Col md={{offset: 0.5}} className="recipeBar">
-
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong>{' '}

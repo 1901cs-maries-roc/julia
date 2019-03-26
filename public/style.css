@@ -116,7 +116,7 @@ h4,
 }
 
 .image-overview {
-  width: 30em;
+  max-width: 30em;
   height: 30em;
   object-fit: cover;
   padding-bottom: 2em;
@@ -133,12 +133,6 @@ h4,
 .microphone {
   text-align: center;
 }
-
-/* .recipeBar {
-  background: rgba(163, 163, 163, 0.3)
-  padding-box;
-  padding: 10%;
-} */
 
 .navbar {
   width: 100vw !important;
@@ -158,4 +152,13 @@ h4,
 #help-header {
   margin-top: 2.5em;
   margin-bottom: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+  .home-page {
+    background-color: lightblue;
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 }
