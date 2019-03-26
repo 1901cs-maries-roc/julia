@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getAllRecipesThunk} from '../store'
 import CardGroup from 'react-bootstrap/CardGroup'
-import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 
 export class AllRecipes extends Component {
