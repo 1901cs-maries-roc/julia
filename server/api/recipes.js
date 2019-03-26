@@ -95,12 +95,15 @@ router.post('/scrape', async (req, res, next) => {
         steps: findInstructions($)
       }
       console.log('>> Scraped recipe: ', recipe)
-
-      const [savedRecipe, wasCreated] = await Recipe.findOrCreate({
-        where: {name: recipe.name},
-        defaults: recipe
-      })
-      res.status(200).send(savedRecipe)
+      if (recipe.ingredients.length && recipe.steps.length) {
+        const [savedRecipe] = await Recipe.findOrCreate({
+          where: {name: recipe.name},
+          defaults: recipe
+        })
+        res.status(200).send(savedRecipe)
+      } else {
+        res.status(204).send('Error in URL provided for scraping')
+      }
     } else {
       res.status(400).send('Error in URL provided for scraping')
     }

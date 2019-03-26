@@ -26,10 +26,9 @@ form div {
 }
 
 #modal {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  margin-right: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
@@ -46,6 +45,10 @@ form div {
   object-fit: cover;
 }
 
+.card-body {
+  height: 88px;
+}
+
 /* .navbar {
   background-color: #6f99a9;
 } */
@@ -54,8 +57,11 @@ form div {
   margin-top: 3em;
 }
 
-all-navigation-button {
+.all-navigation-button {
   margin-top: 20em;
+  margin-bottom: 1em;
+  position: fixed;
+  bottom: 0;
 }
 
 /* adjustments on navbar */
@@ -74,8 +80,14 @@ h1,
 h2,
 h3,
 h4,
-.start-button {
+.start-button,
+.micro-text {
   font-family: 'Baloo Chettan', cursive;
+}
+
+.micro-text {
+  font-size: 1.5em;
+  padding-left: 0.5em;
 }
 
 .recipe-time {
@@ -100,6 +112,9 @@ h4,
 
 .image-overview {
   width: 30em;
+  height: 30em;
+  object-fit: cover;
+  padding-bottom: 2em;
 }
 
 .microphone-on {
@@ -119,6 +134,17 @@ h4,
   padding-box;
   padding: 10%;
 } */
+
+.navbar {
+  width: 100vw !important;
+  -webkit-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
+  -moz-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
+  box-shadow: 0 16px 12px -12px rgb(199, 199, 199);
+  padding: 0rem 0rem !important;
+  /* background-image:  */
+  border-color: black !important;
+  border-width: 5px !important;
+}
 
 #close-help {
   text-align: right;

@@ -13,6 +13,8 @@ const ADD_NEW_RECIPE = 'ADD_NEW_RECIPE'
 const CLEAR_CURRENT_RECIPE = 'CLEAR_CURRENT_RECIPE'
 const UPDATE_RECIPE = 'UPDATE_RECIPE'
 const DELETE_RECIPE = 'DELETE_RECIPE'
+const ADD_BY_URL_ERROR = 'ADD_BY_URL_ERROR'
+const CLEAR_ERROR = 'CLEAR_ERROR'
 
 /**
  * ACTION CREATORS
@@ -33,7 +35,12 @@ export const clearCurrentRecipe = () => ({type: CLEAR_CURRENT_RECIPE})
 export const addNewRecipe = recipe => ({type: ADD_NEW_RECIPE, recipe})
 export const updateRecipe = recipe => ({type: UPDATE_RECIPE, recipe})
 export const deleteRecipe = () => ({type: DELETE_RECIPE})
-
+const addNewRecipe = recipe => ({type: ADD_NEW_RECIPE, recipe})
+const addByUrlError = () => ({
+  type: ADD_BY_URL_ERROR,
+  error: 'Error in scraping'
+})
+export const clearError = () => ({type: CLEAR_ERROR})
 /**
  * THUNK CREATORS
  */
@@ -65,8 +72,9 @@ export const addRecipeThunk = recipe => async dispatch => {
 }
 
 export const addRecipeFromUrl = url => async dispatch => {
-  const {data: recipe} = await axios.post('/api/recipes/scrape', {url})
-  dispatch(addNewRecipe(recipe))
+  const {data: recipe, status} = await axios.post('/api/recipes/scrape', {url})
+  if (status === 200) dispatch(addNewRecipe(recipe))
+  else dispatch(addByUrlError())
 }
 
 export const updateRecipeThunk = recipe => async dispatch => {
@@ -89,7 +97,8 @@ export const deleteRecipeThunk = recipeId => async dispatch => {
 const initialState = {
   recipes: [],
   recipe: {steps: []},
-  currentStepIndex: 0
+  currentStepIndex: 0,
+  error: ''
 }
 
 /**
@@ -98,38 +107,35 @@ const initialState = {
 // eslint-disable-next-line complexity
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_ALL_RECIPES: {
+    case GET_ALL_RECIPES:
       return {...state, recipes: action.recipes}
-    }
-    case GET_RECIPE: {
+    case GET_RECIPE:
       return {...state, recipe: action.recipe}
-    }
-    case NEXT_STEP: {
+    case NEXT_STEP:
       return {...state, currentStepIndex: action.nextStep}
-    }
-    case PREV_STEP: {
+    case PREV_STEP:
       return {...state, currentStepIndex: action.prevStep}
-    }
-    case RESTART_STEPS: {
-      return {...state, currentStepIndex: initialState.currentStepIndex}
-    }
-    case ADD_NEW_RECIPE: {
-      return {...state, recipe: action.recipe}
-    }
-    case CLEAR_CURRENT_RECIPE: {
-      return {...state, recipe: initialState.recipe}
-    }
     case UPDATE_RECIPE: {
       const oldRecipes = state.recipes.filter(
         recipe => recipe.id !== action.recipe.id
       )
       return {...state, recipes: [...oldRecipes, action.recipe]}
     }
-    case DELETE_RECIPE: {
+    case DELETE_RECIPE:
       return {...state, recipe: initialState.recipe}
-    }
-    default: {
+    case RESTART_STEPS:
+      return {...state, currentStepIndex: initialState.currentStepIndex}
+    case ADD_RECIPE:
+      return {...state, recipes: [...state.recipes, action.recipe]}
+    case ADD_NEW_RECIPE:
+      return {...state, recipe: action.recipe}
+    case CLEAR_CURRENT_RECIPE:
+      return {...state, recipe: initialState.recipe}
+    case ADD_BY_URL_ERROR:
+      return {...state, error: action.error}
+    case CLEAR_ERROR:
+      return {...state, error: initialState.error}
+    default:
       return state
-    }
   }
 }

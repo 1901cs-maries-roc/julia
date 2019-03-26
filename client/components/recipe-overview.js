@@ -55,12 +55,12 @@ class RecipeOverview extends Component {
       ingredients,
       id
     } = this.props.currentRecipe
-
+    console.log('preptime type: ', typeof prepTime)
     return (
       <Container className="container">
         <DeleteModal deleteClicked={this.state.deleteClicked} recipeId={id} />
         <Row>
-          <Col md={{span: 5, offset: 1}}>
+          <Col>
             <img
               src={
                 imgUrl === 'recipe-default.jpg'
@@ -70,7 +70,7 @@ class RecipeOverview extends Component {
               className="image-overview justify-content-md-center"
             />
           </Col>
-          <Col md={{span: 5, offset: 1}} className="recipeBar">
+          <Col md={{offset: 0.5}} className="recipeBar">
             <Row>
               <Button
                 onClick={() => this.setState({open: !open})}
@@ -85,16 +85,19 @@ class RecipeOverview extends Component {
             </Row>
             <h1>{name}</h1>
             <p>
-              <strong>Prep Time:</strong> {prepTime} minutes
+              <strong>Prep Time:</strong>{' '}
+              {prepTime ? `${prepTime} minutes` : 'N/A'}
             </p>
             <p>
-              <strong>Cooking Time:</strong> {cookTime} minutes
+              <strong>Cooking Time:</strong>{' '}
+              {cookTime ? `${cookTime} minutes` : 'N/A'}
             </p>
             <p>
-              <strong>Total Time:</strong> {totalTime} minutes
+              <strong>Total Time:</strong>{' '}
+              {totalTime ? `${totalTime} minutes` : 'N/A'}
             </p>
             <p>
-              <strong>Serving Size:</strong> {serving}
+              <strong>Serving Size:</strong> {serving ? serving : 'N/A'}
             </p>
             <ButtonToolbar className="start-button">
               <Button
@@ -109,13 +112,13 @@ class RecipeOverview extends Component {
           </Col>
         </Row>
         <Row className="row-grid">
-          <Col md={{span: 5, offset: 1}}>
+          <Col>
             <div id="recipe-steps">
               <h3>Ingredients:</h3>
               <IngredientsList ingredients={ingredients} isOverview={true} />
             </div>
           </Col>
-          <Col md={{span: 5, offset: 1}}>
+          <Col md={{offset: 0.5}}>
             <h3>Instructions:</h3>
             <ol>
               {steps ? (
