@@ -12,19 +12,19 @@ import Collapse from 'react-bootstrap/Collapse'
 import {withRouter} from 'react-router'
 
 class RecipeFormManual extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      name: '',
-      imgUrl: '/recipe-default.jpg',
-      prepTime: 0,
-      cookTime: 0,
-      totalTime: 0,
-      serving: 0,
-      steps: [],
-      ingredients: [],
+      name: this.props.currentRecipe.name || '',
+      imgUrl: this.props.currentRecipe.imgUrl || '/recipe-default.jpg',
+      prepTime: this.props.currentRecipe.prepTime || 0,
+      cookTime: this.props.currentRecipe.cookTime || 0,
+      totalTime: this.props.currentRecipe.totalTime || 0,
+      serving: this.props.currentRecipe.serving || 0,
+      steps: this.props.currentRecipe.steps || [],
+      ingredients: this.props.currentRecipe.ingredients || [],
       validated: false,
-      newRecipeId: 0,
+      newRecipeId: this.props.currentRecipe.id || 0,
       isSaving: false,
       edit: false
     }
@@ -32,7 +32,6 @@ class RecipeFormManual extends Component {
   }
 
   componentDidMount() {
-    console.log('recipe form manual location', this.props.location)
     if (this.props.location.pathname !== '/recipes/addrecipe')
       this.setState({edit: true})
   }
@@ -71,7 +70,6 @@ class RecipeFormManual extends Component {
     this.setState({
       [event.target.id]: event.target.value
     })
-    console.log('after handlechange in form', this.state)
   }
 
   handleSubmit = e => {
@@ -92,7 +90,6 @@ class RecipeFormManual extends Component {
       steps,
       ingredients
     } = this.state
-
     return (
       <Form noValidate validated={validated}>
         <Row>
