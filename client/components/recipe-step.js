@@ -26,7 +26,6 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import HelpInstructions from './help-instructions'
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 class RecipeStep extends Component {
   constructor(props) {
@@ -143,24 +142,18 @@ class RecipeStep extends Component {
   }
 
   render() {
-    console.log('Current state: ', this.state)
-
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
     const processingInputSlug = this.state.isProcessingInput ? (
-      <span>
-        <p className="microphone">
-          <i className="fas fa-microphone fa-5x microphone-off" />
-        </p>
-        <h4>Thinking...</h4>
-      </span>
+      <p className="microphone">
+        <i className="fas fa-microphone fa-2x microphone-off" />
+        <span className="micro-text">Thinking...</span>
+      </p>
     ) : (
-      <span>
-        <p className="microphone">
-          <i className="fas fa-microphone fa-5x microphone-on" />
-        </p>
-        <h4>I'm listening</h4>
-      </span>
+      <p className="microphone">
+        <i className="fas fa-microphone fa-2x microphone-on" />
+        <span className="micro-text">I'm listening</span>
+      </p>
     )
 
     const recipeOverview = '< Back to Recipe'
@@ -168,7 +161,7 @@ class RecipeStep extends Component {
     return (
       <Container className="container">
         <Row>
-          <Col md={{span: 4, offset: 2}}>
+          <Col md={{span: 7, offset: 1}}>
             <Button
               variant="outline-dark"
               id="recipeOverview"
@@ -180,26 +173,36 @@ class RecipeStep extends Component {
               {recipeOverview}
             </Button>
           </Col>
-          <Col md={{span: 3, offset: 3}}>
+          <Col className="justify-content-end" md={{span: 3, offset: 1}}>
             <HelpInstructions />
           </Col>
         </Row>
         <Row>
-          <Col md={{span: 4, offset: 2}}>
+          <Col md={{span: 5, offset: 1}}>
+            <h1>{this.props.currentRecipe.name}</h1>
+          </Col>
+          <Col md={{span: 3, offset: 2}}>
             <h1 id="title">
               Step {stepIndex + 1}/{steps ? steps.length : 0}
             </h1>
           </Col>
           {this.state.isListening && (
             <Portal>
-              <Modal.Dialog id="modal">
-                <Modal.Body>{processingInputSlug}</Modal.Body>
+              <Modal.Dialog id="modal" className="sm">
+                <Modal.Body scrollable="true">{processingInputSlug}</Modal.Body>
               </Modal.Dialog>;
             </Portal>
           )}
         </Row>
-        <Row>
-          <Col md={{span: 4, offset: 2}}>
+        <Row className="row-grid test">
+          <Col md={{span: 5, offset: 1}}>
+            <div>
+              <h3>Instructions:</h3>
+              <h5 id="step-instructions">{steps[stepIndex]}</h5>
+            </div>
+          </Col>
+
+          <Col md={{span: 5, offset: 1}}>
             <h3>Ingredients for this step:</h3>
             <h5>
               <IngredientsList
@@ -209,15 +212,7 @@ class RecipeStep extends Component {
             </h5>
           </Col>
         </Row>
-        <Row className="row-grid">
-          <Col md={{span: 8, offset: 2}}>
-            <div>
-              <h3>Instructions:</h3>
-              <h5 id="step-instructions">{steps[stepIndex]}</h5>
-            </div>
-          </Col>
-        </Row>
-        <Row className="row-grid">
+        <Row className="justify-content-md-center">
           <StepNav
             stepIndex={stepIndex}
             steps={steps}
