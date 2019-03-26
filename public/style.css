@@ -50,10 +50,6 @@ form div {
   margin-bottom: 1em;
 }
 
-/* .navbar {
-  background-color: #6f99a9;
-} */
-
 .row-grid {
   margin-top: 3em;
 }
@@ -232,4 +228,13 @@ h4,
   -webkit-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
   -moz-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
   box-shadow: 0 16px 12px -12px rgb(199, 199, 199);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
 }
