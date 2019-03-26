@@ -42,18 +42,18 @@ class RecipeOverview extends Component {
     return (
       <Container className="container">
         <Row>
-          <Col xs="12" sm="12" md="6" lg="6">
+          <Col xs="12" sm="12" md="12" lg="6">
             <img
               src={
                 imgUrl === 'recipe-default.jpg'
                   ? `${window.location.origin}/${imgUrl}`
                   : imgUrl
               }
-              fluid
+              className="image-overview"
             />
           </Col>
 
-          <Col md={{offset: 0.5}}>
+          <Col md={{span: 12, offset: 0.5}} lg={{span: 6, offset: 0.5}}>
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong>{' '}
@@ -82,13 +82,13 @@ class RecipeOverview extends Component {
           </Col>
         </Row>
         <Row className="row-grid">
-          <Col>
+          <Col md="12">
             <div id="recipe-steps">
               <h3>Ingredients:</h3>
               <IngredientsList ingredients={ingredients} isOverview={true} />
             </div>
           </Col>
-          <Col md={{offset: 0.5}}>
+          <Col md={{span: 12, offset: 0.5}}>
             <h3>Instructions:</h3>
             <ol>
               {steps ? (
