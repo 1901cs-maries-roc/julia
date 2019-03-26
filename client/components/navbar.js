@@ -8,6 +8,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 
 const NavigationBar = ({handleClick, isLoggedIn}) => (
   <Navbar
+    sticky="top"
     collapseOnSelect
     expand="lg"
     bg="light"
