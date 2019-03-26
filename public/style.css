@@ -44,6 +44,16 @@ form div {
   height: 88px;
 }
 
+.home-page {
+  padding-top: 2em;
+  padding-left: 5em;
+  padding-right: 5em;
+}
+
+.recipe-card {
+  margin-bottom: 1em;
+}
+
 /* .navbar {
   background-color: #6f99a9;
 } */
@@ -139,6 +149,7 @@ h4,
   /* background-image:  */
   border-color: black !important;
   border-width: 5px !important;
+}
 
 #close-help {
   text-align: right;

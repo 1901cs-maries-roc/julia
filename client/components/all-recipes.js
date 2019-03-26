@@ -17,7 +17,7 @@ export class AllRecipes extends Component {
     const recipe = allRecipes.length ? (
       allRecipes.map(r => {
         return (
-          <Col key={r.id} md={{span: 4}}>
+          <Col key={r.id} md={{span: 3}}>
             <Link to={`/recipes/${r.id}`}>
               {' '}
               <OneRecipeCard recipe={r} />
@@ -30,10 +30,10 @@ export class AllRecipes extends Component {
     )
 
     return (
-      <Container className="container">
+      <div className="home-page">
         <h1>All Recipes</h1>
         <CardGroup>{recipe.length ? recipe : <div>loading</div>}</CardGroup>
-      </Container>
+      </div>
     )
   }
 }
