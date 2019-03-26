@@ -7,21 +7,15 @@ import RecipeFormManual from './recipe-form-manual'
 class RecipeEdit extends Component {
   constructor(props) {
     super(props)
-    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipeThunkDispatch(recipeId)
   }
-  // componentWillUnmount() {
-  //   clearCurrentRecipe()
-  // }
 
-  handleClick(event) {
-    event.preventDefault()
-    const recipeId = this.props.match.params.recipeId
-    this.props.history.push(`/recipes/${recipeId}/cooking`)
+  componentWillUnmount() {
+    clearCurrentRecipe()
   }
 
   render() {

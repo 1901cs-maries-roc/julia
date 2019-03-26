@@ -112,7 +112,7 @@ router.post('/scrape', async (req, res, next) => {
   }
 })
 
-router.put('/:recipeId/editrecipe', async (req, res, next) => {
+router.put('/:recipeId', async (req, res, next) => {
   try {
     const oldRecipe = await Recipe.findOne({
       where: {id: req.params.recipeId}
