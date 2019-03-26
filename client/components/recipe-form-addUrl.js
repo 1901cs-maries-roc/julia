@@ -43,7 +43,12 @@ export default function AddUrl({
             onChange={handleChange}
           />
           <InputGroup.Append>
-            <Button variant="primary" type="button" onClick={scrape}>
+            <Button
+              variant="primary"
+              type="button"
+              onClick={scrape}
+              disabled={!scrapeUrl}
+            >
               {icon}
             </Button>
           </InputGroup.Append>
