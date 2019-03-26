@@ -15,7 +15,7 @@ class RecipeForm extends Component {
     super()
     this.state = {
       name: '',
-      imgUrl: '',
+      imgUrl: '/recipe-default.jpg',
       prepTime: 0,
       cookTime: 0,
       waitTime: 0,
@@ -64,7 +64,7 @@ class RecipeForm extends Component {
 
   render() {
     let {validated, newRecipeId, isSaving, scrapeUrl, imgUrl, open} = this.state
-    imgUrl = imgUrl.length ? imgUrl : '/recipe-default.jpg'
+    // imgUrl = imgUrl.length ? imgUrl : '/recipe-default.jpg'
 
     return (
       <Container className="container">
@@ -91,11 +91,7 @@ class RecipeForm extends Component {
         </Button>
 
         <Collapse in={this.state.open}>
-          <Form
-            onClick={e => this.handleSubmit(e)}
-            noValidate
-            validated={validated}
-          >
+          <Form onSubmit={this.handleSubmit} noValidate validated={validated}>
             <Row>
               <Form.Row className="recipe-time">
                 <Form.Group as={Col} md="2">
