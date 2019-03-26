@@ -31,7 +31,6 @@ export class AllRecipes extends Component {
 
     return (
       <div className="home-page">
-        <h1>All Recipes</h1>
         <CardGroup>{recipe.length ? recipe : <div>loading</div>}</CardGroup>
       </div>
     )
