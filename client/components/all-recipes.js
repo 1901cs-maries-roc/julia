@@ -17,7 +17,7 @@ export class AllRecipes extends Component {
     const recipe = allRecipes.length ? (
       allRecipes.map(r => {
         return (
-          <Col key={r.id} md={{span: 3}}>
+          <Col key={r.id} md={{span: 4}}>
             <Link to={`/recipes/${r.id}`}>
               {' '}
               <OneRecipeCard recipe={r} />
