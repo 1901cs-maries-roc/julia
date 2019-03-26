@@ -54,7 +54,6 @@ class RecipeOverview extends Component {
           </Col>
 
           <Col md={{offset: 0.5}} className="recipeBar">
-
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong>{' '}
