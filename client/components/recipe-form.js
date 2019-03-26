@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import {addRecipeThunk, addRecipeFromUrl} from '../store/recipe'
 import {connect} from 'react-redux'
 import AddUrl from './recipe-form-addUrl'
@@ -103,13 +100,6 @@ class RecipeForm extends Component {
         <Row className="row-grid">
           <h4>Manually Enter a Recipe</h4>
         </Row>
-        <Button
-          onClick={() => this.setState({open: !open})}
-          aria-controls="example-collapse-text"
-          aria-expanded={open}
-        >
-          Add
-        </Button>
         <Collapse in={this.state.open}>
           <RecipeFormManual />
         </Collapse>

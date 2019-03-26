@@ -35,8 +35,7 @@ export const clearCurrentRecipe = () => ({type: CLEAR_CURRENT_RECIPE})
 export const addNewRecipe = recipe => ({type: ADD_NEW_RECIPE, recipe})
 export const updateRecipe = recipe => ({type: UPDATE_RECIPE, recipe})
 export const deleteRecipe = () => ({type: DELETE_RECIPE})
-const addNewRecipe = recipe => ({type: ADD_NEW_RECIPE, recipe})
-const addByUrlError = () => ({
+export const addByUrlError = () => ({
   type: ADD_BY_URL_ERROR,
   error: 'Error in scraping'
 })
