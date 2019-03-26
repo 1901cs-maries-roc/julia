@@ -42,7 +42,7 @@ class RecipeOverview extends Component {
     return (
       <Container className="container">
         <Row>
-          <Col xs={6} md={4}>
+          <Col>
             <img
               src={
                 imgUrl === 'recipe-default.jpg'
