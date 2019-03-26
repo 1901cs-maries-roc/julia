@@ -90,7 +90,7 @@ class RecipeStep extends Component {
 
   annyang = () => {
     if (annyang) {
-      var commands = {
+      let commands = {
         '(*words) (hey) Julia': nullCommand,
         '(*words) (hey) Julia help': help,
         '(*words) (hey) Julia (can you) repeat(s)': repeatStep,
