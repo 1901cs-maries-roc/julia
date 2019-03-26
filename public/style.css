@@ -155,5 +155,6 @@ h4,
 }
 
 .card-body {
-  height: 65px;
+  padding-top: 8px !important;
+  height: 55px;
 }

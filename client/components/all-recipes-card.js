@@ -9,7 +9,7 @@ const OneRecipeCard = props => {
     name = name.substring(0, name.lastIndexOf(' '))
   }
   return (
-    <Card className="recipe-card">
+    <Card className="recipe-card" border="white">
       <Card.Img variant="top" src={recipe.imgUrl} className="img-resize" />
       <Card.Body className="card-body">
         <Card.Text className="card-text">{name}</Card.Text>
