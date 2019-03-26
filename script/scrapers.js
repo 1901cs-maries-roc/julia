@@ -9,7 +9,6 @@ const findTitle = $ => {
 const findIngredients = $ => {
   const ingredients = []
   const ingTitleRgx = /ingredient[s]?/i
-  // const ingItemRgx = /^\d.+[a-z]$/
   const newLineRgx = /\r?\n|\r|\s{2,}/g
   $('li').each((i, elem) => {
     const divParentsClassName = $(elem)
@@ -22,11 +21,6 @@ const findIngredients = $ => {
       .text()
       .replace(newLineRgx, ' ')
       .trim()
-    // if (
-    //   (ingTitleRgx.test(divParentsClassName) ||
-    //     ingTitleRgx.test(secParentsClassName)) &&
-    //   ingItemRgx.test(el)
-    // )
     if (
       ingTitleRgx.test(divParentsClassName) ||
       ingTitleRgx.test(secParentsClassName)

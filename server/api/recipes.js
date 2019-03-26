@@ -78,8 +78,9 @@ router.post('/', async (req, res, next) => {
 })
 
 router.post('/scrape', async (req, res, next) => {
+  const {url} = req.body
   try {
-    const {data: html, status} = await axios.get(req.body.url)
+    const {data: html, status} = await axios.get(url)
     if (status === 200) {
       const $ = cheerio.load(html)
       const prepTime = findPrepTime($)
@@ -105,9 +106,9 @@ router.post('/scrape', async (req, res, next) => {
         res.status(204).send('Error in URL provided for scraping')
       }
     } else {
-      res.status(400).send('Error in URL provided for scraping')
+      res.status(204).send('Error in URL provided for scraping')
     }
   } catch (err) {
-    next(err)
+    res.status(204).send('Error in URL provided for scraping')
   }
 })
