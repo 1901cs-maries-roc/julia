@@ -5,14 +5,12 @@ import CardDeck from 'react-bootstrap/CardDeck'
 const OneRecipeCard = props => {
   const {recipe} = props
   return (
-    <CardDeck>
-      <Card>
-        <Card.Img variant="top" src={recipe.imgUrl} className="img-resize" />
-        <Card.Body>
-          <Card.Text>{recipe.name}</Card.Text>
-        </Card.Body>
-      </Card>
-    </CardDeck>
+    <Card>
+      <Card.Img variant="top" src={recipe.imgUrl} className="img-resize" />
+      <Card.Body className="test">
+        <Card.Text>{recipe.name}</Card.Text>
+      </Card.Body>
+    </Card>
   )
 }
 
