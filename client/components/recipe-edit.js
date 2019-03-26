@@ -39,7 +39,11 @@ class RecipeEdit extends Component {
       ingredients
     } = this.props.currentRecipe
 
-    return <div />
+    return (
+      <div>
+        <p>hey</p>
+      </div>
+    )
   }
 }
 

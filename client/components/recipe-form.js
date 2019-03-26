@@ -67,22 +67,10 @@ class RecipeForm extends Component {
     this.setState({
       [event.target.id]: event.target.value
     })
-    console.log('after handlechange in form', this.state)
   }
 
   render() {
-    const {
-      validated,
-      newRecipeId,
-      isSaving,
-      scrapeUrl,
-      imgUrl,
-      open,
-      name,
-      steps,
-      ingredients
-    } = this.state
-    // imgUrl = imgUrl.length ? imgUrl : '/recipe-default.jpg'
+    const {newRecipeId, isSaving, scrapeUrl} = this.state
 
     return (
       <Container className="container">
@@ -97,6 +85,7 @@ class RecipeForm extends Component {
           isSaving={isSaving}
           scrapeUrl={scrapeUrl}
         />
+        <hr />
         <Row className="row-grid">
           <h4>Manually Enter a Recipe</h4>
         </Row>

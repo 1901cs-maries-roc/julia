@@ -26,8 +26,6 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import HelpInstructions from './help-instructions'
-// responsiveVoice is provided
-const responsiveVoice = responsiveVoice //eslint-disable-line
 
 class RecipeStep extends Component {
   constructor(props) {

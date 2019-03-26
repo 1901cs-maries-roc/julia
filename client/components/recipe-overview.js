@@ -41,7 +41,10 @@ class RecipeOverview extends Component {
     this.setState({deleteClicked: true})
   }
 
-  edit() {}
+  edit = () => {
+    const recipeId = this.props.match.params.recipeId
+    this.props.history.push(`/recipes/${recipeId}/editrecipe`)
+  }
 
   render() {
     const {
@@ -72,11 +75,7 @@ class RecipeOverview extends Component {
           </Col>
           <Col md={{offset: 0.5}} className="recipeBar">
             <Row>
-              <Button
-                onClick={() => this.setState({open: !open})}
-                variant="outline-secondary"
-                size="sm"
-              >
+              <Button onClick={this.edit} variant="outline-secondary" size="sm">
                 Edit
               </Button>
               <Button onClick={this.delete} variant="outline-danger" size="sm">
