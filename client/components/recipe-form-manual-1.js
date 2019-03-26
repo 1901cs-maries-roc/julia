@@ -12,17 +12,18 @@ import Collapse from 'react-bootstrap/Collapse'
 import {withRouter} from 'react-router'
 
 class RecipeFormManual extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      name: '',
-      imgUrl: '/recipe-default.jpg',
-      prepTime: 0,
-      cookTime: 0,
-      totalTime: 0,
-      serving: 0,
-      steps: [],
-      ingredients: [],
+      id: this.props.currentRecipe.id || 0,
+      name: this.props.currentRecipe.name || '',
+      imgUrl: this.props.currentRecipe.imgUrl || '/recipe-default.jpg',
+      prepTime: this.props.currentRecipe.prepTime || 0,
+      cookTime: this.props.currentRecipe.cookTime || 0,
+      totalTime: this.props.currentRecipe.totalTime || 0,
+      serving: this.props.currentRecipe.serving || 0,
+      steps: this.props.currentRecipe.steps || [],
+      ingredients: this.props.currentRecipe.ingredients || [],
       validated: false,
       newRecipeId: 0,
       isSaving: false,
@@ -47,6 +48,7 @@ class RecipeFormManual extends Component {
       event.stopPropagation()
     } else {
       const recipe = {
+        id: this.state.id,
         imgUrl: this.state.imgUrl,
         name: this.state.name,
         prepTime: this.state.prepTime,
@@ -56,12 +58,13 @@ class RecipeFormManual extends Component {
         steps: this.state.steps,
         ingredients: this.state.ingredients
       }
-      // if (!this.state.edit)
       this.setState({isSaving: true})
       await dispatchRecipe(recipe)
       // await this.props.addRecipeThunkDispatch(recipe)
-      const newRecipeId = this.props.newRecipe.id
-      this.setState({newRecipeId, isSaving: false})
+      if (!this.state.edit) {
+        const newRecipeId = this.props.newRecipe.id
+        this.setState({newRecipeId, isSaving: false})
+      }
     }
     this.setState({validated: true})
   }
@@ -73,6 +76,7 @@ class RecipeFormManual extends Component {
   }
 
   handleSubmit = e => {
+    console.log('manual state in handlesubmit', this.state)
     if (!this.state.edit) {
       this.addOrUpdateRecipe(e, this.props.addRecipeThunkDispatch)
     } else {
@@ -88,9 +92,13 @@ class RecipeFormManual extends Component {
       imgUrl,
       name,
       steps,
+      prepTime,
+      cookTime,
+      totalTime,
+      serving,
       ingredients
     } = this.state
-
+    console.log('state in form manual', this.state)
     return (
       <Form onSubmit={this.handleSubmit} noValidate validated={validated}>
         <Row>
@@ -100,6 +108,7 @@ class RecipeFormManual extends Component {
               <Form.Control
                 placeholder="00"
                 id="prepTime"
+                value={prepTime}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -109,6 +118,7 @@ class RecipeFormManual extends Component {
               <Form.Control
                 placeholder="00"
                 id="cookTime"
+                value={cookTime}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -118,6 +128,7 @@ class RecipeFormManual extends Component {
               <Form.Control
                 placeholder="00"
                 id="totalTime"
+                value={totalTime}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -128,6 +139,7 @@ class RecipeFormManual extends Component {
                 type="number"
                 id="serving"
                 placeholder="0"
+                value={serving}
                 required
                 onChange={this.handleChange}
               />
