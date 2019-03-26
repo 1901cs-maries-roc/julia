@@ -45,8 +45,14 @@ form div {
   object-fit: cover;
 }
 
-.card-body {
-  height: 88px;
+.home-page {
+  padding-top: 4em;
+  padding-left: 5em;
+  padding-right: 5em;
+}
+
+.recipe-card {
+  margin-bottom: 1em;
 }
 
 /* .navbar {
@@ -111,7 +117,7 @@ h4,
 }
 
 .image-overview {
-  width: 30em;
+  max-width: 30em;
   height: 30em;
   object-fit: cover;
   padding-bottom: 2em;
@@ -128,12 +134,6 @@ h4,
 .microphone {
   text-align: center;
 }
-
-/* .recipeBar {
-  background: rgba(163, 163, 163, 0.3)
-  padding-box;
-  padding: 10%;
-} */
 
 .navbar {
   width: 100vw !important;
@@ -153,4 +153,21 @@ h4,
 #help-header {
   margin-top: 2.5em;
   margin-bottom: 1em;
+}
+
+.card-text {
+  font-size: 0.9em;
+}
+
+.card-body {
+  padding-top: 12px !important;
+  padding-left: 0px !important;
+  padding-bottom: 0px !important;
+  height: 40px;
+}
+
+.card-img {
+  -webkit-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
+  -moz-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
+  box-shadow: 0 16px 12px -12px rgb(199, 199, 199);
 }
