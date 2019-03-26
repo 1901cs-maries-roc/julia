@@ -17,14 +17,16 @@ import {
   resume,
   unrecognized
 } from '../annyangCommands'
-import IngredientsList from './ingredientsList'
-import StepNav from './recipe-step-nav'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Modal from 'react-bootstrap/Modal'
+import IngredientsList from './ingredientsList'
+import StepNav from './recipe-step-nav'
 import HelpInstructions from './help-instructions'
+import Julia from './recipe-step-julia'
 
 class RecipeStep extends Component {
   constructor(props) {
@@ -143,72 +145,50 @@ class RecipeStep extends Component {
   render() {
     const stepIndex = this.props.currentStepIndex
     const steps = this.props.currentRecipe.steps || []
-    const processingInputSlug = this.state.isProcessingInput ? (
-      <p className="microphone">
-        <i className="fas fa-microphone fa-2x microphone-off" />
-        <span className="micro-text">Thinking...</span>
-      </p>
-    ) : (
-      <p className="microphone">
-        <i className="fas fa-microphone fa-2x microphone-on" />
-        <span className="micro-text">I'm listening</span>
-      </p>
-    )
-
-    const recipeOverview = '< Back to Recipe'
 
     return (
       <Container className="container">
         <Row>
-          <Col md={{span: 7, offset: 1}}>
-            <Button
-              variant="outline-dark"
-              id="recipeOverview"
-              type="button"
-              className="back-button"
-              size="sm"
-              onClick={this.backToRecipeOverview}
-            >
-              {recipeOverview}
-            </Button>
+          <Col md={{span: 6, offset: 0}}>
+            <ButtonGroup>
+              <Button
+                variant="secondary"
+                className="back-button"
+                size="sm"
+                onClick={this.backToRecipeOverview}
+              >
+                {'< Back to Recipe'}
+              </Button>
+              <Button variant="outline-dark" size="sm" disabled>
+                {this.props.currentRecipe.name}
+              </Button>
+              <Button variant="outline-dark" size="sm" disabled>
+                Step {stepIndex + 1}/{steps ? steps.length : 0}
+              </Button>
+            </ButtonGroup>
           </Col>
-          <Col className="justify-content-end" md={{span: 3, offset: 1}}>
+          <Col className="justify-content-end" md={{span: 5, offset: 0.5}}>
             <HelpInstructions />
           </Col>
         </Row>
-        <Row>
-          <Col md={{span: 5, offset: 1}}>
-            <h1>{this.props.currentRecipe.name}</h1>
-          </Col>
-          <Col md={{span: 3, offset: 2}}>
-            <h1 id="title">
-              Step {stepIndex + 1}/{steps ? steps.length : 0}
-            </h1>
-          </Col>
-        </Row>
+
         <Row className="row-grid test">
-          <Col md={{span: 5, offset: 1}}>
+          <Col md={{span: 6, offset: 0}}>
             <div>
-              <h3>Instructions:</h3>
               <h5 id="step-instructions">{steps[stepIndex]}</h5>
             </div>
           </Col>
-
-          <Col md={{span: 5, offset: 1}}>
-            <h3>Ingredients for this step:</h3>
-            <h5>
-              <IngredientsList
-                ingredients={this.props.currentRecipe.ingredients}
-                instructions={steps[stepIndex]}
-              />
-            </h5>
+          <Col id="step-ing" md={{span: 5, offset: 0.5}}>
+            <IngredientsList
+              ingredients={this.props.currentRecipe.ingredients}
+              instructions={steps[stepIndex]}
+            />
           </Col>
         </Row>
-        {this.state.isListening && (
-          <Modal.Dialog id="modal" className="sm">
-            <Modal.Body scrollable="true">{processingInputSlug}</Modal.Body>
-          </Modal.Dialog>
-        )}
+        <Julia
+          listening={this.state.isListening}
+          processing={this.state.isProcessingInput}
+        />
         <Row className="justify-content-md-center">
           <StepNav
             stepIndex={stepIndex}

@@ -23,8 +23,8 @@ export default class StepNav extends Component {
   render() {
     const {stepIndex, steps, goBack, goToNext} = this.props
 
-    console.log('CURRENT STATE: ', this.state)
     return (
+      //
       <Row className="justify-content-md-center player">
         <div id="control-panel" className="control-panel">
           <div className="controls">

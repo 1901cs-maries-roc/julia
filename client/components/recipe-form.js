@@ -90,11 +90,7 @@ class RecipeForm extends Component {
         </Button>
 
         <Collapse in={this.state.open}>
-          <Form
-            onClick={e => this.handleSubmit(e)}
-            noValidate
-            validated={validated}
-          >
+          <Form onSubmit={this.handleSubmit} noValidate validated={validated}>
             <Row>
               <Form.Row className="recipe-time">
                 <Form.Group as={Col} md="2">
