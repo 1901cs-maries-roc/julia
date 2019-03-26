@@ -126,6 +126,37 @@ async function seed() {
         'Meanwhile, cook tomatoes, garlic, 1/4 cup oil, and remaining 1/2 tsp. salt in a large skillet over medium-high heat, stirring occasionally, until tomatoes begin to burst, 4–5 minutes. Stir in chickpeas, oregano, vinegar, and paprika (if using). Reduce heat to medium and continue to cook, stirring often, until tomatoes have burst more into a fully formed sauce, 3–4 minutes. Remove from heat and stir in butter.',
         'Slice flatbreads in half. Serve with tomato-chickpea mixture, feta, greens, and lemon wedges alongside for squeezing and oil for drizzling.'
       ]
+    },
+    {
+      imgUrl:
+        'https://ottolenghi.co.uk/media/catalog/product/cache/1/thumbnail/321x/9df78eab33525d08d6e5fb8d27136e95/r/o/roasted-parsnip-and-stilton-1300x1300.jpg',
+      name:
+        'Roast Parsnips And Jerusalem Artichokes With Cavolo Nero And Stilton',
+      serving: 8,
+      prepTime: 30,
+      cookTime: 20,
+      totalTime: 40,
+      ingredients: [
+        '6 parsnips, peeled, trimmed and cut into 7cm-long and 2cm-wide wedges',
+        '3 red onions, peeled and cut into 3cm-wide wedges',
+        '60 ml olive oil',
+        '3 garlic cloves, peeled and crushed',
+        '5 g picked thyme leaves',
+        'Salt and freshly ground black pepper',
+        '700 g jerusalem artichokes, peeled and cut into 3cm-wide wedges ',
+        '220 g cavolo nero, stalks removed and discarded (or saved for something else – they’re great parboiled, then put in a gratin), to leave 110 g leaves, cut into 4cm-wide slices ',
+        '80 g stilton, roughly crumbled into 1cm pieces',
+        '115 g pickled walnuts, roughly chopped, plus 3 tbsp pickling liquor',
+        '60 g walnuts, roughly chopped',
+        '15g parsley leaves, roughly chopped',
+        '2 tbsp olive oil'
+      ],
+      steps: [
+        'Heat the oven to 220C/425F/gas mark 7. Put the parsnips and onions in a medium bowl with two tablespoons of oil, two garlic cloves, the thyme, half a teaspoon of salt and lots of pepper. Spread out on a large oven tray lined with greaseproof paper. Put the artichokes on a separate lined tray, mixed with a tablespoon of oil, a quarter-teaspoon of salt and plenty of pepper. Roast both trays for 20 minutes, until the parsnips and onions are cooked and caramelised, and the artichokes are just cooked through, then tip both into a large bowl and keep warm.',
+        'Mix the dressing ingredients with a third of a teaspoon of salt and set aside until required.',
+        'Bring a medium saucepan of water to a boil, add the cavolo nero and blanch for two minutes. Drain, refresh under cold water and pat dry.',
+        'Put the final tablespoon of oil in a large frying pan on a high heat, then fry the remaining garlic clove until just starting to brown; about 30 seconds. Add the cavolo nero and an eighth of a teaspoon of salt, and fry for four to five minutes, stirring often, until it starts to brown. Add to the veg bowl and, just before serving, gently mix in the dressing. Spread out on a large platter, sprinkle over the stilton and take to the table.'
+      ]
     }
   ]
 
