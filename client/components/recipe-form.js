@@ -9,6 +9,7 @@ import {connect} from 'react-redux'
 import AddUrl from './recipe-form-addUrl'
 import SubmittedModal from './recipe-form-submitted'
 import Collapse from 'react-bootstrap/Collapse'
+import RecipeFormManual from './recipe-form-manual'
 
 class RecipeForm extends Component {
   constructor() {
@@ -109,138 +110,8 @@ class RecipeForm extends Component {
         >
           Add
         </Button>
-
         <Collapse in={this.state.open}>
-          <Form noValidate validated={validated}>
-            <Row>
-              <Form.Row className="recipe-time">
-                <Form.Group as={Col} md="2">
-                  <Form.Label>Prep Time in min</Form.Label>
-                  <Form.Control
-                    placeholder="00"
-                    id="prepTime"
-                    onChange={this.handleChange}
-                  />
-                </Form.Group>
-
-                <Form.Group as={Col} md="2">
-                  <Form.Label>Cook Time in min</Form.Label>
-                  <Form.Control
-                    placeholder="00"
-                    id="cookTime"
-                    onChange={this.handleChange}
-                  />
-                </Form.Group>
-
-                <Form.Group as={Col} md="2">
-                  <Form.Label>Total Time in min</Form.Label>
-                  <Form.Control
-                    placeholder="00"
-                    id="totalTime"
-                    onChange={this.handleChange}
-                  />
-                </Form.Group>
-
-                <Form.Group as={Col} md="2">
-                  <Form.Label>Number of servings</Form.Label>
-                  <Form.Control
-                    type="number"
-                    id="serving"
-                    placeholder="0"
-                    required
-                    onChange={this.handleChange}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please enter a serving.
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Form.Row>
-
-              <Form.Row>
-                <Form.Group as={Col} md="8">
-                  <Form.Group as={Col} md="12">
-                    <Form.Label>Recipe Title</Form.Label>
-
-                    <Form.Control
-                      id="name"
-                      required={true}
-                      placeholder="Enter title"
-                      value={name}
-                      onChange={this.handleChange}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Please enter a title.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-
-                  <Form.Group as={Col} md="12">
-                    <Form.Label>Ingredients</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows="5"
-                      id="ingredients"
-                      value={ingredients}
-                      required
-                      // &#10 triggers a new line to show user an ex
-                      placeholder="Ingredient 1 &#10;Ingredient 2 &#10;Ingredient 3"
-                      onChange={this.handleChange}
-                    />
-                    <Form.Text className="text-muted">
-                      Enter each ingredient on its own line.
-                    </Form.Text>
-                    <Form.Control.Feedback type="invalid">
-                      Please enter ingredients.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-
-                  <Form.Group as={Col} md="12">
-                    <Form.Label>Instructions</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows="5"
-                      id="steps"
-                      value={steps}
-                      required
-                      placeholder="Instruction 1 &#10;Instruction 2 &#10;Instruction 3"
-                      onChange={this.handleChange}
-                    />
-                    <Form.Text className="text-muted">
-                      Enter each instruction on its own line.
-                    </Form.Text>
-                    <Form.Control.Feedback type="invalid">
-                      Please enter instructions.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Form.Group>
-                <Form.Group as={Col} md="3">
-                  <Form.Group as={Col} md="12">
-                    <Form.Label>Image URL</Form.Label>
-                    <Form.Control
-                      placeholder="ex: https://png.pngtree.com/element_origin_min_pic/16/07/09/155780a93ebd512.jpg "
-                      id="imgUrl"
-                      value={imgUrl}
-                      onChange={this.handleChange}
-                    />
-                    <img
-                      src={imgUrl}
-                      style={{width: '200px'}}
-                      alt="Recipe preview"
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      className="submit-button"
-                      onClick={e => this.handleSubmit(e)}
-                    >
-                      <h4>Submit</h4>
-                    </Button>
-                  </Form.Group>
-                </Form.Group>
-              </Form.Row>
-            </Row>
-          </Form>
+          <RecipeFormManual />
         </Collapse>
       </Container>
     )
