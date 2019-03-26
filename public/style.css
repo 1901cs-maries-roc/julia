@@ -40,10 +40,6 @@ form div {
   object-fit: cover;
 }
 
-.card-body {
-  height: 88px;
-}
-
 .home-page {
   padding-top: 2em;
   padding-left: 5em;
@@ -152,4 +148,13 @@ h4,
 #help-header {
   margin-top: 2.5em;
   margin-bottom: 1em;
+}
+
+.card-text {
+  font-size: 0.9em;
+}
+
+.card-body {
+  padding-top: 5px !important;
+  height: 65px;
 }
