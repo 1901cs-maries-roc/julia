@@ -9,7 +9,7 @@ const findTitle = $ => {
 const findIngredients = $ => {
   const ingredients = []
   const ingTitleRgx = /ingredient[s]?/i
-  const ingItemRgx = /^\d.+[a-z]$/
+  // const ingItemRgx = /^\d.+[a-z]$/
   const newLineRgx = /\r?\n|\r|\s{2,}/g
   $('li').each((i, elem) => {
     const divParentsClassName = $(elem)
@@ -22,10 +22,14 @@ const findIngredients = $ => {
       .text()
       .replace(newLineRgx, ' ')
       .trim()
+    // if (
+    //   (ingTitleRgx.test(divParentsClassName) ||
+    //     ingTitleRgx.test(secParentsClassName)) &&
+    //   ingItemRgx.test(el)
+    // )
     if (
-      (ingTitleRgx.test(divParentsClassName) ||
-        ingTitleRgx.test(secParentsClassName)) &&
-      ingItemRgx.test(el)
+      ingTitleRgx.test(divParentsClassName) ||
+      ingTitleRgx.test(secParentsClassName)
     )
       ingredients.push(el)
   })
@@ -65,7 +69,6 @@ const findImg = $ => {
   $('img').each((i, elem) => {
     const imgHeight = Number($(elem).attr('height'))
     const imgWidth = Number($(elem).attr('width'))
-    console.log('>>Dimensions: ', imgHeight, ' x ', imgWidth)
     const r = /(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpg|gif|png))(?:\?([^#]*))?(?:#(.*))?/
     const imgToTest = $(elem).attr('data-src') || $(elem).attr('src')
     if (

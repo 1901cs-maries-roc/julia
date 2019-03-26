@@ -1,27 +1,33 @@
 import React, {Component} from 'react'
-import Button from 'react-bootstrap/Button'
+import {connect} from 'react-redux'
 import Modal from 'react-bootstrap/Modal'
+import {clearError} from '../store'
 
-export default class SubmittedModal extends Component {
+class SubmittedModal extends Component {
   constructor() {
     super()
     this.state = {
-      show: false,
-      closeClicked: false
+      show: false
     }
   }
 
   componentDidUpdate = () => {
-    if (this.props.newRecipeId && !this.state.show && !this.state.closeClicked)
+    if (this.props.newRecipeId && !this.state.show) {
       this.setState({show: true})
+    } else if (this.props.error && !this.state.show) {
+      this.setState({show: true})
+    }
   }
 
   handleClose = () => {
-    this.setState({show: false, closeClicked: true})
+    this.setState({show: false})
     this.props.resetForm()
+    this.props.acknowledgeError()
   }
 
   render() {
+    console.log('in render: ', this.props)
+    const {error} = this.props
     const recipeUrl = `${window.location.origin}/recipes/${
       this.props.newRecipeId
     }`
@@ -29,18 +35,29 @@ export default class SubmittedModal extends Component {
       <>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Success!</Modal.Title>
+            <Modal.Title>{error ? 'Hm...' : 'Recipe saved!'}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            You can view your recipe <a href={recipeUrl}>here</a>.
+            {error ? (
+              "We're having trouble finding a recipe on that page. You can still use our recipe form below to add it manually."
+            ) : (
+              <span>
+                View your new recipe <a href={recipeUrl}>here</a>.
+              </span>
+            )}
           </Modal.Body>
-          {/* <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
-              Add another recipe
-            </Button>
-          </Modal.Footer> */}
         </Modal>
       </>
     )
   }
 }
+
+const mapState = state => ({
+  error: state.recipe.error
+})
+
+const mapDispatch = dispatch => ({
+  acknowledgeError: () => dispatch(clearError())
+})
+
+export default connect(mapState, mapDispatch)(SubmittedModal)
