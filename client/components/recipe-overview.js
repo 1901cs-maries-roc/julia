@@ -38,22 +38,22 @@ class RecipeOverview extends Component {
       steps,
       ingredients
     } = this.props.currentRecipe
-    console.log('preptime type: ', typeof prepTime)
+
     return (
       <Container className="container">
         <Row>
-          <Col>
+          <Col xs="12" sm="12" md="12" lg="6">
             <img
               src={
                 imgUrl === 'recipe-default.jpg'
                   ? `${window.location.origin}/${imgUrl}`
                   : imgUrl
               }
-              className="image-overview justify-content-md-center"
+              className="image-overview"
             />
           </Col>
 
-          <Col md={{offset: 0.5}} className="recipeBar">
+          <Col md={{span: 12, offset: 0.5}} lg={{span: 6, offset: 0.5}}>
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong>{' '}
@@ -74,21 +74,22 @@ class RecipeOverview extends Component {
               <Button
                 variant="success"
                 type="button"
+                size="lg"
                 onClick={this.handleClick}
               >
-                <h3>Start Cooking</h3>
+                Start Cooking
               </Button>
             </ButtonToolbar>
           </Col>
         </Row>
         <Row className="row-grid">
-          <Col>
+          <Col md="12">
             <div id="recipe-steps">
               <h3>Ingredients:</h3>
               <IngredientsList ingredients={ingredients} isOverview={true} />
             </div>
           </Col>
-          <Col md={{offset: 0.5}}>
+          <Col md={{span: 12, offset: 0.5}}>
             <h3>Instructions:</h3>
             <ol>
               {steps ? (
