@@ -40,6 +40,10 @@ form div {
   object-fit: cover;
 }
 
+.card-body {
+  height: 88px;
+}
+
 /* .navbar {
   background-color: #6f99a9;
 } */
