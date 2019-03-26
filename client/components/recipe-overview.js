@@ -23,11 +23,6 @@ class RecipeOverview extends Component {
     this.props.getRecipeThunkDispatch(recipeId)
   }
 
-  componentDidUpdate() {
-    console.log('Overview state: ', this.state)
-    // if (this.state.deleteClicked) this.setState({deleteClicked: false})
-  }
-
   componentWillUnmount() {
     clearCurrentRecipe()
   }

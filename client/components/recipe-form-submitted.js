@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import Modal from 'react-bootstrap/Modal'
 import {clearError} from '../store'
 
+//modal for url error/successful handling
 class SubmittedModal extends Component {
   constructor() {
     super()
