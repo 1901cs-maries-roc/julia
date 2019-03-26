@@ -38,7 +38,7 @@ class RecipeOverview extends Component {
       steps,
       ingredients
     } = this.props.currentRecipe
-    console.log('preptime type: ', typeof prepTime)
+
     return (
       <Container className="container">
         <Row>
@@ -49,7 +49,7 @@ class RecipeOverview extends Component {
                   ? `${window.location.origin}/${imgUrl}`
                   : imgUrl
               }
-              className="image-overview justify-content-md-center"
+              className="image-overview"
             />
           </Col>
 
