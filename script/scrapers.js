@@ -22,35 +22,40 @@ const findIngredients = $ => {
       .text()
       .replace(newLineRgx, ' ')
       .trim()
-
     if (
       (ingTitleRgx.test(divParentsClassName) ||
         ingTitleRgx.test(secParentsClassName)) &&
       ingItemRgx.test(el)
-    ) {
-      // console.log('>>divParentsClassName: ', divParentsClassName)
-      // console.log('>>secParentsClassName: ', secParentsClassName)
-      // console.log('>>el: ', el)
-      // console.log('match? ', ingItemRgx.test(el))
+    )
       ingredients.push(el)
-    }
   })
   return ingredients
 }
 
 const findInstructions = $ => {
   const instructions = []
-  const r = /instruction[s]?|direction[s]?|preparation[s]?/i
+  const instrClassRgx = /instruction[s]?|direction[s]?|preparation[s]?/i
   const newLineRgx = /\r?\n|\r|\s{2,}/g
   $('li').each((i, elem) => {
     const parents = $(elem)
       .parents('div')
       .attr('class')
+    const parent = $(elem)
+      .parent()
+      .attr('class')
     const el = $(elem)
       .text()
       .replace(newLineRgx, ' ')
       .trim()
-    if (r.test(parents) && el.length) instructions.push(el)
+    if (
+      instrClassRgx.test(parents) &&
+      el.length &&
+      $(elem).parents('ol').length === 1
+    ) {
+      instructions.push(el)
+    } else if (instrClassRgx.test(parent) && el.length) {
+      instructions.push(el)
+    }
   })
   return instructions
 }
@@ -60,15 +65,16 @@ const findImg = $ => {
   $('img').each((i, elem) => {
     const imgHeight = Number($(elem).attr('height'))
     const imgWidth = Number($(elem).attr('width'))
-    // const imgUrl = $(elem).attr('src')
+    console.log('>>Dimensions: ', imgHeight, ' x ', imgWidth)
     const r = /(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpg|gif|png))(?:\?([^#]*))?(?:#(.*))?/
-    // if (imgHeight < imgWidth * 2 && imgHeight > 300 && r.test(imgUrl)) {
-    //   imgUrlFinal = imgUrl
-    //   return false
-    // }
-    if (imgHeight < imgWidth * 2 && imgHeight > 300) {
-      let imgToTest = $(elem).attr('data-src') || $(elem).attr('src')
-      if (r.test(imgToTest)) imgUrl = imgToTest
+    const imgToTest = $(elem).attr('data-src') || $(elem).attr('src')
+    if (
+      imgHeight &&
+      imgHeight < imgWidth * 2 &&
+      imgHeight > 300 &&
+      r.test(imgToTest)
+    ) {
+      imgUrl = imgToTest
       return false
     }
   })
