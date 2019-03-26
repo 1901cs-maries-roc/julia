@@ -34,11 +34,11 @@ export default class SubmittedModal extends Component {
           <Modal.Body>
             You can view your recipe <a href={recipeUrl}>here</a>.
           </Modal.Body>
-          <Modal.Footer>
+          {/* <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
               Add another recipe
             </Button>
-          </Modal.Footer>
+          </Modal.Footer> */}
         </Modal>
       </>
     )

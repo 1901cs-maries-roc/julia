@@ -1,31 +1,37 @@
 const findTitle = $ => {
-  let title = ''
   const el = $('title')
     .first()
     .text()
-  // refactor to allow for hyphenated titles
-  // ie) pan-seared salmon
-  const r = /(\w+\s?)+/
-  title = el.match(r)[0] || 'Recipe Name Not Found'
-  // title = el || 'Recipe Name Not Found'
-  return title
+  const r = /(\w+\S*\s?)+/
+  return el.match(r)[0] || 'Recipe Name Not Found'
 }
 
 const findIngredients = $ => {
   const ingredients = []
+  const ingTitleRgx = /ingredient[s]?/i
+  const ingItemRgx = /^\d.+[a-z]$/
+  const newLineRgx = /\r?\n|\r|\s{2,}/g
   $('li').each((i, elem) => {
-    const r = /ingredient[s]?/i
-    const s = /^\d.+[a-z]$/
-    const parentsDiv = $(elem)
+    const divParentsClassName = $(elem)
       .parents('div')
       .attr('class')
-    const parentsSec = $(elem)
+    const secParentsClassName = $(elem)
       .parents('section')
       .attr('class')
     const el = $(elem)
       .text()
+      .replace(newLineRgx, ' ')
       .trim()
-    if ((r.test(parentsDiv) || r.test(parentsSec)) && s.test(el)) {
+
+    if (
+      (ingTitleRgx.test(divParentsClassName) ||
+        ingTitleRgx.test(secParentsClassName)) &&
+      ingItemRgx.test(el)
+    ) {
+      // console.log('>>divParentsClassName: ', divParentsClassName)
+      // console.log('>>secParentsClassName: ', secParentsClassName)
+      // console.log('>>el: ', el)
+      // console.log('match? ', ingItemRgx.test(el))
       ingredients.push(el)
     }
   })
@@ -34,13 +40,15 @@ const findIngredients = $ => {
 
 const findInstructions = $ => {
   const instructions = []
+  const r = /instruction[s]?|direction[s]?|preparation[s]?/i
+  const newLineRgx = /\r?\n|\r|\s{2,}/g
   $('li').each((i, elem) => {
-    const r = /instruction[s]?|direction[s]?/i
     const parents = $(elem)
       .parents('div')
       .attr('class')
     const el = $(elem)
       .text()
+      .replace(newLineRgx, ' ')
       .trim()
     if (r.test(parents) && el.length) instructions.push(el)
   })
@@ -48,18 +56,23 @@ const findInstructions = $ => {
 }
 
 const findImg = $ => {
-  let imgUrlFinal
+  let imgUrl
   $('img').each((i, elem) => {
     const imgHeight = Number($(elem).attr('height'))
     const imgWidth = Number($(elem).attr('width'))
-    const imgUrl = $(elem).attr('src')
+    // const imgUrl = $(elem).attr('src')
     const r = /(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpg|gif|png))(?:\?([^#]*))?(?:#(.*))?/
-    if (imgHeight < imgWidth * 2 && imgHeight > 300 && r.test(imgUrl)) {
-      imgUrlFinal = imgUrl
+    // if (imgHeight < imgWidth * 2 && imgHeight > 300 && r.test(imgUrl)) {
+    //   imgUrlFinal = imgUrl
+    //   return false
+    // }
+    if (imgHeight < imgWidth * 2 && imgHeight > 300) {
+      let imgToTest = $(elem).attr('data-src') || $(elem).attr('src')
+      if (r.test(imgToTest)) imgUrl = imgToTest
       return false
     }
   })
-  return imgUrlFinal
+  return imgUrl
 }
 
 const extractTime = rootEl => {
