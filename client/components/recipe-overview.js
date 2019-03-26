@@ -42,18 +42,18 @@ class RecipeOverview extends Component {
     return (
       <Container className="container">
         <Row>
-          <Col>
+          <Col xs="12" sm="12" md="6" lg="6">
             <img
               src={
                 imgUrl === 'recipe-default.jpg'
                   ? `${window.location.origin}/${imgUrl}`
                   : imgUrl
               }
-              className="image-overview"
+              fluid
             />
           </Col>
 
-          <Col md={{offset: 0.5}} className="recipeBar">
+          <Col md={{offset: 0.5}}>
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong>{' '}
