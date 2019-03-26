@@ -52,27 +52,24 @@ class HelpInstructions extends Component {
               </a>
             </div>
             <div id="help-header">
-              <i className="far fa-play-circle fa-1x" />
-              <strong>
+              <strong className="helpIntro">
                 {' '}
-                PRESS{' '}
-                <img src="/start-button.png" alt="start-button" width={30} /> TO
-                ENABLE JULIA
+                PRESS <i className="far fa-play-circle fa-1x" /> TO ENABLE JULIA
               </strong>{' '}
             </div>
             <hr />
             You can ask Julia any of the following commands preceeded with "Hey
-            Julia"
+            Julia..."
             <hr />
             <strong>Commands: </strong> <br />
-            "Hey Julia Help" <br />
-            "Hey Julia Repeat" <br />
-            "Hey Julia Back" <br />
-            "Hey Julia Next" <br />
-            "Hey Julia Ingredients" <br />
-            "Hey Julia Instructions" <br />
-            "Hey Julia Stop" <br />
-            "Hey Julia Back to Recipe" <br />
+            "Hey Julia, Help" <br />
+            "Hey Julia, Repeat" <br />
+            "Hey Julia, Back" <br />
+            "Hey Julia, Next" <br />
+            "Hey Julia, Ingredients" <br />
+            "Hey Julia, Instructions" <br />
+            "Hey Julia, Stop" <br />
+            "Hey Julia, Back to Recipe" <br />
             <br />
           </Popover>
         </Overlay>

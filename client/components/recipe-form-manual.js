@@ -100,7 +100,7 @@ class RecipeFormManual extends Component {
     } = this.state
     console.log('state in form manual', this.state)
     return (
-      <Form noValidate validated={validated}>
+      <Form onSubmit={this.handleSubmit} noValidate validated={validated}>
         <Row>
           <Form.Row className="recipe-time">
             <Form.Group as={Col} md="2">
@@ -225,7 +225,6 @@ class RecipeFormManual extends Component {
                   variant="primary"
                   type="submit"
                   className="submit-button"
-                  onClick={this.handleSubmit}
                 >
                   <h4>Submit Recipe</h4>
                 </Button>

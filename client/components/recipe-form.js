@@ -67,10 +67,11 @@ class RecipeForm extends Component {
     this.setState({
       [event.target.id]: event.target.value
     })
+    console.log('FORM:', this.state)
   }
 
   render() {
-    const {newRecipeId, isSaving, scrapeUrl} = this.state
+    let {validated, newRecipeId, isSaving, scrapeUrl, imgUrl, open} = this.state
 
     return (
       <Container className="container">

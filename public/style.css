@@ -104,12 +104,6 @@ h4,
   margin-bottom: 1.5em;
 }
 
-/* .start-button {
-  height: 4em;
-  width: 15em;
-  margin-top: 2em;
-} */
-
 .submit-button {
   height: 4em;
   width: 10em;
@@ -117,10 +111,10 @@ h4,
 }
 
 .image-overview {
-  max-width: 30em;
-  height: 30em;
+  width: 100%;
   object-fit: cover;
-  padding-bottom: 2em;
+  height: 90%;
+  max-height: 400px;
 }
 
 .microphone-on {
@@ -153,6 +147,79 @@ h4,
 #help-header {
   margin-top: 2.5em;
   margin-bottom: 1em;
+}
+
+/* audio player buttons */
+.control-panel {
+  position: center;
+  background-color: #49656f;
+  border-radius: 15px;
+  width: 300px;
+  height: 80px;
+  z-index: 5;
+  margin-top: 20em;
+  margin-bottom: 2em;
+  position: fixed;
+  bottom: 0;
+  box-shadow: 0px 4px 4px 5px rgba(199, 199, 199, 0.3);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  padding: 0 15px;
+}
+
+.prev,
+.play,
+.next,
+.stop {
+  width: 55px;
+  height: auto;
+  border-radius: 10px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  margin: 5px 0;
+  background-color: #49656f;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  -webkit-transition: background-color 0.3s ease;
+}
+
+.prev:hover,
+.play:hover,
+.next:hover,
+.stop:hover {
+  background-color: #eee;
+  transition: background-color 0.3s ease;
+  -webkit-transition: background-color 0.3s ease;
+}
+
+.prev {
+  background-image: url('/previous.png');
+  background-size: 40px 40px;
+}
+
+.play {
+  background-image: url('/play.png');
+  background-size: 35px 35px;
+}
+
+.next {
+  background-image: url('/next.png');
+  background-size: 40px 40px;
+}
+
+.stop {
+  background-image: url('/pause.png');
+  background-size: 35px 35px;
+}
+/* also have a stop icon in publics folder if we want to replace the pause  */
+
+.helpIntro {
+  color: rgb(45, 64, 71);
 }
 
 .card-text {

@@ -19,7 +19,6 @@ import {
 } from '../annyangCommands'
 import IngredientsList from './ingredientsList'
 import StepNav from './recipe-step-nav'
-import Portal from './portal'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -91,7 +90,7 @@ class RecipeStep extends Component {
 
   annyang = () => {
     if (annyang) {
-      var commands = {
+      let commands = {
         '(*words) (hey) Julia': nullCommand,
         '(*words) (hey) Julia help': help,
         '(*words) (hey) Julia (can you) repeat(s)': repeatStep,
@@ -186,13 +185,6 @@ class RecipeStep extends Component {
               Step {stepIndex + 1}/{steps ? steps.length : 0}
             </h1>
           </Col>
-          {this.state.isListening && (
-            <Portal>
-              <Modal.Dialog id="modal" className="sm">
-                <Modal.Body scrollable="true">{processingInputSlug}</Modal.Body>
-              </Modal.Dialog>;
-            </Portal>
-          )}
         </Row>
         <Row className="row-grid test">
           <Col md={{span: 5, offset: 1}}>
@@ -212,6 +204,11 @@ class RecipeStep extends Component {
             </h5>
           </Col>
         </Row>
+        {this.state.isListening && (
+          <Modal.Dialog id="modal" className="sm">
+            <Modal.Body scrollable="true">{processingInputSlug}</Modal.Body>
+          </Modal.Dialog>
+        )}
         <Row className="justify-content-md-center">
           <StepNav
             stepIndex={stepIndex}
