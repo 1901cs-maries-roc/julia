@@ -42,7 +42,7 @@ class RecipeOverview extends Component {
     return (
       <Container className="container">
         <Row>
-          <Col md={{span: 5, offset: 1}}>
+          <Col>
             <img
               src={
                 imgUrl === 'recipe-default.jpg'
@@ -52,7 +52,7 @@ class RecipeOverview extends Component {
               className="image-overview justify-content-md-center"
             />
           </Col>
-          <Col md={{span: 5, offset: 1}} className="recipeBar">
+          <Col md={{offset: 0.5}} className="recipeBar">
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong> {prepTime} minutes
@@ -78,13 +78,13 @@ class RecipeOverview extends Component {
           </Col>
         </Row>
         <Row className="row-grid">
-          <Col md={{span: 5, offset: 1}}>
+          <Col>
             <div id="recipe-steps">
               <h3>Ingredients:</h3>
               <IngredientsList ingredients={ingredients} isOverview={true} />
             </div>
           </Col>
-          <Col md={{span: 5, offset: 1}}>
+          <Col md={{offset: 0.5}}>
             <h3>Instructions:</h3>
             <ol>
               {steps ? (

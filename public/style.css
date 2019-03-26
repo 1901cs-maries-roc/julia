@@ -95,6 +95,9 @@ h4,
 
 .image-overview {
   width: 30em;
+  height: 30em;
+  object-fit: cover;
+  padding-bottom: 2em;
 }
 
 .microphone-on {
@@ -114,3 +117,14 @@ h4,
   padding-box;
   padding: 10%;
 } */
+
+.navbar {
+  width: 100vw !important;
+  -webkit-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
+  -moz-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
+  box-shadow: 0 16px 12px -12px rgb(199, 199, 199);
+  padding: 0rem 0rem !important;
+  /* background-image:  */
+  border-color: black !important;
+  border-width: 5px !important;
+}
