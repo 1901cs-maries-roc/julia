@@ -14,9 +14,10 @@ class RecipeEdit extends Component {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipeThunkDispatch(recipeId)
   }
-  componentWillUnmount() {
-    clearCurrentRecipe()
-  }
+  // componentWillUnmount() {
+  //   clearCurrentRecipe()
+  // }
+
   handleClick(event) {
     event.preventDefault()
     const recipeId = this.props.match.params.recipeId
@@ -24,7 +25,6 @@ class RecipeEdit extends Component {
   }
 
   render() {
-    console.log('current recipe', this.props.currentRecipe)
     return (
       <Container>
         <RecipeFormManual currentRecipe={this.props.currentRecipe} />
