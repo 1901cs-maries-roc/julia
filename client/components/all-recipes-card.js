@@ -1,6 +1,5 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
-import CardDeck from 'react-bootstrap/CardDeck'
 
 const OneRecipeCard = props => {
   const {recipe} = props
@@ -15,5 +14,3 @@ const OneRecipeCard = props => {
 }
 
 export default OneRecipeCard
-
-// style={{width: '18rem'}}
