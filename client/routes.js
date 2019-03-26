@@ -9,7 +9,8 @@ import {
   RecipeStep,
   RecipeOverview,
   AllRecipes,
-  RecipeForm
+  RecipeForm,
+  NoMatch
 } from './components'
 import {me} from './store'
 
@@ -32,9 +33,11 @@ class Routes extends Component {
         <Route exact path="/recipes/addrecipe" component={RecipeForm} />
         <Route exact path="/recipes/:recipeId" component={RecipeOverview} />
         <Route exact path="/recipes/:recipeId/cooking" component={RecipeStep} />
+        <Route path="*" component={NoMatch} status={404} />
         {isLoggedIn && (
           <Switch>
             <Route path="/home" component={AllRecipes} />
+            <Route path="*" component={NoMatch} status={404} />
           </Switch>
         )}
         <Route component={AllRecipes} />
