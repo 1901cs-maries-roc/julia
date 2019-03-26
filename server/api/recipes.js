@@ -78,7 +78,6 @@ router.post('/', async (req, res, next) => {
 })
 
 router.post('/scrape', async (req, res, next) => {
-  // const urlRgx = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
   const {url} = req.body
   try {
     const {data: html, status} = await axios.get(url)
