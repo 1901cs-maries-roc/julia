@@ -11,6 +11,8 @@ const RESTART_STEPS = 'RESTART_STEPS'
 const ADD_RECIPE = 'ADD_RECIPE'
 const ADD_NEW_RECIPE = 'ADD_NEW_RECIPE'
 const CLEAR_CURRENT_RECIPE = 'CLEAR_CURRENT_RECIPE'
+const ADD_BY_URL_ERROR = 'ADD_BY_URL_ERROR'
+const CLEAR_ERROR = 'CLEAR_ERROR'
 
 /**
  * ACTION CREATORS
@@ -29,6 +31,11 @@ export const restartSteps = () => ({type: RESTART_STEPS})
 export const clearCurrentRecipe = () => ({type: CLEAR_CURRENT_RECIPE})
 export const addRecipe = recipe => ({type: ADD_RECIPE, recipe})
 const addNewRecipe = recipe => ({type: ADD_NEW_RECIPE, recipe})
+const addByUrlError = () => ({
+  type: ADD_BY_URL_ERROR,
+  error: 'Error in scraping'
+})
+export const clearError = () => ({type: CLEAR_ERROR})
 /**
  * THUNK CREATORS
  */
@@ -60,8 +67,9 @@ export const addRecipeThunk = recipe => async dispatch => {
 }
 
 export const addRecipeFromUrl = url => async dispatch => {
-  const {data: recipe} = await axios.post('/api/recipes/scrape', {url})
-  dispatch(addNewRecipe(recipe))
+  const {data: recipe, status} = await axios.post('/api/recipes/scrape', {url})
+  if (status === 200) dispatch(addNewRecipe(recipe))
+  else dispatch(addByUrlError())
 }
 
 /**
@@ -70,7 +78,8 @@ export const addRecipeFromUrl = url => async dispatch => {
 const initialState = {
   recipes: [],
   recipe: {steps: []},
-  currentStepIndex: 0
+  currentStepIndex: 0,
+  error: ''
 }
 
 /**
@@ -83,22 +92,22 @@ export default function(state = initialState, action) {
       return {...state, recipes: action.recipes}
     case GET_RECIPE:
       return {...state, recipe: action.recipe}
-    case NEXT_STEP: {
+    case NEXT_STEP:
       return {...state, currentStepIndex: action.nextStep}
-    }
-    case PREV_STEP: {
+    case PREV_STEP:
       return {...state, currentStepIndex: action.prevStep}
-    }
     case RESTART_STEPS:
       return {...state, currentStepIndex: initialState.currentStepIndex}
-    case ADD_RECIPE: {
+    case ADD_RECIPE:
       return {...state, recipes: [...state.recipes, action.recipe]}
-    }
-    case ADD_NEW_RECIPE: {
+    case ADD_NEW_RECIPE:
       return {...state, recipe: action.recipe}
-    }
     case CLEAR_CURRENT_RECIPE:
       return {...state, recipe: initialState.recipe}
+    case ADD_BY_URL_ERROR:
+      return {...state, error: action.error}
+    case CLEAR_ERROR:
+      return {...state, error: initialState.error}
     default:
       return state
   }
