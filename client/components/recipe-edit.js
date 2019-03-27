@@ -42,7 +42,7 @@ class RecipeEdit extends Component {
   }
 
   resetForm = () => {
-    this.setState(this.baseState)
+    this.setState({wasUpdated: false})
   }
 
   addOrUpdateRecipe = async event => {
@@ -72,7 +72,11 @@ class RecipeEdit extends Component {
   render() {
     return (
       <Container>
-        <SubmittedModal newRecipeId={newRecipeId} resetForm={this.resetForm} />
+        <SubmittedModal
+          wasUpdated={this.state.wasUpdated}
+          resetForm={this.resetForm}
+          updatedRecipeId={this.props.match.params.recipeId}
+        />
         <RecipeFormManual
           {...this.state}
           handleChange={this.handleChange}

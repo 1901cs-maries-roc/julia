@@ -29,9 +29,9 @@ class RecipeForm extends Component {
     this.baseState = this.state
   }
 
-  // resetForm = () => {
-  //   this.setState(this.baseState)
-  // }
+  resetForm = () => {
+    this.setState(this.baseState)
+  }
 
   scrape = async () => {
     this.setState({isSaving: true})
