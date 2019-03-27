@@ -21,13 +21,11 @@ class HelpInstructions extends Component {
     const {show, target} = this.state
     return (
       <div>
-        <ButtonToolbar>
+        <ButtonToolbar id="help-btn">
           <Button
-            className="back-button right"
             size="sm"
-            variant="outline-dark"
+            variant="secondary"
             ref={this.attachRef}
-            id="help"
             onClick={this.handleClick}
           >
             Help
@@ -41,7 +39,7 @@ class HelpInstructions extends Component {
           container={this}
           containerPadding={20}
         >
-          <Popover id="popover-contained">
+          <Popover id="help-popover">
             <div id="close-help">
               <a
                 onClick={() => this.setState({show: !show})}
