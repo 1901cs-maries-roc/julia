@@ -88,7 +88,7 @@ h3,
 h4,
 .start-button,
 .micro-text {
-  font-family: 'Baloo Chettan', cursive;
+  font-family: 'Roboto', sans-serif;
 }
 
 .micro-text {
@@ -113,17 +113,17 @@ h4,
   max-height: 400px;
 }
 
-.microphone-on {
+.mic-listening {
   color: green;
 }
 
-.microphone-off {
+.mic-processing {
   color: orange;
 }
 
-/* .microphone {
-  text-align: center;
-} */
+.mic-off {
+  color: #49656f;
+}
 
 .navbar {
   width: 100vw !important;
@@ -185,7 +185,9 @@ h4,
 .julia {
   padding-left: 2em;
   align-items: center;
-  background-color: rgb(237, 236, 236);
+  background-color: #d3d3d3;
+  font-family: 'Roboto', sans-serif;
+  /* color: white; */
 }
 
 /* .controls {
