@@ -174,7 +174,7 @@ class RecipeStep extends Component {
 
         <Row className="row-grid test">
           <Col md={{span: 8, offset: 0}}>
-            <div className="teleprompter" id="demo">
+            <div className="teleprompter" id="recipe-step-test">
               <h5 id="step-instructions">{steps[stepIndex]}</h5>
             </div>
           </Col>

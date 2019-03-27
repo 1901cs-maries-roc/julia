@@ -20,12 +20,20 @@
     <div id="portal"></div>
     <script src='//vws.responsivevoice.com/v/e?key=N1ybd1om'></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="jquery.teleprompter.js"></script>
     <script
     src="https://unpkg.com/react-bootstrap@1.0.0-beta.6/dist/react-bootstrap.min.js"
     crossorigin
     />
+    
+    <script>
+      $(document).ready(function() {
+        $("#recipe-step-test").teleprompter();
+      });
+      </script>
+
   </body>
 </html>
 
