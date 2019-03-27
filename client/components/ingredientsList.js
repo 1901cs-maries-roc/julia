@@ -9,7 +9,7 @@ export default function IngredientsList(props) {
     .map(word => word.toLowerCase())
 
   const filteredIngredients = ingredients.filter(ingredient => {
-    const r = /\b(?:(?!tsp|cup|tbsp|oz|pint|and|if|or|to|large|small|\d)\w)+\b/gi
+    const r = /\b(?:(?!tsp|cup|tbsp|oz|pint|melted|cooled|and|\ba\b|\bif\b|or|\bto\b|large|small|\d)\w)+\b/gi
     let ingWords = ingredient.match(r) || []
     let isRelevantIngredient = false
     for (let ing of ingWords) {

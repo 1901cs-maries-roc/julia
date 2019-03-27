@@ -15,7 +15,7 @@ class RecipeForm extends Component {
     super()
     this.state = {
       name: '',
-      imgUrl: '',
+      imgUrl: '/recipe-default.jpg',
       prepTime: 0,
       cookTime: 0,
       waitTime: 0,
@@ -59,11 +59,12 @@ class RecipeForm extends Component {
     this.setState({
       [event.target.id]: event.target.value
     })
+    console.log('FORM:', this.state)
   }
 
   render() {
     let {validated, newRecipeId, isSaving, scrapeUrl, imgUrl, open} = this.state
-    imgUrl = imgUrl.length ? imgUrl : '/recipe-default.jpg'
+    // imgUrl = imgUrl.length ? imgUrl : '/recipe-default.jpg'
 
     return (
       <Container className="container">

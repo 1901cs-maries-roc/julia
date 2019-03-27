@@ -30,7 +30,13 @@ export class AllRecipes extends Component {
 
     return (
       <div className="home-page">
-        <CardGroup>{recipe.length ? recipe : <div>loading</div>}</CardGroup>
+        {allRecipes.length ? (
+          <CardGroup>{recipe}</CardGroup>
+        ) : (
+          <div className="loading">
+            <img src="https://cdn.dribbble.com/users/82578/screenshots/2338455/loadinganimation.gif" />
+          </div>
+        )}
       </div>
     )
   }
