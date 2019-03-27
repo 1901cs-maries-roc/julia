@@ -5,6 +5,8 @@ import {connect} from 'react-redux'
 import {getAllRecipesThunk} from '../store'
 import CardGroup from 'react-bootstrap/CardGroup'
 import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+import Jumbotron from 'react-bootstrap/Jumbotron'
 
 export class AllRecipes extends Component {
   componentDidMount() {
@@ -29,14 +31,25 @@ export class AllRecipes extends Component {
     )
 
     return (
-      <div className="home-page">
-        {allRecipes.length ? (
-          <CardGroup>{recipe}</CardGroup>
-        ) : (
-          <div className="loading">
-            <img src="https://cdn.dribbble.com/users/82578/screenshots/2338455/loadinganimation.gif" />
-          </div>
-        )}
+      <div>
+        <Jumbotron className="jumbotron">
+          <img className="headerIcon" src="/juliaicon_orange.png" />
+          <h2 className="headerText">
+            People who love to eat are always the best people! --Julia Child
+          </h2>
+          {/* <p>
+              <Button variant="primary">Learn more</Button>
+            </p> */}
+        </Jumbotron>
+        <div className="home-page">
+          {allRecipes.length ? (
+            <CardGroup>{recipe}</CardGroup>
+          ) : (
+            <div className="loading">
+              <img src="https://cdn.dribbble.com/users/82578/screenshots/2338455/loadinganimation.gif" />
+            </div>
+          )}
+        </div>
       </div>
     )
   }

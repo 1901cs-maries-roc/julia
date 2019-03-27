@@ -67,6 +67,10 @@ a.navbar-brand {
   margin-left: 5rem;
 }
 
+.navbar {
+  background: rgb(185, 124, 10) !important;
+}
+
 .ml-auto,
 .mx-auto {
   margin-right: 5rem;
@@ -122,9 +126,9 @@ h4,
 
 .navbar {
   width: 100vw !important;
-  -webkit-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
+  /* -webkit-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
   -moz-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
-  box-shadow: 0 16px 12px -12px rgb(199, 199, 199);
+  box-shadow: 0 16px 12px -12px rgb(199, 199, 199); */
   padding: 0rem 0rem !important;
   /* background-image:  */
   border-color: black !important;
@@ -237,4 +241,28 @@ h4,
   width: 50%;
   padding: 10px;
   text-align: center;
+}
+
+.jumbotron {
+  /* background: linear-gradient(
+                     rgba(20,20,20, .55), 
+                     rgba(20,20,20, .55)),
+                     url("/header.jpg") */
+  background-image: url('/contact.png');
+  border-radius: 0em !important;
+}
+
+.headerIcon {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 20%;
+  padding: 10px;
+  text-align: center;
+}
+
+.headerText {
+  text-align: center;
+  /* color: white; */
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }

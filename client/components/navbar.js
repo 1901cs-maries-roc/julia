@@ -11,11 +11,11 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
     sticky="top"
     collapseOnSelect
     expand="lg"
-    bg="light"
-    variant="light"
+    bg="dark"
+    variant="dark"
     className="navbar"
   >
-    <Navbar.Brand href="/">
+    {/* <Navbar.Brand href="/">
       <img
         alt=""
         src="/juliaicon.png"
@@ -23,7 +23,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
         height="80"
         className="d-inline-block align-top"
       />
-    </Navbar.Brand>
+    </Navbar.Brand> */}
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="ml-auto">
