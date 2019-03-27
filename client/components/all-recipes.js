@@ -8,6 +8,8 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 
+//randomize the quote
+
 export class AllRecipes extends Component {
   componentDidMount() {
     this.props.getAllRecipesThunkDispatch()
@@ -33,7 +35,7 @@ export class AllRecipes extends Component {
     return (
       <div>
         <Jumbotron className="jumbotron">
-          <img className="headerIcon" src="/juliaicon_orange.png" />
+          <img className="headerIcon" src="/juliaicon_white.png" />
           <h2 className="headerText">
             People who love to eat are always the best people! --Julia Child
           </h2>

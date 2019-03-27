@@ -11,19 +11,19 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
     sticky="top"
     collapseOnSelect
     expand="lg"
-    bg="dark"
-    variant="dark"
+    // bg="dark"
+    variant="light"
     className="navbar"
   >
-    {/* <Navbar.Brand href="/">
+    <Navbar.Brand href="/">
       <img
         alt=""
-        src="/juliaicon.png"
-        width="140"
-        height="80"
+        src="/juliaicon_mini.png"
+        // width="140"
+        height="40"
         className="d-inline-block align-top"
       />
-    </Navbar.Brand> */}
+    </Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="ml-auto">
@@ -64,19 +64,19 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
             All Recipes
           </NavDropdown.Item>
         </NavDropdown> */}
-        {isLoggedIn ? (
-          <Nav>
-            <NavDropdown title="User" id="collasible-nav-dropdown">
-              {/* <NavDropdown.Item href="#">My Account</NavDropdown.Item> */}
-              <NavDropdown.Item href="#" onClick={handleClick}>
-                Logout
+        {/* {isLoggedIn ? ( */}
+        {/* <Nav> */}
+        {/* <NavDropdown title="User" id="collasible-nav-dropdown"> */}
+        {/* <NavDropdown.Item href="#">My Account</NavDropdown.Item> */}
+        {/* <NavDropdown.Item href="#" onClick={handleClick}> */}
+        {/* Logout
               </NavDropdown.Item>
               <NavDropdown.Divider />
-            </NavDropdown>
-            {/* <Nav.Link href="Favorites">
+            </NavDropdown> */}
+        {/* <Nav.Link href="Favorites">
             <i className="fab fa-gratipay" />
           </Nav.Link> */}
-          </Nav>
+        {/* </Nav>
         ) : (
           <Nav>
             <NavDropdown title="User" id="collasible-nav-dropdown">
@@ -84,7 +84,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
               <NavDropdown.Item href="/login">Login</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-        )}
+        )} */}
       </Nav>
     </Navbar.Collapse>
   </Navbar>
