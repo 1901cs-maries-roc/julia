@@ -115,10 +115,7 @@ export default function(state = initialState, action) {
     case PREV_STEP:
       return {...state, currentStepIndex: action.prevStep}
     case UPDATE_RECIPE: {
-      const oldRecipes = state.recipes.filter(
-        recipe => recipe.id !== action.recipe.id
-      )
-      return {...state, recipes: [...oldRecipes, action.recipe]}
+      return {...state, recipe: action.recipe}
     }
     case DELETE_RECIPE:
       return {...state, recipe: initialState.recipe}

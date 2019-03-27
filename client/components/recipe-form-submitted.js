@@ -13,6 +13,8 @@ class SubmittedModal extends Component {
   }
 
   componentDidUpdate = () => {
+    console.log('props in submit modal', this.props)
+    console.log('state in submit modal', this.state)
     if (this.props.newRecipeId && !this.state.show) {
       this.setState({show: true})
     } else if (this.props.error && !this.state.show) {

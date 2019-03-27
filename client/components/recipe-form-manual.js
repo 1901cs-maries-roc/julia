@@ -12,68 +12,70 @@ import Collapse from 'react-bootstrap/Collapse'
 import {withRouter} from 'react-router'
 
 class RecipeFormManual extends Component {
-  constructor() {
-    super()
-    this.state = {
-      name: '',
-      imgUrl: '/recipe-default.jpg',
-      prepTime: 0,
-      cookTime: 0,
-      totalTime: 0,
-      serving: 0,
-      steps: [],
-      ingredients: [],
-      validated: false,
-      newRecipeId: 0,
-      isSaving: false,
-      edit: false
-    }
-    this.baseState = this.state
+  constructor(props) {
+    super(props)
+    // this.state = {
+    //   name: '' || this.props.currentRecipe.name,
+    //   imgUrl: '/recipe-default.jpg',
+    //   prepTime: 0,
+    //   cookTime: 0,
+    //   totalTime: 0,
+    //   serving: 0,
+    //   steps: [],
+    //   ingredients: [],
+    //   validated: false,
+    //   newRecipeId: 0,
+    //   isSaving: false,
+    //   isEditForm: false
+    // }
+    // this.baseState = this.state
   }
 
   componentDidMount() {
     if (this.props.location.pathname !== '/recipes/addrecipe')
-      this.setState({edit: true})
+      this.setState({isEditForm: true})
   }
 
-  resetForm = () => {
-    this.setState(this.baseState)
-  }
+  // resetForm = () => {
+  //   this.setState(this.baseState)
+  // }
 
-  addOrUpdateRecipe = async (event, dispatchRecipe) => {
-    event.preventDefault()
-    const form = event.currentTarget
-    if (form.checkValidity() === false) {
-      event.stopPropagation()
-    } else {
-      const recipe = {
-        imgUrl: this.state.imgUrl,
-        name: this.state.name,
-        prepTime: this.state.prepTime,
-        cookTime: this.state.cookTime,
-        totalTime: this.state.totalTime,
-        serving: this.state.serving,
-        steps: this.state.steps,
-        ingredients: this.state.ingredients
-      }
-      // if (!this.state.edit)
-      this.setState({isSaving: true})
-      await dispatchRecipe(recipe)
-      // await this.props.addRecipeThunkDispatch(recipe)
-      const newRecipeId = this.props.newRecipe.id
-      this.setState({newRecipeId, isSaving: false})
-    }
-    this.setState({validated: true})
-  }
+  // addOrUpdateRecipe = async (event, dispatchRecipe) => {
+  //   event.preventDefault()
+  //   const form = event.currentTarget
+  //   if (form.checkValidity() === false) {
+  //     event.stopPropagation()
+  //   } else {
+  //     const recipe = {
+  //       // id: this.match.params.recipeId
+  //       imgUrl: this.state.imgUrl,
+  //       name: this.state.name,
+  //       prepTime: this.state.prepTime,
+  //       cookTime: this.state.cookTime,
+  //       totalTime: this.state.totalTime,
+  //       serving: this.state.serving,
+  //       steps: this.state.steps,
+  //       ingredients: this.state.ingredients
+  //     }
+  //     this.setState({isSaving: true})
+  //     await dispatchRecipe(recipe)
+  //     if (!this.state.isEditForm) {
+  //       const newRecipeId = this.props.newRecipe.id
+  //       this.setState({newRecipeId, isSaving: false})
+  //     }
+  //   }
+  //   this.setState({validated: true})
+  // }
 
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    })
-  }
+  // handleChange = event => {
+  //   this.setState({
+  //     [event.target.id]: event.target.value
+  //   })
+  // }
 
   handleSubmit = e => {
-    if (!this.state.edit) {
+    console.log('manual state in handlesubmit', this.state)
+    if (!this.state.isEditForm) {
       this.addOrUpdateRecipe(e, this.props.addRecipeThunkDispatch)
     } else {
       this.addOrUpdateRecipe(e, this.props.updateRecipeThunkDispatch)
@@ -81,18 +83,24 @@ class RecipeFormManual extends Component {
   }
 
   render() {
+    console.log(this.props)
     const {
       validated,
-      newRecipeId,
-      isSaving,
+      // newRecipeId,
+      // isSaving,
       imgUrl,
       name,
       steps,
+      prepTime,
+      cookTime,
+      totalTime,
+      serving,
       ingredients
-    } = this.state
-
+    } = this.props
+    console.log('state in form manual', this.state)
     return (
       <Form onSubmit={this.handleSubmit} noValidate validated={validated}>
+        {/* <SubmittedModal newRecipeId={newRecipeId} resetForm={this.resetForm} /> */}
         <Row>
           <Form.Row className="recipe-time">
             <Form.Group as={Col} md="2">
@@ -100,6 +108,7 @@ class RecipeFormManual extends Component {
               <Form.Control
                 placeholder="00"
                 id="prepTime"
+                value={prepTime}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -109,6 +118,7 @@ class RecipeFormManual extends Component {
               <Form.Control
                 placeholder="00"
                 id="cookTime"
+                value={cookTime}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -118,6 +128,7 @@ class RecipeFormManual extends Component {
               <Form.Control
                 placeholder="00"
                 id="totalTime"
+                value={totalTime}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -128,6 +139,7 @@ class RecipeFormManual extends Component {
                 type="number"
                 id="serving"
                 placeholder="0"
+                value={serving}
                 required
                 onChange={this.handleChange}
               />

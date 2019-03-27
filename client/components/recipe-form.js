@@ -29,9 +29,9 @@ class RecipeForm extends Component {
     this.baseState = this.state
   }
 
-  resetForm = () => {
-    this.setState(this.baseState)
-  }
+  // resetForm = () => {
+  //   this.setState(this.baseState)
+  // }
 
   scrape = async () => {
     this.setState({isSaving: true})
@@ -91,7 +91,7 @@ class RecipeForm extends Component {
           <h4>Manually Enter a Recipe</h4>
         </Row>
         <Collapse in={this.state.open}>
-          <RecipeFormManual />
+          <RecipeFormManual {...this.state} />
         </Collapse>
       </Container>
     )
