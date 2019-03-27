@@ -5,6 +5,8 @@ import {connect} from 'react-redux'
 import {getAllRecipesThunk} from '../store'
 import CardGroup from 'react-bootstrap/CardGroup'
 import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import Image from 'react-bootstrap/Image'
 
 export class AllRecipes extends Component {
   componentDidMount() {
@@ -30,7 +32,18 @@ export class AllRecipes extends Component {
 
     return (
       <div className="home-page">
-        <CardGroup>{recipe.length ? recipe : <div>loading</div>}</CardGroup>
+        <Row>
+          <Image className="header" src="/testcopy.jpg" />
+        </Row>
+        <Row>
+          {allRecipes.length ? (
+            <CardGroup>{recipe}</CardGroup>
+          ) : (
+            <div className="loading">
+              <img src="https://cdn.dribbble.com/users/82578/screenshots/2338455/loadinganimation.gif" />
+            </div>
+          )}
+        </Row>
       </div>
     )
   }

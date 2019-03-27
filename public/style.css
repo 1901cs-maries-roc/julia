@@ -1,5 +1,14 @@
 body {
   font-family: sans-serif;
+  /* background-image: url("./test.jpg");
+  background-repeat:no-repeat;
+  background-size:cover; */
+}
+
+.header {
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 0em;
 }
 
 a {
@@ -41,7 +50,7 @@ form div {
 }
 
 .home-page {
-  padding-top: 4em;
+  padding-top: 25em;
   padding-left: 5em;
   padding-right: 5em;
 }
@@ -132,13 +141,13 @@ h4,
 
 .navbar {
   width: 100vw !important;
-  -webkit-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
+  /* -webkit-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
   -moz-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
-  box-shadow: 0 16px 12px -12px rgb(199, 199, 199);
+  box-shadow: 0 16px 12px -12px rgb(199, 199, 199); */
   padding: 0rem 0rem !important;
   /* background-image:  */
   border-color: black !important;
-  border-width: 5px !important;
+  border-width: 2px !important;
 }
 
 #close-help {
@@ -219,7 +228,6 @@ h4,
 }
 /* also have a stop icon in publics folder if we want to replace the pause  */
 
-
 .helpIntro {
   color: rgb(45, 64, 71);
 }
@@ -239,5 +247,16 @@ h4,
   -webkit-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
   -moz-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
   box-shadow: 0 16px 12px -12px rgb(199, 199, 199);
-
 }
+
+/**loader**/
+.loading {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+
+/**loader**/
