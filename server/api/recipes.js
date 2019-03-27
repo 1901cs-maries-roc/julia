@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Recipe, Ingredient, Tag} = require('../db/models')
+const {Recipe, Ingredient} = require('../db/models')
 const cheerio = require('cheerio')
 const axios = require('axios')
 const {
@@ -65,7 +65,7 @@ router.post('/', async (req, res, next) => {
       name: req.body.name,
       prepTime: req.body.prepTime,
       cookTime: req.body.cookTime,
-      totalTime: req.body.waitTime,
+      totalTime: req.body.totalTime,
       serving: req.body.serving,
       steps: req.body.steps.split('\n'),
       ingredients: req.body.ingredients.split('\n')
@@ -95,7 +95,6 @@ router.post('/scrape', async (req, res, next) => {
         ingredients: findIngredients($),
         steps: findInstructions($)
       }
-      console.log('>> Scraped recipe: ', recipe)
       if (recipe.ingredients.length && recipe.steps.length) {
         const [savedRecipe] = await Recipe.findOrCreate({
           where: {name: recipe.name},
@@ -110,5 +109,46 @@ router.post('/scrape', async (req, res, next) => {
     }
   } catch (err) {
     res.status(204).send('Error in URL provided for scraping')
+  }
+})
+
+router.put('/:recipeId', async (req, res, next) => {
+  try {
+    const oldRecipe = await Recipe.findOne({
+      where: {id: req.params.recipeId}
+    })
+    // console.log('old recipe: ', oldRecipe)
+    console.log('old recips steps: ', req.body.steps)
+    console.log('old recips ing: ', req.body.ingredients)
+
+    const recipe = {
+      imgUrl: req.body.imgUrl,
+      name: req.body.name,
+      prepTime: req.body.prepTime,
+      cookTime: req.body.cookTime,
+      totalTime: req.body.totalTime,
+      serving: req.body.serving,
+      steps: req.body.steps,
+      ingredients: req.body.ingredients
+    }
+    const updated = await oldRecipe.update(recipe)
+    console.log('udpated recipe: ', updated)
+
+    res.status(200).json(updated)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:recipeId', async (req, res, next) => {
+  try {
+    const recipeId = req.params.recipeId
+    await Recipe.destroy({
+      where: {
+        id: recipeId
+      }
+    })
+  } catch (err) {
+    next(err)
   }
 })

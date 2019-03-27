@@ -20,9 +20,9 @@ script:
   - npm run build-client # make the bundle
 before_deploy:
   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-deploy:
-  skip_cleanup: true # prevents travis from deleting the build
-  provider: heroku
-  app: maries-roc-julia # see README
-  api_key:
-    secure: EqmdSyoMR4Hz6AVGp10BiYIYoBJftUgkSp9RQpnkmg4FayVv4QAeSEazO/V+I1XkFsHllRMJ2RCwNypx/Zdu+h377U+fV5JRWAdQkCuvrXfFYqpR96FBeDyOeja5ck5V1U/xvWi+LkmdEnXBh4Jio003YSiyXpvuMS6AFuhxF2Ob1snpkBOq+hdsankC+Mfvikf4m65lZ53g7ZxiprvES4OhkZmyaoW8vCln15PODyEz0p8QfO8b7Y1P4KShp+ZQthHzUw5Mb9D6NhDziMRbHVWEVJu39WlfAfsmCXnoH6BkwIPUj3UPFCZ52xdGs+VNgK2B1OfFB9D3XzpnJnkAt0LAf3WWDHpwcpPL4VOCTAxpsCRkMY1StfZoz8UpptKo6KcerMDmcBIJmPLrweoGWGUPevrPVdXnIxSyR8sHnAP6YOug8tZDoWIpv2LVqwsOMraF4JrxD40UpiGUTfFVx9f/EZFA80gNvOWPiG2oKUb6O+r9ihFRkmlZJNd8QuNI7hFcgWnCxl9StNeanm8WNMxm2oKDJW5Eo1Gj1osZKRnUHwDoz7KHrseWZExg+4yhtpdBmG/1yLsqWJLUChjEFq676lye5/Ae1Ky28/rGKyQDGA3FI/ojvBvl28aCyg+HJeXnq43T5kdgiPjmw90iSoIzaY19oNeEpCecOPbynUY=
+# deploy:
+#   skip_cleanup: true # prevents travis from deleting the build
+#   provider: heroku
+#   app: maries-roc-julia # see README
+#   api_key:
+#     secure: EqmdSyoMR4Hz6AVGp10BiYIYoBJftUgkSp9RQpnkmg4FayVv4QAeSEazO/V+I1XkFsHllRMJ2RCwNypx/Zdu+h377U+fV5JRWAdQkCuvrXfFYqpR96FBeDyOeja5ck5V1U/xvWi+LkmdEnXBh4Jio003YSiyXpvuMS6AFuhxF2Ob1snpkBOq+hdsankC+Mfvikf4m65lZ53g7ZxiprvES4OhkZmyaoW8vCln15PODyEz0p8QfO8b7Y1P4KShp+ZQthHzUw5Mb9D6NhDziMRbHVWEVJu39WlfAfsmCXnoH6BkwIPUj3UPFCZ52xdGs+VNgK2B1OfFB9D3XzpnJnkAt0LAf3WWDHpwcpPL4VOCTAxpsCRkMY1StfZoz8UpptKo6KcerMDmcBIJmPLrweoGWGUPevrPVdXnIxSyR8sHnAP6YOug8tZDoWIpv2LVqwsOMraF4JrxD40UpiGUTfFVx9f/EZFA80gNvOWPiG2oKUb6O+r9ihFRkmlZJNd8QuNI7hFcgWnCxl9StNeanm8WNMxm2oKDJW5Eo1Gj1osZKRnUHwDoz7KHrseWZExg+4yhtpdBmG/1yLsqWJLUChjEFq676lye5/Ae1Ky28/rGKyQDGA3FI/ojvBvl28aCyg+HJeXnq43T5kdgiPjmw90iSoIzaY19oNeEpCecOPbynUY=

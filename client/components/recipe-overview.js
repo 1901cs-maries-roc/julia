@@ -7,10 +7,14 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import DeleteModal from './recipe-delete-confirmation'
 
 class RecipeOverview extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      deleteClicked: false
+    }
     this.handleClick = this.handleClick.bind(this)
   }
 
@@ -18,6 +22,7 @@ class RecipeOverview extends Component {
     const recipeId = this.props.match.params.recipeId
     this.props.getRecipeThunkDispatch(recipeId)
   }
+
   componentWillUnmount() {
     clearCurrentRecipe()
   }
@@ -25,6 +30,15 @@ class RecipeOverview extends Component {
     event.preventDefault()
     const recipeId = this.props.match.params.recipeId
     this.props.history.push(`/recipes/${recipeId}/cooking`)
+  }
+
+  delete = () => {
+    this.setState({deleteClicked: true})
+  }
+
+  edit = () => {
+    const recipeId = this.props.match.params.recipeId
+    this.props.history.push(`/recipes/${recipeId}/editrecipe`)
   }
 
   render() {
@@ -36,11 +50,13 @@ class RecipeOverview extends Component {
       totalTime,
       serving,
       steps,
-      ingredients
+      ingredients,
+      id
     } = this.props.currentRecipe
 
     return (
       <Container className="container">
+        <DeleteModal deleteClicked={this.state.deleteClicked} recipeId={id} />
         <Row>
           <Col xs="12" sm="12" md="12" lg="6">
             <img
@@ -52,8 +68,15 @@ class RecipeOverview extends Component {
               className="image-overview"
             />
           </Col>
-
           <Col md={{span: 12, offset: 0.5}} lg={{span: 6, offset: 0.5}}>
+            <Row>
+              <Button onClick={this.edit} variant="outline-secondary" size="sm">
+                Edit
+              </Button>
+              <Button onClick={this.delete} variant="outline-danger" size="sm">
+                Delete
+              </Button>
+            </Row>
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong>{' '}

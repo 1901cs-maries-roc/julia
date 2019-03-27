@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import Modal from 'react-bootstrap/Modal'
 import {clearError} from '../store'
 
+//modal for url error/successful handling
 class SubmittedModal extends Component {
   constructor() {
     super()
@@ -16,6 +17,8 @@ class SubmittedModal extends Component {
       this.setState({show: true})
     } else if (this.props.error && !this.state.show) {
       this.setState({show: true})
+    } else if (this.props.wasUpdated && !this.state.show) {
+      this.setState({show: true})
     }
   }
 
@@ -26,11 +29,9 @@ class SubmittedModal extends Component {
   }
 
   render() {
-    console.log('in render: ', this.props)
     const {error} = this.props
-    const recipeUrl = `${window.location.origin}/recipes/${
-      this.props.newRecipeId
-    }`
+    const recipeId = this.props.newRecipeId || this.props.updatedRecipeId
+    const recipeUrl = `${window.location.origin}/recipes/${recipeId}`
     return (
       <>
         <Modal show={this.state.show} onHide={this.handleClose}>

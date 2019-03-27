@@ -1,16 +1,16 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Login,
   Signup,
-  UserHome,
   RecipeStep,
   RecipeOverview,
   AllRecipes,
   RecipeForm,
-  NoMatch
+  NoMatch,
+  RecipeEdit
 } from './components'
 import {me} from './store'
 
@@ -32,6 +32,11 @@ class Routes extends Component {
         <Route exact path="/" component={AllRecipes} />
         <Route exact path="/recipes/addrecipe" component={RecipeForm} />
         <Route exact path="/recipes/:recipeId" component={RecipeOverview} />
+        <Route
+          exact
+          path="/recipes/:recipeId/editrecipe"
+          component={RecipeEdit}
+        />
         <Route exact path="/recipes/:recipeId/cooking" component={RecipeStep} />
         <Route path="*" component={NoMatch} status={404} />
         {isLoggedIn && (

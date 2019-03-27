@@ -6,6 +6,11 @@ a {
   text-decoration: none;
 }
 
+.card-title {
+  color: #657c85;
+  text-decoration-color: black;
+}
+
 label {
   display: block;
 }
