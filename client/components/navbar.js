@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {logout} from '../store'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
+// import NavDropdown from 'react-bootstrap/NavDropdown'
 
 const NavigationBar = ({handleClick, isLoggedIn}) => (
   <Navbar
@@ -12,7 +12,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
     collapseOnSelect
     expand="lg"
     // bg="dark"
-    variant="light"
+    // variant="light"
     className="navbar"
   >
     <Navbar.Brand href="/">
@@ -28,7 +28,8 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="ml-auto">
         <Nav.Link href="/">Recipes</Nav.Link>
-        <Nav.Link href="/recipes/addrecipe">Add Recipe</Nav.Link>
+        {/* <Nav.Link href="/recipes/addrecipe"><img src="/add-icon.png" height="50"/></Nav.Link> */}
+        <Nav.Link href="/recipes/addrecipe">+ Add Recipe</Nav.Link>
         {/* <NavDropdown title="Recipes" id="nav-dropdown">
           <NavDropdown.Item
             href="#action/4.1"

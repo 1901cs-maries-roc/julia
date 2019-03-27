@@ -8,7 +8,23 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 
-//randomize the quote
+let juliaQuotes = [
+  'People who love to eat are always the best people! --Julia Child',
+  "It's so beautifully arranged on the plate — you know someone's fingers have been all over it. --Julia Child",
+  'A party without cake is just a meeting. --Julia Child',
+  "If you're afraid of butter, use cream --Julia Child",
+  'Always start out with a larger pot than what you think you need --Julia Child'
+]
+
+const getRandomNum = max => {
+  return Math.floor(Math.random() * Math.floor(max))
+}
+
+const getRandomQuote = () => {
+  const max = juliaQuotes.length
+  const randomNum = getRandomNum(max)
+  return juliaQuotes.filter((quote, i) => quote[i] === quote[randomNum])
+}
 
 export class AllRecipes extends Component {
   componentDidMount() {
@@ -36,9 +52,7 @@ export class AllRecipes extends Component {
       <div>
         <Jumbotron className="jumbotron">
           <img className="headerIcon" src="/juliaicon_white.png" />
-          <h2 className="headerText">
-            People who love to eat are always the best people! --Julia Child
-          </h2>
+          <h2 className="headerText">{getRandomQuote()}</h2>
           {/* <p>
               <Button variant="primary">Learn more</Button>
             </p> */}
