@@ -24,7 +24,7 @@ export default function IngredientsList(props) {
   const ingredientsList = props.isOverview ? ingredients : filteredIngredients
 
   return (
-    <Col id="ingredients">
+    <>
       {ingredientsList.length ? (
         <ul id={props.isOverview ? null : 'ingredients-list'}>
           {ingredientsList.map((i, idx) => <li key={idx}>{i}</li>)}
@@ -32,6 +32,6 @@ export default function IngredientsList(props) {
       ) : (
         <p id="ingredients-list">There are no ingredients in this step</p>
       )}
-    </Col>
+    </>
   )
 }

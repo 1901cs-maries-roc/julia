@@ -163,41 +163,45 @@ class RecipeStep extends Component {
                 {this.props.currentRecipe.name}
               </Button>
               <Button variant="outline-dark" size="sm" disabled>
-                Step {stepIndex + 1}/{steps ? steps.length : 0}
+                Step {stepIndex + 1} / {steps ? steps.length : 0}
               </Button>
             </ButtonGroup>
           </Col>
-          <Col className="justify-content-end" md={{span: 5, offset: 0.5}}>
+          <Col className="justify-content-end">
             <HelpInstructions />
           </Col>
         </Row>
 
         <Row className="row-grid test">
-          <Col md={{span: 6, offset: 0}}>
+          <Col md={{span: 8, offset: 0}}>
             <div>
               <h5 id="step-instructions">{steps[stepIndex]}</h5>
             </div>
           </Col>
-          <Col id="step-ing" md={{span: 5, offset: 0.5}}>
+          <Col id="step-ing">
             <IngredientsList
               ingredients={this.props.currentRecipe.ingredients}
               instructions={steps[stepIndex]}
             />
           </Col>
         </Row>
-        <Julia
-          listening={this.state.isListening}
-          processing={this.state.isProcessingInput}
-        />
-        <Row className="justify-content-md-center">
-          <StepNav
-            stepIndex={stepIndex}
-            steps={steps}
-            annyang={this.annyang}
-            goBack={this.goBack}
-            goToNext={this.goToNext}
-            stop={this.stop}
-          />
+        <Row>
+          <Col md={{span: 8, offset: 0}}>
+            <Julia
+              listening={this.state.isListening}
+              processing={this.state.isProcessingInput}
+            />
+          </Col>
+          <Col>
+            <StepNav
+              stepIndex={stepIndex}
+              steps={steps}
+              annyang={this.annyang}
+              goBack={this.goBack}
+              goToNext={this.goToNext}
+              stop={this.stop}
+            />
+          </Col>
         </Row>
       </Container>
     )

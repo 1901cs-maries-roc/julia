@@ -39,7 +39,7 @@ class HelpInstructions extends Component {
           container={this}
           containerPadding={20}
         >
-          <Popover id="popover-contained">
+          <Popover id="help-popover">
             <div id="close-help">
               <a
                 onClick={() => this.setState({show: !show})}
