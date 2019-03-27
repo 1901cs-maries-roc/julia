@@ -70,18 +70,6 @@ form div {
   bottom: 0;
 }
 
-/* adjustments on navbar */
-a.navbar-brand {
-  padding: 1px;
-  margin-left: 5rem;
-}
-
-.ml-auto,
-.mx-auto {
-  margin-right: 5rem;
-}
-/* adjustments on navbar */
-
 h1,
 h2,
 h3,
@@ -125,16 +113,30 @@ h4,
   color: #49656f;
 }
 
+/* adjustments on navbar */
 .navbar {
-  width: 100vw !important;
-  -webkit-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
-  -moz-box-shadow: 0 8px 6px -6px rgb(199, 199, 199);
-  box-shadow: 0 16px 12px -12px rgb(199, 199, 199);
+  box-shadow: -15px 16px 20px -19px rgb(24, 24, 24);
   padding: 0rem 0rem !important;
-  /* background-image:  */
-  border-color: black !important;
-  border-width: 5px !important;
+  color: white;
+  background-color: rgb(201, 112, 3) !important;
+  height: 65px;
 }
+
+a.nav-link {
+  color: white !important;
+  vertical-align: middle;
+}
+
+a.navbar-brand {
+  padding: 1px;
+  margin-left: 2rem;
+}
+
+.ml-auto,
+.mx-auto {
+  margin-right: 2rem;
+}
+/* adjustments on navbar */
 
 #help-btn {
   display: flex;
@@ -165,12 +167,6 @@ h4,
 .player,
 .julia {
   display: flex;
-  /* position: center;
-  position: fixed; */
-  /* z-index: 5; */
-  /* margin-top: 20em; */
-  /* bottom: 0; */
-  /* margin-bottom: 2em; */
   border-radius: 15px;
   width: 100%;
   height: 80px;
@@ -302,4 +298,39 @@ h4,
   width: 50%;
   padding: 10px;
   text-align: center;
+}
+
+.jumbotron {
+  background-image: url(/header_orange.jpg);
+  border-radius: 0em !important;
+  background-size: cover;
+  height: 100%;
+  -webkit-box-shadow: 0 8px 6px -6px rgb(24, 24, 24);
+  -moz-box-shadow: 0 8px 6px -6px rgb(24, 24, 24);
+  box-shadow: 0 16px 12px -12px rgb(24, 24, 24);
+}
+
+.headerIcon {
+  display: block;
+  justify-content: center;
+  margin: auto;
+  width: 200px;
+  padding: 10px;
+  text-align: center;
+  text-shadow: 2px 2px rgb(27, 27, 27);
+}
+
+.headerText {
+  padding: 40px;
+  text-align: center;
+  color: orange;
+  /* text-size-adjust: 80%; */
+  font-size: 120%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  text-shadow: 2px 2px rgb(27, 27, 27);
+}
+
+p.card-text {
+  color: #49656f;
+  font-family: 'Roboto Slab', serif;
 }

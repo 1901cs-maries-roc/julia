@@ -4,23 +4,23 @@ import {connect} from 'react-redux'
 import {logout} from '../store'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
+// import NavDropdown from 'react-bootstrap/NavDropdown'
 
 const NavigationBar = ({handleClick, isLoggedIn}) => (
   <Navbar
     sticky="top"
     collapseOnSelect
     expand="lg"
-    bg="light"
-    variant="light"
+    // bg="dark"
+    // variant="light"
     className="navbar"
   >
     <Navbar.Brand href="/">
       <img
         alt=""
-        src="/juliaicon.png"
-        width="140"
-        height="80"
+        src="/juliaicon_mini.png"
+        // width="140"
+        height="40"
         className="d-inline-block align-top"
       />
     </Navbar.Brand>
@@ -28,7 +28,8 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="ml-auto">
         <Nav.Link href="/">Recipes</Nav.Link>
-        <Nav.Link href="/recipes/addrecipe">Add Recipe</Nav.Link>
+        {/* <Nav.Link href="/recipes/addrecipe"><img src="/add-icon.png" height="50"/></Nav.Link> */}
+        <Nav.Link href="/recipes/addrecipe">+ Add Recipe</Nav.Link>
         {/* <NavDropdown title="Recipes" id="nav-dropdown">
           <NavDropdown.Item
             href="#action/4.1"
@@ -64,19 +65,19 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
             All Recipes
           </NavDropdown.Item>
         </NavDropdown> */}
-        {isLoggedIn ? (
-          <Nav>
-            <NavDropdown title="User" id="collasible-nav-dropdown">
-              {/* <NavDropdown.Item href="#">My Account</NavDropdown.Item> */}
-              <NavDropdown.Item href="#" onClick={handleClick}>
-                Logout
+        {/* {isLoggedIn ? ( */}
+        {/* <Nav> */}
+        {/* <NavDropdown title="User" id="collasible-nav-dropdown"> */}
+        {/* <NavDropdown.Item href="#">My Account</NavDropdown.Item> */}
+        {/* <NavDropdown.Item href="#" onClick={handleClick}> */}
+        {/* Logout
               </NavDropdown.Item>
               <NavDropdown.Divider />
-            </NavDropdown>
-            {/* <Nav.Link href="Favorites">
+            </NavDropdown> */}
+        {/* <Nav.Link href="Favorites">
             <i className="fab fa-gratipay" />
           </Nav.Link> */}
-          </Nav>
+        {/* </Nav>
         ) : (
           <Nav>
             <NavDropdown title="User" id="collasible-nav-dropdown">
@@ -84,7 +85,7 @@ const NavigationBar = ({handleClick, isLoggedIn}) => (
               <NavDropdown.Item href="/login">Login</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-        )}
+        )} */}
       </Nav>
     </Navbar.Collapse>
   </Navbar>
