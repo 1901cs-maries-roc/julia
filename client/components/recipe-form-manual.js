@@ -74,7 +74,6 @@ class RecipeFormManual extends Component {
   // }
 
   handleSubmit = e => {
-    console.log('manual state in handlesubmit', this.state)
     if (!this.state.isEditForm) {
       this.addOrUpdateRecipe(e, this.props.addRecipeThunkDispatch)
     } else {
@@ -95,11 +94,13 @@ class RecipeFormManual extends Component {
       cookTime,
       totalTime,
       serving,
-      ingredients
+      ingredients,
+      handleChange,
+      handleSubmit
     } = this.props
     console.log('state in form manual', this.state)
     return (
-      <Form onSubmit={this.handleSubmit} noValidate validated={validated}>
+      <Form onSubmit={handleSubmit} noValidate validated={validated}>
         {/* <SubmittedModal newRecipeId={newRecipeId} resetForm={this.resetForm} /> */}
         <Row>
           <Form.Row className="recipe-time">
@@ -109,7 +110,7 @@ class RecipeFormManual extends Component {
                 placeholder="00"
                 id="prepTime"
                 value={prepTime}
-                onChange={this.handleChange}
+                onChange={handleChange}
               />
             </Form.Group>
 
@@ -119,7 +120,7 @@ class RecipeFormManual extends Component {
                 placeholder="00"
                 id="cookTime"
                 value={cookTime}
-                onChange={this.handleChange}
+                onChange={handleChange}
               />
             </Form.Group>
 
@@ -129,7 +130,7 @@ class RecipeFormManual extends Component {
                 placeholder="00"
                 id="totalTime"
                 value={totalTime}
-                onChange={this.handleChange}
+                onChange={handleChange}
               />
             </Form.Group>
 
@@ -141,7 +142,7 @@ class RecipeFormManual extends Component {
                 placeholder="0"
                 value={serving}
                 required
-                onChange={this.handleChange}
+                onChange={handleChange}
               />
               <Form.Control.Feedback type="invalid">
                 Please enter a serving.
@@ -159,7 +160,7 @@ class RecipeFormManual extends Component {
                   required={true}
                   placeholder="Enter title"
                   value={name}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please enter a title.
@@ -176,7 +177,7 @@ class RecipeFormManual extends Component {
                   required
                   // &#10 triggers a new line to show user an ex
                   placeholder="Ingredient 1 &#10;Ingredient 2 &#10;Ingredient 3"
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 />
                 <Form.Text className="text-muted">
                   Enter each ingredient on its own line.
@@ -195,7 +196,7 @@ class RecipeFormManual extends Component {
                   value={steps}
                   required
                   placeholder="Instruction 1 &#10;Instruction 2 &#10;Instruction 3"
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 />
                 <Form.Text className="text-muted">
                   Enter each instruction on its own line.
@@ -212,7 +213,7 @@ class RecipeFormManual extends Component {
                   placeholder="ex: https://png.pngtree.com/element_origin_min_pic/16/07/09/155780a93ebd512.jpg "
                   id="imgUrl"
                   value={imgUrl}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 />
                 <img
                   src={imgUrl}

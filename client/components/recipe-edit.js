@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getRecipeThunk, clearCurrentRecipe} from '../store'
+import {getRecipeThunk, clearCurrentRecipe, updateRecipeThunk} from '../store'
 import Container from 'react-bootstrap/Container'
-import RecipeFormUpdated from './recipe-form-updated'
+import SubmittedModal from './recipe-form-submitted'
 import RecipeFormManual from './recipe-form-manual'
 
 class RecipeEdit extends Component {
@@ -19,7 +19,7 @@ class RecipeEdit extends Component {
       ingredients: [],
       validated: false,
       scrapeUrl: '',
-      newRecipeId: 0,
+      wasUpdated: false,
       isSaving: false,
       open: false
     }
@@ -35,18 +35,24 @@ class RecipeEdit extends Component {
     clearCurrentRecipe()
   }
 
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value
+    })
+  }
+
   resetForm = () => {
     this.setState(this.baseState)
   }
 
-  addOrUpdateRecipe = async (event, dispatchRecipe) => {
+  addOrUpdateRecipe = async event => {
     event.preventDefault()
     const form = event.currentTarget
     if (form.checkValidity() === false) {
       event.stopPropagation()
     } else {
       const recipe = {
-        // id: this.match.params.recipeId
+        id: this.props.match.params.recipeId,
         imgUrl: this.state.imgUrl,
         name: this.state.name,
         prepTime: this.state.prepTime,
@@ -57,11 +63,8 @@ class RecipeEdit extends Component {
         ingredients: this.state.ingredients
       }
       this.setState({isSaving: true})
-      await dispatchRecipe(recipe)
-      if (!this.state.isEditForm) {
-        const newRecipeId = this.props.newRecipe.id
-        this.setState({newRecipeId, isSaving: false})
-      }
+      await this.props.updateRecipeThunkDispatch(recipe)
+      this.setState({wasUpdated: true, isSaving: false})
     }
     this.setState({validated: true})
   }
@@ -69,8 +72,12 @@ class RecipeEdit extends Component {
   render() {
     return (
       <Container>
-        {/* <RecipeFormUpdated currentRecipe={this.props.currentRecipe} /> */}
-        <RecipeFormManual {...this.state} />
+        <SubmittedModal newRecipeId={newRecipeId} resetForm={this.resetForm} />
+        <RecipeFormManual
+          {...this.state}
+          handleChange={this.handleChange}
+          handleSubmit={this.addOrUpdateRecipe}
+        />
       </Container>
     )
   }
@@ -84,7 +91,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getRecipeThunkDispatch: recipeId => dispatch(getRecipeThunk(recipeId))
+    getRecipeThunkDispatch: recipeId => dispatch(getRecipeThunk(recipeId)),
+    updateRecipeThunkDispatch: recipe => dispatch(updateRecipeThunk(recipe))
   }
 }
 

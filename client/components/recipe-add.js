@@ -91,7 +91,11 @@ class RecipeForm extends Component {
           <h4>Manually Enter a Recipe</h4>
         </Row>
         <Collapse in={this.state.open}>
-          <RecipeFormManual {...this.state} />
+          <RecipeFormManual
+            {...this.state}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+          />
         </Collapse>
       </Container>
     )

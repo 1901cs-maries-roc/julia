@@ -78,6 +78,7 @@ export const addRecipeFromUrl = url => async dispatch => {
 
 export const updateRecipeThunk = recipe => async dispatch => {
   try {
+    console.log('in update thunk', recipe)
     const updatedRecipe = await axios.put(`/api/recipes/${recipe.id}`, recipe)
     dispatch(updateRecipe(updatedRecipe.data))
   } catch (err) {
