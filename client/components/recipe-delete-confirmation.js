@@ -24,6 +24,11 @@ class DeleteModal extends Component {
     }
   }
 
+  handleEdit = () => {
+    const recipeId = this.props.match.params.recipeId
+    this.props.history.push(`/recipes/${recipeId}/editrecipe`)
+  }
+
   handleDelete = () => {
     this.props.deleteRecipeThunkDispatch(this.props.recipeId)
     this.props.history.push('/')
