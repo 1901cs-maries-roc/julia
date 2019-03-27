@@ -15,32 +15,22 @@ class DeleteModal extends Component {
   }
 
   componentDidUpdate = () => {
-    console.log('Modal state: ', this.state)
     if (
       this.props.deleteClicked &&
       !this.state.show &&
       !this.state.closeClicked
     ) {
-      // if (this.props.deleteClicked && !this.state.show)
       this.setState({show: true})
     }
   }
 
   handleDelete = () => {
-    // this.setState({show: false, closeClicked: true})
     this.props.deleteRecipeThunkDispatch(this.props.recipeId)
     this.props.history.push('/')
   }
 
-  handleEdit = () => {
-    // this.setState({show: false, closeClicked: true})
-    // this.props.resetForm()
-    //redirect to edit page
-  }
-
   handleClose = () => {
     this.setState({show: false, closeClicked: true})
-    // this.setState({show: false})
   }
 
   render() {

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Recipe, Ingredient, Tag} = require('../db/models')
+const {Recipe, Ingredient} = require('../db/models')
 const cheerio = require('cheerio')
 const axios = require('axios')
 const {
@@ -95,7 +95,6 @@ router.post('/scrape', async (req, res, next) => {
         ingredients: findIngredients($),
         steps: findInstructions($)
       }
-      console.log('>> Scraped recipe: ', recipe)
       if (recipe.ingredients.length && recipe.steps.length) {
         const [savedRecipe] = await Recipe.findOrCreate({
           where: {name: recipe.name},

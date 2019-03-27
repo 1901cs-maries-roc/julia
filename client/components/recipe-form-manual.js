@@ -1,77 +1,21 @@
 import React, {Component} from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {addRecipeThunk, updateRecipeThunk} from '../store/recipe'
 import {connect} from 'react-redux'
-import AddUrl from './recipe-form-addUrl'
-import SubmittedModal from './recipe-form-submitted'
-import Collapse from 'react-bootstrap/Collapse'
 import {withRouter} from 'react-router'
 
 class RecipeFormManual extends Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    //   name: '' || this.props.currentRecipe.name,
-    //   imgUrl: '/recipe-default.jpg',
-    //   prepTime: 0,
-    //   cookTime: 0,
-    //   totalTime: 0,
-    //   serving: 0,
-    //   steps: [],
-    //   ingredients: [],
-    //   validated: false,
-    //   newRecipeId: 0,
-    //   isSaving: false,
-    //   isEditForm: false
-    // }
-    // this.baseState = this.state
   }
 
   componentDidMount() {
     if (this.props.location.pathname !== '/recipes/addrecipe')
       this.setState({isEditForm: true})
   }
-
-  // resetForm = () => {
-  //   this.setState(this.baseState)
-  // }
-
-  // addOrUpdateRecipe = async (event, dispatchRecipe) => {
-  //   event.preventDefault()
-  //   const form = event.currentTarget
-  //   if (form.checkValidity() === false) {
-  //     event.stopPropagation()
-  //   } else {
-  //     const recipe = {
-  //       // id: this.match.params.recipeId
-  //       imgUrl: this.state.imgUrl,
-  //       name: this.state.name,
-  //       prepTime: this.state.prepTime,
-  //       cookTime: this.state.cookTime,
-  //       totalTime: this.state.totalTime,
-  //       serving: this.state.serving,
-  //       steps: this.state.steps,
-  //       ingredients: this.state.ingredients
-  //     }
-  //     this.setState({isSaving: true})
-  //     await dispatchRecipe(recipe)
-  //     if (!this.state.isEditForm) {
-  //       const newRecipeId = this.props.newRecipe.id
-  //       this.setState({newRecipeId, isSaving: false})
-  //     }
-  //   }
-  //   this.setState({validated: true})
-  // }
-
-  // handleChange = event => {
-  //   this.setState({
-  //     [event.target.id]: event.target.value
-  //   })
-  // }
 
   handleSubmit = e => {
     if (!this.state.isEditForm) {
@@ -85,8 +29,6 @@ class RecipeFormManual extends Component {
     console.log(this.props)
     const {
       validated,
-      // newRecipeId,
-      // isSaving,
       imgUrl,
       name,
       steps,
@@ -98,10 +40,8 @@ class RecipeFormManual extends Component {
       handleChange,
       handleSubmit
     } = this.props
-    console.log('state in form manual', this.state)
     return (
       <Form onSubmit={handleSubmit} noValidate validated={validated}>
-        {/* <SubmittedModal newRecipeId={newRecipeId} resetForm={this.resetForm} /> */}
         <Row>
           <Form.Row className="recipe-time">
             <Form.Group as={Col} md="2">

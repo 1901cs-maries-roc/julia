@@ -13,8 +13,6 @@ class SubmittedModal extends Component {
   }
 
   componentDidUpdate = () => {
-    console.log('props in submit modal', this.props)
-    console.log('state in submit modal', this.state)
     if (this.props.newRecipeId && !this.state.show) {
       this.setState({show: true})
     } else if (this.props.error && !this.state.show) {
@@ -31,7 +29,6 @@ class SubmittedModal extends Component {
   }
 
   render() {
-    console.log('in render: ', this.props)
     const {error} = this.props
     const recipeId = this.props.newRecipeId || this.props.updatedRecipeId
     const recipeUrl = `${window.location.origin}/recipes/${recipeId}`

@@ -19,8 +19,8 @@ const CLEAR_ERROR = 'CLEAR_ERROR'
 /**
  * ACTION CREATORS
  */
-const getAllRecipes = recipes => ({type: GET_ALL_RECIPES, recipes})
-const getRecipe = recipe => ({type: GET_RECIPE, recipe})
+export const getAllRecipes = recipes => ({type: GET_ALL_RECIPES, recipes})
+export const getRecipe = recipe => ({type: GET_RECIPE, recipe})
 export const nextStep = currentStep => ({
   type: NEXT_STEP,
   nextStep: currentStep + 1
@@ -40,6 +40,7 @@ export const addByUrlError = () => ({
   error: 'Error in scraping'
 })
 export const clearError = () => ({type: CLEAR_ERROR})
+
 /**
  * THUNK CREATORS
  */
