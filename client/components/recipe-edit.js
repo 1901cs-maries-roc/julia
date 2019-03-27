@@ -36,8 +36,14 @@ class RecipeEdit extends Component {
   }
 
   handleChange = event => {
+    let splittedValue
+    if (event.target.id === 'steps' || event.target.id === 'ingredients') {
+      splittedValue = event.target.value.split(',')
+    } else {
+      splittedValue = event.target.value
+    }
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.id]: splittedValue
     })
   }
 
