@@ -185,7 +185,7 @@ class RecipeStep extends Component {
             />
           </Col>
         </Row>
-        <Row>
+        <Row id="bottom-nav">
           <Col md={{span: 8, offset: 0}}>
             <Julia
               listening={this.state.isListening}

@@ -20,6 +20,10 @@ form div {
   display: inline-block;
 }
 
+#app {
+  margin: auto;
+}
+
 #julia {
   display: flex;
   justify-content: center;
@@ -151,6 +155,10 @@ h4,
 
 #help-popover {
   background-color: rgb(237, 236, 236);
+}
+
+#bottom-nav {
+  margin-top: 1em;
 }
 
 .player,
