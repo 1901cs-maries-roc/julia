@@ -116,9 +116,9 @@ class RecipeStep extends Component {
       annyang.addCallback('soundstart', () => {
         if (!responsiveVoice.isPlaying()) {
           // if user is speaking
-          // this.setState({isProcessingInput: true})
+          this.setState({isProcessingInput: true})
         }
-        // window.setTimeout(() => this.setState({isProcessingInput: false}), 3000)
+        window.setTimeout(() => this.setState({isProcessingInput: false}), 3000)
       })
 
       annyang.addCallback('resultMatch', (userSaid, commandText) => {
@@ -146,7 +146,7 @@ class RecipeStep extends Component {
     return (
       <Container className="container">
         <Row>
-          <Col md={{span: 6, offset: 0}}>
+          <Col md={{span: 8, offset: 0}}>
             <ButtonGroup>
               <Button
                 variant="secondary"
@@ -182,6 +182,7 @@ class RecipeStep extends Component {
             />
           </Col>
         </Row>
+
         <Row id="bottom-nav">
           <Col md={{span: 8, offset: 0}}>
             <Julia
