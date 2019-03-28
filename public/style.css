@@ -101,16 +101,31 @@ h4,
   max-height: 400px;
 }
 
-.mic-listening {
-  color: green;
+#mic-listening,
+#mic-processing,
+#mic-off {
+  text-align: center;
+  width: 3.5em;
+  height: 3.5em;
+  border-radius: 50%;
+  display: flex;
 }
 
-.mic-processing {
-  color: orange;
+#mic-listening {
+  background-color: green;
 }
 
-.mic-off {
-  color: #49656f;
+#mic-processing {
+  background-color: yellow;
+}
+
+#mic-off {
+  background-color: #49656f;
+}
+
+.fa-microphone {
+  color: #ffffff;
+  margin: auto;
 }
 
 /* adjustments on navbar */
