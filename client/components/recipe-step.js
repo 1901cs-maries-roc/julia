@@ -56,8 +56,9 @@ class RecipeStep extends Component {
 
   goBack = () => {
     const stepIndex = this.props.currentStepIndex
-    if (this.props.currentStepIndex === 0 && this.state.isNarrating) {
-      speak('You are on the first step of the recipe')
+    if (this.props.currentStepIndex === 0) {
+      if (this.state.isNarrating)
+        speak('You are on the first step of the recipe')
     } else {
       if (this.state.isNarrating) speak('Previous step')
       this.props.goToPrevStep(stepIndex)
