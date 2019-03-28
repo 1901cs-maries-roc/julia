@@ -44,6 +44,13 @@ form div {
   margin-left: 0.5em;
 }
 
+#edit-delete-btns {
+  display: flex;
+  justify-content: flex-end;
+  /* padding-left: 15px;
+  padding-right: 15px; */
+}
+
 .img-resize {
   height: 186.33px;
   object-fit: cover;
@@ -112,11 +119,11 @@ h4,
 }
 
 #mic-listening {
-  background-color: green;
+  background-color: rgb(60, 145, 60);
 }
 
 #mic-processing {
-  background-color: yellow;
+  background-color: orange;
 }
 
 #mic-off {

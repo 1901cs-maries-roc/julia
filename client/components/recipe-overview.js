@@ -69,14 +69,14 @@ class RecipeOverview extends Component {
             />
           </Col>
           <Col md={{span: 12, offset: 0.5}} lg={{span: 6, offset: 0.5}}>
-            <Row>
+            <div id="edit-delete-btns">
               <Button onClick={this.edit} variant="outline-secondary" size="sm">
                 Edit
               </Button>
               <Button onClick={this.delete} variant="outline-danger" size="sm">
                 Delete
               </Button>
-            </Row>
+            </div>
             <h1>{name}</h1>
             <p>
               <strong>Prep Time:</strong>{' '}
@@ -105,6 +105,7 @@ class RecipeOverview extends Component {
             </ButtonToolbar>
           </Col>
         </Row>
+
         <Row className="row-grid">
           <Col md="12">
             <div id="recipe-steps">
