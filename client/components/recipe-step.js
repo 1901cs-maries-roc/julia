@@ -50,31 +50,29 @@ class RecipeStep extends Component {
   componentWillUnmount = () => {
     annyang.abort()
     responsiveVoice.speak('Bon appetit! Julia is now off.')
-    this.props.restartRecipe()
-    clearCurrentRecipe()
+    this.props.restartSteps()
+    this.props.clearCurrentRecipe()
   }
 
   goBack = () => {
     const stepIndex = this.props.currentStepIndex
     if (this.props.currentStepIndex === 0) {
-      this.state.isNarrating && speak('You are on the first step of the recipe')
+      if (this.state.isNarrating)
+        speak('You are on the first step of the recipe')
     } else {
-      this.state.isNarrating && speak('Previous step')
+      if (this.state.isNarrating) speak('Previous step')
       this.props.goToPrevStep(stepIndex)
     }
   }
 
   goToNext = () => {
-    if (
-      this.props.currentStepIndex >=
-      this.props.currentRecipe.steps.length - 1
-    ) {
-      this.state.isNarrating && speak("You've reached the end of the recipe")
+    const stepIndex = this.props.currentStepIndex
+    const steps = this.props.currentRecipe.steps
+    if (stepIndex >= steps.length - 1) {
+      if (this.state.isNarrating) speak("You've reached the end of the recipe")
     } else {
-      const stepIndex = this.props.currentStepIndex
-      const steps = this.props.currentRecipe.steps
+      if (this.state.isNarrating) speak(steps[stepIndex + 1])
       this.props.goToNextStep(stepIndex)
-      this.state.isNarrating && speak(steps[stepIndex + 1])
     }
   }
 
@@ -148,7 +146,7 @@ class RecipeStep extends Component {
     return (
       <Container className="container">
         <Row>
-          <Col md={{span: 6, offset: 0}}>
+          <Col md={{span: 8, offset: 0}}>
             <ButtonGroup>
               <Button
                 variant="secondary"
@@ -184,6 +182,7 @@ class RecipeStep extends Component {
             />
           </Col>
         </Row>
+
         <Row id="bottom-nav">
           <Col md={{span: 8, offset: 0}}>
             <Julia
@@ -219,7 +218,8 @@ const mapDispatch = dispatch => {
     getRecipe: recipeId => dispatch(getRecipeThunk(recipeId)),
     goToNextStep: currentStep => dispatch(nextStep(currentStep)),
     goToPrevStep: currentStep => dispatch(prevStep(currentStep)),
-    restartRecipe: () => dispatch(restartSteps())
+    restartSteps: () => dispatch(restartSteps()),
+    clearCurrentRecipe: () => dispatch(clearCurrentRecipe())
   }
 }
 

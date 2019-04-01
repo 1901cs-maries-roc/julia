@@ -20,7 +20,7 @@ export const repeatStep = () => {
 }
 
 export const listIngredients = () => {
-  speak(document.getElementById('ingredients').innerText)
+  speak(document.getElementById('ingredients-list').innerText)
 }
 
 export const resume = () => {
