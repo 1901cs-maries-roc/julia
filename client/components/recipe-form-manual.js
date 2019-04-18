@@ -26,7 +26,6 @@ class RecipeFormManual extends Component {
   }
 
   render() {
-    console.log(this.props)
     const {
       validated,
       imgUrl,
