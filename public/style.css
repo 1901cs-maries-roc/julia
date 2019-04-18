@@ -44,6 +44,13 @@ form div {
   margin-left: 0.5em;
 }
 
+#edit-delete-btns {
+  display: flex;
+  justify-content: flex-end;
+  /* padding-left: 15px;
+  padding-right: 15px; */
+}
+
 .img-resize {
   height: 186.33px;
   object-fit: cover;
@@ -101,16 +108,31 @@ h4,
   max-height: 400px;
 }
 
-.mic-listening {
-  color: green;
+#mic-listening,
+#mic-processing,
+#mic-off {
+  text-align: center;
+  width: 3.5em;
+  height: 3.5em;
+  border-radius: 50%;
+  display: flex;
 }
 
-.mic-processing {
-  color: orange;
+#mic-listening {
+  background-color: rgb(60, 145, 60);
 }
 
-.mic-off {
-  color: #49656f;
+#mic-processing {
+  background-color: orange;
+}
+
+#mic-off {
+  background-color: #49656f;
+}
+
+.fa-microphone {
+  color: #ffffff;
+  margin: auto;
 }
 
 /* adjustments on navbar */

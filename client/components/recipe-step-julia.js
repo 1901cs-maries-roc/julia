@@ -2,7 +2,6 @@ import React from 'react'
 import Spinner from 'react-bootstrap/Spinner'
 
 export default function Julia({listening, processing}) {
-  // have placeholder Julia with prompt
   let voiceState
   if (listening && processing) {
     voiceState = {
@@ -28,7 +27,9 @@ export default function Julia({listening, processing}) {
       {voiceState.state === 'processing' && (
         <Spinner animation="grow" variant="dark" />
       )}
-      <i className={`fas fa-microphone fa-2x ${voiceState.micState}`} />
+      <div id={voiceState.micState}>
+        <i className="fas fa-microphone fa-2x" />
+      </div>
       <span className="micro-text">{voiceState.displayTxt}</span>
     </div>
   )
