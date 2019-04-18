@@ -117,9 +117,6 @@ router.put('/:recipeId', async (req, res, next) => {
     const oldRecipe = await Recipe.findOne({
       where: {id: req.params.recipeId}
     })
-    // console.log('old recipe: ', oldRecipe)
-    console.log('old recips steps: ', req.body.steps)
-    console.log('old recips ing: ', req.body.ingredients)
 
     const recipe = {
       imgUrl: req.body.imgUrl,
@@ -132,7 +129,6 @@ router.put('/:recipeId', async (req, res, next) => {
       ingredients: req.body.ingredients
     }
     const updated = await oldRecipe.update(recipe)
-    console.log('udpated recipe: ', updated)
 
     res.status(200).json(updated)
   } catch (err) {
