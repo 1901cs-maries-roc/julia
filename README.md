@@ -10,7 +10,7 @@ Julia automatically displays your recipe one step at a time and she is able to r
 
 ###### Deployed On
 
-http://maries-roc-julia.herokuapp.com/
+https://maries-roc-julia.herokuapp.com/
 
 ###### Built With
 
